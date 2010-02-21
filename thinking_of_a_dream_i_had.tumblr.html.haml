@@ -1,0 +1,106 @@
+!!!
+%html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-Type" }
+    %title 
+      = title
+      - b :PostSummary do
+        = ": #{post_summary}"
+    - meta_var :color, "Background", "#ffffff"
+    - meta_var :color, 'Text', '#000000'
+    - meta_var :color, 'Secondary', '#888888'
+    - meta_var :color, 'Minor', '#bbbbbb'
+    - meta_var :color, 'Link', '#555555'
+    - meta_var :font, 'Body', "'Helvetica Neue', Arial, Helvetica, sans-serif"
+    - meta_var :if, 'Show post notes', 0
+    %meta{ :name => "description", :content => meta_description }
+    %link{ :href => rss, :title => "RSS", :rel => "alternate", :type => "application/rss+xml" }
+    %link{ :href => favicon, :rel => "icon" }
+    %style{ :type => "text/css" } 
+      :sass
+        html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, ins, kbd, dfn, em, font, img, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td
+          :margin 0
+          :padding 0
+          :border 0
+          :outline 0
+          :font-size 100%
+          :vertical-align baseline
+          :background transparent
+
+        body
+          :line-height 1
+
+        blockquote, q
+          :quotes none
+
+        del
+          :text-decoration line-through
+
+        ins
+          :text-decoration none
+
+        ol, ul
+          :list-style none
+
+        table
+          :border-collapse collapse
+          :border-spacing 0
+
+        *:focus
+          :outline 0
+      = custom_css
+  %body
+    #body
+      #content
+        %h1
+          %a{ :href => "/" }= title
+        #sidebar
+          %form{ :method => "get", :action => "/search" }
+            %input#q.input{ :name => "q", :type => "text", :value => search_query }
+            %span.submit
+              %input{ :type => "submit", :value => "Search" }
+          %p#description= description
+          %p.meta
+            %a{ :href => "/archive" } Archive
+            /
+            %a{ :href => rss } RSS
+        %ul#posts
+          - b :Posts do
+            %li.post
+              %h2.permalink
+                %a{ :href => permalink, :title => note_count_with_label }= "#{day_of_month} #{month} #{year}"
+                
+              - b :Regular do
+                .text-post
+                  - b :Title do
+                    %h3= title
+                    = body
+              
+              - b :Link do
+                .link-post
+                  %h3
+                    %a.link{ :href => url }= name
+                  - b :Description do
+                    = description
+              
+              - b :Photo do
+                .image-post
+                  .image
+                    %a{ :href => link_url }
+                      %img{ :src => photo_url_high_res, :alt => photo_alt }
+                  - b :Caption do
+                    .caption= caption
+                    
+              - b :IfShowPostNotes do
+                - b :PostNotes do
+                  = post_notes
+          
+        #footer
+          - b :PreviousPage do
+            %a{ :href => previous_page, :title => "Newer posts" } &larr;
+          
+          - b :NextPage do
+            %a{ :href => next_page, :title => "Older posts" } &rarr;
+          
+    %script{ :src => "http://static.tumblr.com/ovvtvf9/wnakwva42/jquery-1.3.2.min.js", :type => "text/javascript" }
+    %script{ :src => "http://static.tumblr.com/ovvtvf9/LOskwvhm8/o.js", :type => "text/javascript" }

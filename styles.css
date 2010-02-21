@@ -1,0 +1,163 @@
+      html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, b, cite, code, del, dfn, em, i, img, ins, kbd, q, samp, strike, strong, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+        margin: 0; padding: 0; border: 0; outline: 0; font-size: inherit;
+        line-height: inherit; vertical-align: baseline; background: transparent;
+      }
+      html {
+        font-size:100.01%;
+      }
+      caption, cite, code, dfn, th, var {
+        font-style: normal; font-weight: normal;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: normal;
+      }
+      blockquote, q {
+        quotes: none;
+      }
+      blockquote:before, blockquote:after, q:before, q:after {
+        content: '';
+      }
+      :focus {
+        outline: 0;
+      }
+      ins {
+        text-decoration: underline;
+      }
+      del {
+        text-decoration: line-through;
+      }
+      a {
+        text-decoration: none;
+      }
+
+      html {
+        background-color: _color-Background_;
+      }
+      body {
+        font: 12pt/18pt _font-Body_; 
+        background-color: _color-Background_; 
+        color: _color-Text_;
+      }
+      body.dark {
+        text-shadow: _color-Background_ 0 0 1px;
+      }
+
+      #body {
+        background-color: _color-Background_; 
+        padding: 1.5em 0.25em;
+      }
+      #content {
+        position: relative; 
+        width: 500px; 
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 3em; 
+        line-height:1; 
+        padding:0.5em 0 1em; 
+        text-align:center;
+      }
+      h1 a {
+        color: _color-Text_; 
+        padding: 0 0.25em; 
+        font-weight: bold;
+      }
+
+      h2, h3 {
+        line-height: 18pt;
+      }
+      p, pre, ul, ol, blockquote, form {
+        margin: 9pt 0 18pt; line-height: 18pt;
+      }
+      blockquote {
+        padding-left: 1em;
+        margin-left: 2pt; 
+        border-left: 0.25em solid _color-Minor_;
+      }
+      pre {overflow-x: auto; font-size: 11pt;}
+      sup, sub {height: 0; line-height: 1; vertical-align: baseline; _vertical-align: bottom; position: relative;}
+      sup {bottom: 0.5ex;}
+      sub {top: 0.5ex;}
+      sup a {font-weight: normal !important; padding: 0 1px;}
+      hr {height: 0; margin: 0 0 18pt; border: solid _color-Minor_; border-width: 2pt 0 0;}
+
+      #description {position: absolute; left: 530px; color: _color-Minor_; font-size: 11pt; width: 10em;}
+      #description p, #description form {margin-top: 0;}
+      #description a {color: _color-Secondary_;}
+      #description a:hover {color: _color-Text_;}
+      #description form .input
+        {background: _color-Background_; color: _color-Secondary_; font-size: 10pt;
+         text-transform: lowercase; width: 90%; border: solid _color-Minor_;
+         border-width: 0 1px 1px 0;}
+      #description .submit {height: 0; overflow: hidden; display: block;}
+      #description .meta {word-spacing: 0.25em; font-size: 10pt; text-transform: uppercase;}
+      #description .meta a {color: _color-Minor_;}
+      #description .meta a:hover {color: _color-Text_;}
+
+      #posts {margin: 0;}
+      .post {position: relative; list-style: none; margin-bottom: 4.5em;}
+      .post ul li {list-style: square;}
+      .post img {max-width: 100%;}
+
+      .post-body h3 {font-size: 1.25em; position: relative;}
+      .post-body a {font-weight: bold; color: _color-Link_; border-bottom: 1px solid transparent;}
+      .post-body a:hover {color: _color-Text_; border-bottom-color: _color-Minor_;}
+      .post-body .image a {border-width: 0;}
+      .post-body ul ul, .post-body ul ol, .post-body ol ol, .post-body ol ul,
+        .post-body blockquote ul, .post-body blockquote ol {margin-left: 1.5em;}
+
+      .permalink {font-size: 11pt; position: absolute; right: 530px; text-align: right;}
+      .permalink a {color: _color-Minor_; white-space: nowrap; padding: 0 0 4.5pt 9pt;}
+      .permalink a:hover {color: _color-Text_;}
+
+      .caption, .cite {font-size: 11pt; margin-top: 9pt;}
+      .caption p {margin-top: 18pt;}
+
+      .text-post {position: relative; top: -2pt;}
+      .text-post h3 {margin-bottom: 9pt;}
+
+      .link-post {position: relative; top: -2pt;}
+      .link-post h3 {display: inline; padding-right:9pt;}
+      .link-post a {color: _color-Text_;}
+      .link-post a:hover {color: _color-Secondary_;}
+      .link-post a.link {color: _color-Link_;}
+      .link-post a.link:hover {color: _color-Text_;}
+
+      .quote-post {position: relative; top: -4.5pt;}
+      .quote-post blockquote.quote
+        {font-size: 18pt; line-height: 24pt; text-indent: -7pt;
+         margin: 0; padding: 0; border-width: 0;}
+      .quote-post .quote:before {content: '“';}
+      .quote-post .quote:after {content: '”';}
+      .quote-post .quote a {color: _color-Text_;}
+      .quote-post .quote a:hover {color: _color-Secondary_;}
+      .quote-post .cite {color: _color-Secondary_; margin-left: 1.5em; text-indent: -1.5em;}
+
+      .chat-post li {list-style: none; margin-left: 2em; text-indent: -2em;}
+      .chat-post b {font-weight: bold; padding-right: 4.5pt;}
+
+      _block-IfSemitransparentAudioPlayer_
+      .audio-post .audio {opacity: 0.75;}
+      {/block:IfSemitransparentAudioPlayer}
+
+      #disqus_thread {margin-top: 54pt;}
+      #disqus_thread a {color: _color-Secondary_;}
+
+      .notes {color: _color-Minor_; margin-top: 54pt;}
+      .notes li {list-style: none; margin-bottom: 18pt;}
+      .notes img, .notes .clear {display: none;}
+      .notes .photo_container img {display: block !important;}
+      .notes a {color: _color-Secondary_;}
+      .notes a:hover {color: _color-Text_;}
+
+      .footnotes a[rev="footnote"] {color: _color-Secondary_;}
+      .footnotes hr {margin: 34pt 0 18pt;}
+
+      #footer {text-align: center; word-spacing: 0.75em; margin-top:4.5em;}
+      #footer a {color: _color-Secondary_; font-weight:bold; padding: 0.25em 0.5em;}
+      #footer a:hover {color: _color-Text_;}
+
+      .amp {font-family: Palatino, 'Palatino Linotype', _font-Body_; font-style: italic;}
+      h1 .amp, h2 .amp, h3 .amp {font-family: Baskerville, Palatino, 'Palatino Linotype', _font-Body_;}
+      pre .amp {font-family: inherit; font-style: inherit;}
