@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'active_support/inflector'
+require 'lorem_ipsum'
 
 module Hamburglr
 module Tumblr
@@ -8,79 +9,80 @@ module Tumblr
 
 #############################
 # Basic Variables
-VARIABLES = []
+VARIABLES = {}
+META_VARS = {:image => {}, :color => {}, :text => {}, :font => {}, :if => {}}
 # The HTML-safe title of your blog.
-VARIABLES.push 'Title'
+VARIABLES['Title'] = 'The Things We Do'
 
 # The description of your blog. (may include HTML)
-VARIABLES.push 'Description'
+VARIABLES['Description'] = 'A blog. For you.'
 
 # The HTML-safe description of your blog. (use in META tag)
-VARIABLES.push 'MetaDescription'
+VARIABLES['MetaDescription'] = 'A blog. For you.'
 
 #  RSS feed URL for your blog.
-VARIABLES.push 'RSS'
+VARIABLES['RSS'] = 'http://thingswedo.com/feed.xml'
 
 #  Favicon URL for your blog.
-VARIABLES.push 'Favicon'
+VARIABLES['Favicon'] = 'http://www.favicon.cc/?action=download_copy&file_id=174929'
 
 #  Any custom CSS code added on your "Customize Theme" screen.
-VARIABLES.push 'CustomCSS'
+VARIABLES['CustomCSS'] = '// Custom css will go here'
 
 # Title of the post
-VARIABLES.push 'PostTitle'
+VARIABLES['PostTitle'] = 'Post Title'
 
 # Identical to {PostTitle}, but will automatically generate a summary if a title doesn't exist.
-VARIABLES.push 'PostSummary'
+VARIABLES['PostSummary'] = SampleText::LOREM_IPSUM.randomly_pick(3).join(". ")
 
 # Portrait photo URL for your blog.  Square size in pixels given
-VARIABLES.push 'PortraitURL-16'
-VARIABLES.push 'PortraitURL-24'
-VARIABLES.push 'PortraitURL-30'
-VARIABLES.push 'PortraitURL-40'
-VARIABLES.push 'PortraitURL-48'
-VARIABLES.push 'PortraitURL-64'
-VARIABLES.push 'PortraitURL-96'
-VARIABLES.push 'PortraitURL-128'
+VARIABLES['PortraitURL-16'] = 'bender-icon-16.png'
+VARIABLES['PortraitURL-24'] = 'bender-icon-24.png'
+VARIABLES['PortraitURL-30'] = 'bender-icon-30.png'
+VARIABLES['PortraitURL-40'] = 'bender-icon-40.png'
+VARIABLES['PortraitURL-48'] = 'bender-icon-48.png'
+VARIABLES['PortraitURL-64'] = 'bender-icon-64.png'
+VARIABLES['PortraitURL-96'] = 'bender-icon-96.png'
+VARIABLES['PortraitURL-128'] = 'bender-icon-128.png'
 
 #############################
 # Navigation
 
 # URL for the "previous" page (newer posts).
-VARIABLES.push 'PreviousPage'
+VARIABLES['PreviousPage'] = '#previous_page'
 
 # URL for the "next" page (older posts).
-VARIABLES.push 'NextPage'
+VARIABLES['NextPage'] = '#next_page'
 
 # Current page number.
-VARIABLES.push 'CurrentPage'
+VARIABLES['CurrentPage'] = '3'
 
 # Total page count.
-VARIABLES.push 'TotalPages'
+VARIABLES['TotalPages'] = '5'
 
 # The customizable label for the Ask link. (Example: "Ask me anything")
-VARIABLES.push 'AskLabel'
+VARIABLES['AskLabel'] = ''
 
 #############################
 # Permalink Navigation
 
 # URL for the "previous" (newer) post.
-VARIABLES.push 'PreviousPost'
+VARIABLES['PreviousPost'] = ''
 
 # URL for the "next" (older) post.
-VARIABLES.push 'NextPost'
+VARIABLES['NextPost'] = ''
 
 #############################
 # Posts
 
 # The permalink for a post. (Example: "http://sample.tumblr.com/post/123")
-VARIABLES.push 'Permalink'
+VARIABLES['Permalink'] = ''
 
 # A shorter URL that redirects to this post. (Example: "http://tumblr.com/xpv5qtavm")
-VARIABLES.push 'ShortURL'
+VARIABLES['ShortURL'] = ''
 
 # The numeric ID for a post. (Example: 1234567)
-VARIABLES.push 'PostID'
+VARIABLES['PostID'] = ''
 
 # An HTML class-attribute friendly list of the post's tags. (Example: "humor office new_york_city") 
 #
@@ -89,50 +91,50 @@ VARIABLES.push 'PostID'
 # Del.icio.us that send their content URLs as their permalinks. 
 # 
 # The class-attribute "reblog" will be included automatically if the post was reblogged from another post.
-VARIABLES.push 'TagsAsClasses'
+VARIABLES['TagsAsClasses'] = ''
 
 #############################
 # Reblogs
 
 # Parent Blog
   # The username of the blog this post was reblogged from.
-  VARIABLES.push 'ReblogParentName'
+  VARIABLES['ReblogParentName'] = ''
   
   # The title of the blog this post was reblogged from.
-  VARIABLES.push 'ReblogParentTitle'
+  VARIABLES['ReblogParentTitle'] = ''
   
   # The URL for the blog this post was reblogged from.
-  VARIABLES.push 'ReblogParentURL'
+  VARIABLES['ReblogParentURL'] = ''
 
   # Portrait photo URL for the blog this post was reblogged from. Square size in pixels given
-  VARIABLES.push 'ReblogParentPortraitURL-16'
-  VARIABLES.push 'ReblogParentPortraitURL-24'
-  VARIABLES.push 'ReblogParentPortraitURL-30'
-  VARIABLES.push 'ReblogParentPortraitURL-40'
-  VARIABLES.push 'ReblogParentPortraitURL-48'
-  VARIABLES.push 'ReblogParentPortraitURL-64'
-  VARIABLES.push 'ReblogParentPortraitURL-96'
-  VARIABLES.push 'ReblogParentPortraitURL-128'
+  VARIABLES['ReblogParentPortraitURL-16'] = ''
+  VARIABLES['ReblogParentPortraitURL-24'] = ''
+  VARIABLES['ReblogParentPortraitURL-30'] = ''
+  VARIABLES['ReblogParentPortraitURL-40'] = ''
+  VARIABLES['ReblogParentPortraitURL-48'] = ''
+  VARIABLES['ReblogParentPortraitURL-64'] = ''
+  VARIABLES['ReblogParentPortraitURL-96'] = ''
+  VARIABLES['ReblogParentPortraitURL-128'] = ''
 
 # Root/Creator Blog
   # The username of the blog this post was created by.
-  VARIABLES.push 'ReblogRootName'
+  VARIABLES['ReblogRootName'] = ''
   
   # The title of the blog this post was created by.
-  VARIABLES.push 'ReblogRootTitle'
+  VARIABLES['ReblogRootTitle'] = ''
   
   # The URL for the blog this post was created by.
-  VARIABLES.push 'ReblogRootURL'
+  VARIABLES['ReblogRootURL'] = ''
 
   # Portrait photo URL for the blog this post was created by. Square size in pixels given 
-  VARIABLES.push 'ReblogRootPortraitURL-16'
-  VARIABLES.push 'ReblogRootPortraitURL-24'
-  VARIABLES.push 'ReblogRootPortraitURL-30'
-  VARIABLES.push 'ReblogRootPortraitURL-40'
-  VARIABLES.push 'ReblogRootPortraitURL-48'
-  VARIABLES.push 'ReblogRootPortraitURL-64'
-  VARIABLES.push 'ReblogRootPortraitURL-96'
-  VARIABLES.push 'ReblogRootPortraitURL-128'
+  VARIABLES['ReblogRootPortraitURL-16'] = ''
+  VARIABLES['ReblogRootPortraitURL-24'] = ''
+  VARIABLES['ReblogRootPortraitURL-30'] = ''
+  VARIABLES['ReblogRootPortraitURL-40'] = ''
+  VARIABLES['ReblogRootPortraitURL-48'] = ''
+  VARIABLES['ReblogRootPortraitURL-64'] = ''
+  VARIABLES['ReblogRootPortraitURL-96'] = ''
+  VARIABLES['ReblogRootPortraitURL-128'] = ''
 
 ############################
 # Text Posts
@@ -141,37 +143,37 @@ VARIABLES.push 'TagsAsClasses'
 # {Title}
 
 # The content of this post.
-VARIABLES.push 'Body'
+VARIABLES['Body'] = SampleText::LOREM_IPSUM.randomly_pick(4).join(". ")
 
 #############################
 # Photo Posts
 
 # The HTML-safe version of the caption (if one exists) of this post.
-VARIABLES.push 'PhotoAlt'
+VARIABLES['PhotoAlt'] = ''
 
 # The caption for this post.
-VARIABLES.push 'Caption'
+VARIABLES['Caption'] = SampleText::LOREM_IPSUM.randomly_pick(1).join(". ")
 
 # A click-through URL for this photo if set.
-VARIABLES.push 'LinkURL'
+VARIABLES['LinkURL'] = ''
 
 # An HTML open anchor-tag including the click-through URL if set. (Example: <a href="http://">)
-VARIABLES.push 'LinkOpenTag'
+VARIABLES['LinkOpenTag'] = ''
 
 # A closing anchor-tag output only if a click-through URL is set. (Example: </a>)
-VARIABLES.push 'LinkCloseTag'
+VARIABLES['LinkCloseTag'] = ''
 
 # URL for the photo of this post. No wider than x-pixels.
-VARIABLES.push 'PhotoURL-500'
-VARIABLES.push 'PhotoURL-400'
-VARIABLES.push 'PhotoURL-250'
-VARIABLES.push 'PhotoURL-100'
+VARIABLES['PhotoURL-500'] = ''
+VARIABLES['PhotoURL-400'] = ''
+VARIABLES['PhotoURL-250'] = ''
+VARIABLES['PhotoURL-100'] = ''
 
 # URL for a square version the photo of this post. 75-pixels by 75-pixels.
-VARIABLES.push 'PhotoURL-75sq'
+VARIABLES['PhotoURL-75sq'] = ''
 
 # URL for the high-res photo of this post.
-VARIABLES.push 'PhotoURL-HighRes'
+VARIABLES['PhotoURL-HighRes'] = ''
 
 #############################
 # Photoset Posts
@@ -180,35 +182,35 @@ VARIABLES.push 'PhotoURL-HighRes'
 # {Caption}
 
 # Embed-code for the photoset. x-pixels wide.
-VARIABLES.push 'Photoset-500'
-VARIABLES.push 'Photoset-400'
-VARIABLES.push 'Photoset-250'
+VARIABLES['Photoset-500'] = ''
+VARIABLES['Photoset-400'] = ''
+VARIABLES['Photoset-250'] = ''
 
 #############################
 # Quote Posts
 
 # The content of this post.
-VARIABLES.push 'Quote'
+VARIABLES['Quote'] = ''
 
 # Rendered if there is a source for this post.
 # {block:Source}
 # The source for this post. (May contain HTML)
-VARIABLES.push 'Source'
+VARIABLES['Source'] = ''
 
 # "short", "medium", or "long", depending on the length of the quote.
-VARIABLES.push 'Length'
+VARIABLES['Length'] = ''
 
 #############################
 # Link Posts
 
 # The URL of this post.
-VARIABLES.push 'URL'
+VARIABLES['URL'] = ''
 
 # The name of this post. Defaults to the URL if no name is entered.
-VARIABLES.push 'Name'
+VARIABLES['Name'] = ''
 
 # Should be included inside the A-tags of Link posts. Output target="_blank" if you've enabled "Open links in new window".
-VARIABLES.push 'Target'
+VARIABLES['Target'] = ''
 
 # Rendered if there is a description for this post.
 # {block:Description}
@@ -231,19 +233,19 @@ VARIABLES.push 'Target'
 # {block:Label}
 
 # The label (if one was extracted) for the current line of this post.
-VARIABLES.push 'Label'
+VARIABLES['Label'] = ''
 
 # The username (if one was extracted) for the current line of this post.
 # {Name}
 
 # The current line of this post.
-VARIABLES.push 'Line'
+VARIABLES['Line'] = ''
 
 # A unique identifying integer representing the user of the current line of this post.
-VARIABLES.push 'UserNumber'
+VARIABLES['UserNumber'] = ''
 
 # "odd" or "even" for each line of this post.
-VARIABLES.push 'Alt'
+VARIABLES['Alt'] = ''
 
 #############################
 # Audio Posts
@@ -255,44 +257,44 @@ VARIABLES.push 'Alt'
 # {Caption}
 
 # Default audio player.
-VARIABLES.push 'AudioPlayer'
+VARIABLES['AudioPlayer'] = ''
 
 # White audio player.
-VARIABLES.push 'AudioPlayerWhite'
+VARIABLES['AudioPlayerWhite'] = ''
 
 # Grey audio player.
-VARIABLES.push 'AudioPlayerGrey'
+VARIABLES['AudioPlayerGrey'] = ''
 
 # Black audio player.
-VARIABLES.push 'AudioPlayerBlack'
+VARIABLES['AudioPlayerBlack'] = ''
 
 # The number of times this post has been played.
-VARIABLES.push 'PlayCount'
+VARIABLES['PlayCount'] = ''
 
 # The number of times this post has been played, formatted with commas. (e.g. 12,309)
-VARIABLES.push 'FormattedPlayCount'
+VARIABLES['FormattedPlayCount'] = ''
 
 # Rendered if this post uses an externally hosted MP3. (Useful for adding a "Download" link)
 # {block:ExternalAudio}
 
 #  The external MP3 URL, if this post uses an externally hosted MP3.
-VARIABLES.push 'ExternalAudioURL'
+VARIABLES['ExternalAudioURL'] = ''
 
 # Rendered if this audio file's ID3 info contains album art.
 # {block:AlbumArt}
-VARIABLES.push 'AlbumArtURL'
+VARIABLES['AlbumArtURL'] = ''
 
 # Rendered if this audio file's ID3 info contains the artist name.
 # {block:Artist}
-VARIABLES.push 'Artist'
+VARIABLES['Artist'] = ''
 
 # Rendered if this audio file's ID3 info contains the album title.
 # {block:Album}
-VARIABLES.push 'Album'
+VARIABLES['Album'] = ''
 
 # Rendered if this audio file's ID3 info contains the track name.
 # {block:TrackName}
-VARIABLES.push 'TrackName'
+VARIABLES['TrackName'] = ''
 
 #############################
 # Video Posts
@@ -304,31 +306,31 @@ VARIABLES.push 'TrackName'
 # {Caption}
 
 # Embed-code for the content of this post. x-pixels wide.
-VARIABLES.push 'Video-500'
-VARIABLES.push 'Video-400'
-VARIABLES.push 'Video-250'
+VARIABLES['Video-500'] = ''
+VARIABLES['Video-400'] = ''
+VARIABLES['Video-250'] = ''
 
 #############################
 # Answer Posts
 
 # The question for this post. (May contain heavily filtered HTML)
-VARIABLES.push 'Question'
+VARIABLES['Question'] = ''
 
 # The answer for this post. (May contain HTML)
-VARIABLES.push 'Answer'
+VARIABLES['Answer'] = ''
 
 # Simple HTML text link with the asker's username and URL, or the plain text string "Anonymous".
-VARIABLES.push 'Asker'
+VARIABLES['Asker'] = ''
 
 # Portrait photo URL for the asker. x-pixels square.
-VARIABLES.push 'AskerPortraitURL-16'
-VARIABLES.push 'AskerPortraitURL-24'
-VARIABLES.push 'AskerPortraitURL-30'
-VARIABLES.push 'AskerPortraitURL-40'
-VARIABLES.push 'AskerPortraitURL-48'
-VARIABLES.push 'AskerPortraitURL-64'
-VARIABLES.push 'AskerPortraitURL-96'
-VARIABLES.push 'AskerPortraitURL-128'
+VARIABLES['AskerPortraitURL-16'] = ''
+VARIABLES['AskerPortraitURL-24'] = ''
+VARIABLES['AskerPortraitURL-30'] = ''
+VARIABLES['AskerPortraitURL-40'] = ''
+VARIABLES['AskerPortraitURL-48'] = ''
+VARIABLES['AskerPortraitURL-64'] = ''
+VARIABLES['AskerPortraitURL-96'] = ''
+VARIABLES['AskerPortraitURL-128'] = ''
 
 #############################
 # Dates
@@ -340,80 +342,80 @@ VARIABLES.push 'AskerPortraitURL-128'
 # {block:SameDayDate}
 
 # "1" to "31"
-VARIABLES.push 'DayOfMonth'
+VARIABLES['DayOfMonth'] = ''
 
 # "01" to "31"
-VARIABLES.push 'DayOfMonthWithZero'
+VARIABLES['DayOfMonthWithZero'] = ''
 
 # "Monday" through "Sunday"
-VARIABLES.push 'DayOfWeek'
+VARIABLES['DayOfWeek'] = ''
 
 # "Mon" through "Sun"
-VARIABLES.push 'ShortDayOfWeek'
+VARIABLES['ShortDayOfWeek'] = ''
 
 # "1" through "7"
-VARIABLES.push 'DayOfWeekNumber'
+VARIABLES['DayOfWeekNumber'] = ''
 
 # "st", "nd", "rd", "th"
-VARIABLES.push 'DayOfMonthSuffix'
+VARIABLES['DayOfMonthSuffix'] = ''
 
 # "1" through "365"
-VARIABLES.push 'DayOfYear'
+VARIABLES['DayOfYear'] = ''
 
 # "1" through "52"
-VARIABLES.push 'WeekOfYear'
+VARIABLES['WeekOfYear'] = ''
 
 # "January" through "December"
-VARIABLES.push 'Month'
+VARIABLES['Month'] = ''
 
 # "Jan" through "Dec"
-VARIABLES.push 'ShortMonth'
+VARIABLES['ShortMonth'] = ''
 
 # "1" through "12"
-VARIABLES.push 'MonthNumber'
+VARIABLES['MonthNumber'] = ''
 
 # "01" through "12"
-VARIABLES.push 'MonthNumberWithZero'
+VARIABLES['MonthNumberWithZero'] = ''
 
 # "2007"
-VARIABLES.push 'Year'
+VARIABLES['Year'] = ''
 
 # "07"
-VARIABLES.push 'ShortYear'
+VARIABLES['ShortYear'] = ''
 
 # "am" or "pm"
-VARIABLES.push 'AmPm'
+VARIABLES['AmPm'] = ''
 
 # "AM" or "PM"
-VARIABLES.push 'CapitalAmPm'
+VARIABLES['CapitalAmPm'] = ''
 
 #These couple will not be accessible directly. Use the var method
 # "1" through "12"
-VARIABLES.push '12Hour'
+VARIABLES['12Hour'] = ''
 
 # "0" through "23"
-VARIABLES.push '24Hour'
+VARIABLES['24Hour'] = ''
 
 # "01" through "12"
-VARIABLES.push '12HourWithZero'
+VARIABLES['12HourWithZero'] = ''
 
 # "00" through "23"
-VARIABLES.push '24HourWithZero'
+VARIABLES['24HourWithZero'] = ''
 
 # "00" through "59"
-VARIABLES.push 'Minutes'
+VARIABLES['Minutes'] = ''
 
 # "00" through "59"
-VARIABLES.push 'Seconds'
+VARIABLES['Seconds'] = ''
 
 # "000" through "999"
-VARIABLES.push 'Beats'
+VARIABLES['Beats'] = ''
 
 # "1172705619"
-VARIABLES.push 'Timestamp'
+VARIABLES['Timestamp'] = ''
 
 # A contextual time. ("1 minute ago", "2 hours ago", "3 weeks ago", etc.)
-VARIABLES.push 'TimeAgo'
+VARIABLES['TimeAgo'] = ''
 
 #############################
 # Notes
@@ -423,15 +425,15 @@ VARIABLES.push 'TimeAgo'
 # Rendered on permalink pages this post has notes.
 # {block:PostNotes}
 # Standard HTML output of this post's notes. Only rendered on permalink pages.
-VARIABLES.push 'PostNotes'
+VARIABLES['PostNotes'] = ''
 
 # Rendered if this post has notes.
 # {block:NoteCount}
 # The number of this post's notes.
-VARIABLES.push 'NoteCount'
+VARIABLES['NoteCount'] = ''
 
 # The number of this post's notes with pluralized label. (e.g. "24 notes")
-VARIABLES.push 'NoteCountWithLabel'
+VARIABLES['NoteCountWithLabel'] = ''
 
 #############################
 # Tags
@@ -442,13 +444,13 @@ VARIABLES.push 'NoteCountWithLabel'
 # {block:Tags}
 
 # The name of this tag.
-VARIABLES.push 'Tag'
+VARIABLES['Tag'] = ''
 # A URL safe version of this tag.
-VARIABLES.push 'URLSafeTag'
+VARIABLES['URLSafeTag'] = ''
 # The tag page URL with other posts that share this tag.
-VARIABLES.push 'TagURL'
+VARIABLES['TagURL'] = ''
 # The tag page URL with other posts that share this tag in chronological order.
-VARIABLES.push 'TagURLChrono'
+VARIABLES['TagURLChrono'] = ''
 
 #############################
 # Group Blogs
@@ -459,45 +461,45 @@ VARIABLES.push 'TagURLChrono'
 # {block:GroupMember}
 
 # The username of the member's blog.
-VARIABLES.push 'GroupMemberName'
+VARIABLES['GroupMemberName'] = ''
 
 # The title of the member's blog.
-VARIABLES.push 'GroupMemberTitle'
+VARIABLES['GroupMemberTitle'] = ''
 
 # The URL for the member's blog.
-VARIABLES.push 'GroupMemberURL'
+VARIABLES['GroupMemberURL'] = ''
 
 # Portrait photo URL for the member. x-pixels square.
-VARIABLES.push 'GroupMemberPortraitURL-16'
-VARIABLES.push 'GroupMemberPortraitURL-24'
-VARIABLES.push 'GroupMemberPortraitURL-30'
-VARIABLES.push 'GroupMemberPortraitURL-40'
-VARIABLES.push 'GroupMemberPortraitURL-48'
-VARIABLES.push 'GroupMemberPortraitURL-64'
-VARIABLES.push 'GroupMemberPortraitURL-96'
-VARIABLES.push 'GroupMemberPortraitURL-128'
+VARIABLES['GroupMemberPortraitURL-16'] = ''
+VARIABLES['GroupMemberPortraitURL-24'] = ''
+VARIABLES['GroupMemberPortraitURL-30'] = ''
+VARIABLES['GroupMemberPortraitURL-40'] = ''
+VARIABLES['GroupMemberPortraitURL-48'] = ''
+VARIABLES['GroupMemberPortraitURL-64'] = ''
+VARIABLES['GroupMemberPortraitURL-96'] = ''
+VARIABLES['GroupMemberPortraitURL-128'] = ''
 
 #############################
 # Group Blog Posts
 
 # The username of the author of a post to an additional group blog.
-VARIABLES.push 'PostAuthorName'
+VARIABLES['PostAuthorName'] = ''
 
 # The title of the author's blog for a post to an additional group blog.
-VARIABLES.push 'PostAuthorTitle'
+VARIABLES['PostAuthorTitle'] = ''
 
 # The blog URL for the author of a post to an additional group blog.
-VARIABLES.push 'PostAuthorURL'
+VARIABLES['PostAuthorURL'] = ''
 
 #  The portrait photo URL for the author of a post to an additional group blog. x-pixels square
-VARIABLES.push 'PostAuthorPortraitURL-16'
-VARIABLES.push 'PostAuthorPortraitURL-24'
-VARIABLES.push 'PostAuthorPortraitURL-30'
-VARIABLES.push 'PostAuthorPortraitURL-40'
-VARIABLES.push 'PostAuthorPortraitURL-48'
-VARIABLES.push 'PostAuthorPortraitURL-64'
-VARIABLES.push 'PostAuthorPortraitURL-96'
-VARIABLES.push 'PostAuthorPortraitURL-128'
+VARIABLES['PostAuthorPortraitURL-16'] = ''
+VARIABLES['PostAuthorPortraitURL-24'] = ''
+VARIABLES['PostAuthorPortraitURL-30'] = ''
+VARIABLES['PostAuthorPortraitURL-40'] = ''
+VARIABLES['PostAuthorPortraitURL-48'] = ''
+VARIABLES['PostAuthorPortraitURL-64'] = ''
+VARIABLES['PostAuthorPortraitURL-96'] = ''
+VARIABLES['PostAuthorPortraitURL-128'] = ''
 
 #############################
 # Day Pages
@@ -519,10 +521,10 @@ VARIABLES.push 'PostAuthorPortraitURL-128'
 # {block:NextDayPage}
 
 # URL for the "previous" day page.
-VARIABLES.push 'PreviousDayPage'
+VARIABLES['PreviousDayPage'] = ''
 
 # URL for the "next" day page.
-VARIABLES.push 'NextDayPage'
+VARIABLES['NextDayPage'] = ''
 
 #############################
 # Tag Pages
@@ -546,16 +548,16 @@ VARIABLES.push 'NextDayPage'
 # Search
 
 # The current search query.
-VARIABLES.push 'SearchQuery'
+VARIABLES['SearchQuery'] = ''
 
 # A URL-safe version of the current search query for use in links and Javascript.
-VARIABLES.push 'URLSafeSearchQuery'
+VARIABLES['URLSafeSearchQuery'] = ''
 
 # Rendered on search pages.
 # {block:SearchPage}
 
 # The number of results returned for the current search query.
-VARIABLES.push 'SearchResultCount'
+VARIABLES['SearchResultCount'] = ''
 
 # Rendered if no search results were returned for the current search query.
 # {block:NoSearchResults}
@@ -570,23 +572,23 @@ VARIABLES.push 'SearchResultCount'
 # {block:Followed}
 
 # The username of the blog you're following.
-VARIABLES.push 'FollowedName'
+VARIABLES['FollowedName'] = ''
 
 # The title of the blog you're following.
-VARIABLES.push 'FollowedTitle'
+VARIABLES['FollowedTitle'] = ''
 
 # The URL for the blog you're following.
-VARIABLES.push 'FollowedURL'
+VARIABLES['FollowedURL'] = ''
 
 # Portrait photo URL for the blog you're following. x-pixels square.
-VARIABLES.push 'FollowedPortraitURL-16'
-VARIABLES.push 'FollowedPortraitURL-24'
-VARIABLES.push 'FollowedPortraitURL-30'
-VARIABLES.push 'FollowedPortraitURL-40'
-VARIABLES.push 'FollowedPortraitURL-48'
-VARIABLES.push 'FollowedPortraitURL-64'
-VARIABLES.push 'FollowedPortraitURL-96'
-VARIABLES.push 'FollowedPortraitURL-128'
+VARIABLES['FollowedPortraitURL-16'] = ''
+VARIABLES['FollowedPortraitURL-24'] = ''
+VARIABLES['FollowedPortraitURL-30'] = ''
+VARIABLES['FollowedPortraitURL-40'] = ''
+VARIABLES['FollowedPortraitURL-48'] = ''
+VARIABLES['FollowedPortraitURL-64'] = ''
+VARIABLES['FollowedPortraitURL-96'] = ''
+VARIABLES['FollowedPortraitURL-128'] = ''
 
 #############################
 # Likes
@@ -596,7 +598,7 @@ VARIABLES.push 'FollowedPortraitURL-128'
 
 #This one, accessed directly, gets you just "{Likes}", but via the method, will accept parameters
 # Standard HTML output of your likes.
-VARIABLES.push 'Likes'
+VARIABLES['Likes'] = ''
 
 # Standard HTML output of your last 5 likes. Maximum: 10
 # {Likes limit="5"}
@@ -631,7 +633,11 @@ VARIABLES.push 'Likes'
 #     #content ...
 
 def color(name)
-  "{color:#{name.to_s}}"
+  if SAMPLE_DATA
+    META_VARS[:color][name]
+  else
+    "{color:#{name.to_s}}"
+  end
 end
 
 #############################
@@ -652,7 +658,11 @@ end
 #       :font = "12px #{font :Body}"
 
 def font(name)
-  "{font:#{name.to_s}}"
+  if SAMPLE_DATA
+    META_VARS[:font][name]
+  else
+    "{font:#{name.to_s}}"
+  end
 end
 
 #############################
@@ -694,7 +704,11 @@ end
 # %script{ :type=> "text/javascript" :src => "http://flickr.com/widget?user=#{text 'Flickr Username'}"
 
 def text(name)
-  "{text:#{name.to_s}}"
+  if SAMPLE_DATA
+    META_VARS[:text][name]
+  else
+    "{text:#{name.to_s}}"
+  end
 end
 
 #############################
@@ -705,7 +719,11 @@ end
 # no image is set.
 
 def image(name)
-  "{image:#{name.to_s}}"
+  if SAMPLE_DATA
+    META_VARS[:image][name]
+  else
+    "{image:#{name.to_s}}"
+  end
 end
 
 #############################
@@ -724,18 +742,20 @@ end
 # function recent_tweets(), sending the Twitter API JSON data as its only parameter.
 
 # Your Twitter username.
-VARIABLES.push 'TwitterUsername'
+VARIABLES['TwitterUsername'] = 'rtlong'
 
 #############################
-# Freeze the VARIABLES array so it won't be modified by anyone else
+# Freeze the VARIABLES hash so it won't be modified by anyone else
 VARIABLES.freeze
 # TODO Set constants for all the VARIABLES
-VARIABLES.each do |var_name|
+VARIABLES.keys.each do |var_name|
   instance_eval do
     define_method var_name.underscore.to_sym do |*params|
       var(var_name, *params)
     end
   end
+  # Note that the constants always point to the {VariableName} string. To make use of sample data,
+  # stick to using the methods
   const_set var_name.gsub(/-/, '_'), "{#{var_name}}" unless var_name =~ (/^\d/)
 end
 #############################
@@ -750,6 +770,7 @@ end
 def meta_var(type, name, value)
   type = type.to_s.downcase
   name = name.to_s.camelize
+  META_VARS[type.to_sym][name] = value
   haml_tag :meta, :/, :name => [type,name].join(':'), :content => value
 end
 
@@ -759,7 +780,11 @@ def var(name, params={})
   raise ArgumentError, "var requires a name and, optionally, a hash of parameters", caller unless params.is_a? Hash
   
   name = get_tumblr_variable(name)
-  return '{' + [name, params.to_a.collect{|param| [param.first.to_s, %Q|"#{param.last.to_s}"|].join('=')}].flatten.join(' ') + '}'
+  if SAMPLE_DATA
+    return VARIABLES[name]
+  else
+    return '{' + [name, params.to_a.collect{|param| [param.first.to_s, %Q|"#{param.last.to_s}"|].join('=')}].flatten.join(' ') + '}'
+  end
 end
 
 # Grabs a call to any nonexistant method, camelizes the method name, and checks to see if it's been 
