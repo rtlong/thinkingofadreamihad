@@ -33,7 +33,7 @@ VARIABLES['CustomCSS'] = '// Custom css will go here'
 VARIABLES['PostTitle'] = 'Post Title'
 
 # Identical to {PostTitle}, but will automatically generate a summary if a title doesn't exist.
-VARIABLES['PostSummary'] = SampleText::LOREM_IPSUM.randomly_pick(3).join(". ")
+VARIABLES['PostSummary'] = Proc.new { SampleText::LOREM_IPSUM.randomly_pick(3).join(". ") }
 
 # Portrait photo URL for your blog.  Square size in pixels given
 VARIABLES['PortraitURL-16'] = 'bender-icon-16.png'
@@ -67,22 +67,22 @@ VARIABLES['AskLabel'] = ''
 # Permalink Navigation
 
 # URL for the "previous" (newer) post.
-VARIABLES['PreviousPost'] = ''
+VARIABLES['PreviousPost'] = 'newer'
 
 # URL for the "next" (older) post.
-VARIABLES['NextPost'] = ''
+VARIABLES['NextPost'] = 'older'
 
 #############################
 # Posts
 
 # The permalink for a post. (Example: "http://sample.tumblr.com/post/123")
-VARIABLES['Permalink'] = ''
+VARIABLES['Permalink'] = 'http://sample.tumblr.com/post/123'
 
 # A shorter URL that redirects to this post. (Example: "http://tumblr.com/xpv5qtavm")
-VARIABLES['ShortURL'] = ''
+VARIABLES['ShortURL'] = 'http://tumblr.com/xpv5qtavm'
 
 # The numeric ID for a post. (Example: 1234567)
-VARIABLES['PostID'] = ''
+VARIABLES['PostID'] = '1234567'
 
 # An HTML class-attribute friendly list of the post's tags. (Example: "humor office new_york_city") 
 #
@@ -91,51 +91,51 @@ VARIABLES['PostID'] = ''
 # Del.icio.us that send their content URLs as their permalinks. 
 # 
 # The class-attribute "reblog" will be included automatically if the post was reblogged from another post.
-VARIABLES['TagsAsClasses'] = ''
+VARIABLES['TagsAsClasses'] = 'humor office new_york_city'
 
 #############################
 # Reblogs
 
 # Parent Blog
   # The username of the blog this post was reblogged from.
-  VARIABLES['ReblogParentName'] = ''
+  VARIABLES['ReblogParentName'] = 'Jaques Strapp'
   
   # The title of the blog this post was reblogged from.
-  VARIABLES['ReblogParentTitle'] = ''
+  VARIABLES['ReblogParentTitle'] = 'Poast'
   
   # The URL for the blog this post was reblogged from.
-  VARIABLES['ReblogParentURL'] = ''
+  VARIABLES['ReblogParentURL'] = 'http://jaquesstrapp.tumblr.com/posts/123'
 
   # Portrait photo URL for the blog this post was reblogged from. Square size in pixels given
-  VARIABLES['ReblogParentPortraitURL-16'] = ''
-  VARIABLES['ReblogParentPortraitURL-24'] = ''
-  VARIABLES['ReblogParentPortraitURL-30'] = ''
-  VARIABLES['ReblogParentPortraitURL-40'] = ''
-  VARIABLES['ReblogParentPortraitURL-48'] = ''
-  VARIABLES['ReblogParentPortraitURL-64'] = ''
-  VARIABLES['ReblogParentPortraitURL-96'] = ''
-  VARIABLES['ReblogParentPortraitURL-128'] = ''
+  VARIABLES['ReblogParentPortraitURL-16'] = 'http://www.gravatar.com/avatar/3de4be5a6edcab9d6daa1dbcaf2c541c?s=16'
+  VARIABLES['ReblogParentPortraitURL-24'] = 'http://www.gravatar.com/avatar/3de4be5a6edcab9d6daa1dbcaf2c541c?s=24'
+  VARIABLES['ReblogParentPortraitURL-30'] = 'http://www.gravatar.com/avatar/3de4be5a6edcab9d6daa1dbcaf2c541c?s=30'
+  VARIABLES['ReblogParentPortraitURL-40'] = 'http://www.gravatar.com/avatar/3de4be5a6edcab9d6daa1dbcaf2c541c?s=40'
+  VARIABLES['ReblogParentPortraitURL-48'] = 'http://www.gravatar.com/avatar/3de4be5a6edcab9d6daa1dbcaf2c541c?s=48'
+  VARIABLES['ReblogParentPortraitURL-64'] = 'http://www.gravatar.com/avatar/3de4be5a6edcab9d6daa1dbcaf2c541c?s=64'
+  VARIABLES['ReblogParentPortraitURL-96'] = 'http://www.gravatar.com/avatar/3de4be5a6edcab9d6daa1dbcaf2c541c?s=96'
+  VARIABLES['ReblogParentPortraitURL-128'] = 'http://www.gravatar.com/avatar/3de4be5a6edcab9d6daa1dbcaf2c541c?s=128'
 
 # Root/Creator Blog
   # The username of the blog this post was created by.
-  VARIABLES['ReblogRootName'] = ''
+  VARIABLES['ReblogRootName'] = 'bitmuncher'
   
   # The title of the blog this post was created by.
-  VARIABLES['ReblogRootTitle'] = ''
+  VARIABLES['ReblogRootTitle'] = 'Blagy Blog'
   
   # The URL for the blog this post was created by.
-  VARIABLES['ReblogRootURL'] = ''
+  VARIABLES['ReblogRootURL'] = 'http://www.BlagyBlog.com/'
 
   # Portrait photo URL for the blog this post was created by. Square size in pixels given 
-  VARIABLES['ReblogRootPortraitURL-16'] = ''
-  VARIABLES['ReblogRootPortraitURL-24'] = ''
-  VARIABLES['ReblogRootPortraitURL-30'] = ''
-  VARIABLES['ReblogRootPortraitURL-40'] = ''
-  VARIABLES['ReblogRootPortraitURL-48'] = ''
-  VARIABLES['ReblogRootPortraitURL-64'] = ''
-  VARIABLES['ReblogRootPortraitURL-96'] = ''
-  VARIABLES['ReblogRootPortraitURL-128'] = ''
-
+  VARIABLES['ReblogRootPortraitURL-16'] = 'http://www.gravatar.com/avatar/3de4be5a6edcac9d6daa1dbcaf2c541c?s=16'
+  VARIABLES['ReblogRootPortraitURL-24'] = 'http://www.gravatar.com/avatar/3de4be5a6edcac9d6daa1dbcaf2c541c?s=24'
+  VARIABLES['ReblogRootPortraitURL-30'] = 'http://www.gravatar.com/avatar/3de4be5a6edcac9d6daa1dbcaf2c541c?s=30'
+  VARIABLES['ReblogRootPortraitURL-40'] = 'http://www.gravatar.com/avatar/3de4be5a6edcac9d6daa1dbcaf2c541c?s=40'
+  VARIABLES['ReblogRootPortraitURL-48'] = 'http://www.gravatar.com/avatar/3de4be5a6edcac9d6daa1dbcaf2c541c?s=48'
+  VARIABLES['ReblogRootPortraitURL-64'] = 'http://www.gravatar.com/avatar/3de4be5a6edcac9d6daa1dbcaf2c541c?s=64'
+  VARIABLES['ReblogRootPortraitURL-96'] = 'http://www.gravatar.com/avatar/3de4be5a6edcac9d6daa1dbcaf2c541c?s=96'
+  VARIABLES['ReblogRootPortraitURL-128'] = 'http://www.gravatar.com/avatar/3de4be5a6edcac9d6daa1dbcaf2c541c?s=128'
+  
 ############################
 # Text Posts
 
@@ -143,7 +143,7 @@ VARIABLES['TagsAsClasses'] = ''
 # {Title}
 
 # The content of this post.
-VARIABLES['Body'] = SampleText::LOREM_IPSUM.randomly_pick(4).join(". ")
+VARIABLES['Body'] = Proc.new{ SampleText::LOREM_IPSUM.randomly_pick(4).join(". ") }
 
 #############################
 # Photo Posts
@@ -152,28 +152,28 @@ VARIABLES['Body'] = SampleText::LOREM_IPSUM.randomly_pick(4).join(". ")
 VARIABLES['PhotoAlt'] = ''
 
 # The caption for this post.
-VARIABLES['Caption'] = SampleText::LOREM_IPSUM.randomly_pick(1).join(". ")
+VARIABLES['Caption'] = Proc.new{ SampleText::LOREM_IPSUM.randomly_pick(1).join(". ") }
 
 # A click-through URL for this photo if set.
-VARIABLES['LinkURL'] = ''
+VARIABLES['LinkURL'] = 'http://flickr.com/photos/710536154320114210'
 
 # An HTML open anchor-tag including the click-through URL if set. (Example: <a href="http://">)
-VARIABLES['LinkOpenTag'] = ''
+VARIABLES['LinkOpenTag'] = '<a href="http://flickr.com/photos/710536154320114210">'
 
 # A closing anchor-tag output only if a click-through URL is set. (Example: </a>)
-VARIABLES['LinkCloseTag'] = ''
+VARIABLES['LinkCloseTag'] = '</a>'
 
 # URL for the photo of this post. No wider than x-pixels.
-VARIABLES['PhotoURL-500'] = ''
-VARIABLES['PhotoURL-400'] = ''
-VARIABLES['PhotoURL-250'] = ''
-VARIABLES['PhotoURL-100'] = ''
+VARIABLES['PhotoURL-500'] = 'images/photos/photo1_500.jpg'
+VARIABLES['PhotoURL-400'] = 'images/photos/photo1_400.jpg'
+VARIABLES['PhotoURL-250'] = 'images/photos/photo1_250.jpg'
+VARIABLES['PhotoURL-100'] = 'images/photos/photo1_100.jpg'
 
 # URL for a square version the photo of this post. 75-pixels by 75-pixels.
-VARIABLES['PhotoURL-75sq'] = ''
+VARIABLES['PhotoURL-75sq'] = 'images/photos/photo1_75s.jpg'
 
 # URL for the high-res photo of this post.
-VARIABLES['PhotoURL-HighRes'] = ''
+VARIABLES['PhotoURL-HighRes'] = 'images/photos/photo1.jpg'
 
 #############################
 # Photoset Posts
@@ -620,9 +620,9 @@ VARIABLES['Likes'] = ''
 # %html
 #   %head
 #     / DEFAULT COLORS
-#     %meta{ :name => "color:Background", :content => "#eee" }
-#     %meta{ :name => "color:Content Background", :content => "#fff" }
-#     %meta{ :name => "color:Text", :content => "#000" }
+#     - meta_var :color, 'Background', '#eee'
+#     - meta_var :color, 'Content Background', '#fff'
+#     - meta_var :color, 'Text', '#000'
 #     %style{ :type => "text/css" }
 #       sass:
 #         #content
@@ -647,8 +647,8 @@ end
 # "Customize" screen.
 # 
 # EXAMPLE
-# %meta{ :name => "font:Title", :content =>"Helvetica Neue" }/
-# %meta{ :name => "font:Body", :content => "Arial, Helvetica, sans-serif" }/
+# - meta_var :font, 'Title', 'Helvetica Neue'
+# - meta_var :font, 'Body', 'Arial, Helvetica, sans-serif'
 # 
 # %style{ :type => "text/css" }
 #   sass:
@@ -672,26 +672,23 @@ end
 # This is useful for showing or hiding different widgets or design elements.
 # 
 # EXAMPLE
-# <html>
-#     <head>
-#         <!-- DEFAULTS -->
-#         <meta name="if:Show people I follow" content="1"/>
-#         <meta name="if:Reverse pagination" content="0"/>
-#     </head>
-#     <body>
-#         {block:IfNotReversePagination}
-#             <a href="...">Previous</a> <a href="...">Next</a>
-#        
+# %html
+#   %head
+#     / DEFAULTS
+#     - meta_var :if, "Show people I follow", 1
+#     - meta_var :if, "Reverse pagination", 0
+#   %body
+#     - block :IfNotReversePagination do
+#       %a{:href=>"..."} Previous
+#       %a{:href=>"..."} Next
 #         
-#         {block:IfReversePagination}
-#             <a href="...">Next</a> <a href="...">Previous</a>
-#        
+#     - block :IfReversePagination do
+#       %a{:href=>"..."} Next
+#       %a{:href=>"..."} Previous
 #         
-#         {block:IfShowPeopleIFollow}
-#             <div id="following">...</div>
-#        
-#     </body>
-# </html>
+#     - block :IfShowPeopleIFollow do
+#       #following 
+#         ...
 
 #############################
 # Enabling Custom Text
@@ -781,7 +778,11 @@ def var(name, params={})
   
   name = get_tumblr_variable(name)
   if SAMPLE_DATA
-    return VARIABLES[name]
+    if VARIABLES[name].is_a? Proc
+      return VARIABLES[name].call
+    else
+      return VARIABLES[name].to_s
+    end
   else
     return '{' + [name, params.to_a.collect{|param| [param.first.to_s, %Q|"#{param.last.to_s}"|].join('=')}].flatten.join(' ') + '}'
   end
