@@ -82,7 +82,7 @@
           :text-align center
 
           a
-            :color = "#{color :Text}"
+            :color #{color :Text}
             :padding 0 0.25em
             :font-weight bold
 
@@ -96,7 +96,7 @@
         blockquote
           :padding-left 1em
           :margin-left 2pt
-          :border-left = "0.25em solid #{color :Minor}"
+          :border-left 0.25em solid #{color :Minor}
 
         pre
           :overflow-x auto
@@ -124,13 +124,13 @@
           :margin 0 0 18pt
           :border
             :style solid
-            :color = "#{color :Minor}"
+            :color #{color :Minor}
             :width 2pt 0 0
 
         #description
           :position absolute
           :left 530px
-          :color = "#{color :Minor}"
+          :color #{color :Minor}
           :font-size 11pt
           :width 10em
 
@@ -138,20 +138,20 @@
             :margin-top 0
 
           a
-            :color = "#{color :Secondary}"
+            :color #{color :Secondary}
 
             &:hover
-              :color = "#{color :Text}"
+              :color #{color :Text}
 
           form .input
-            :background = "#{color :Background}"
-            :color = "#{color :Secondary}"
+            :background #{color :Background}
+            :color #{color :Secondary}
             :font-size 10pt
             :text-transform lowercase
             :width 90%
             :border
               :style solid
-              :color = "#{color :Minor}"
+              :color #{color :Minor}
               :width 0 1px 1px 0
 
           .submit
@@ -165,10 +165,10 @@
             :text-transform uppercase
 
             a
-              :color = "#{color :Minor}"
+              :color #{color :Minor}
 
               &:hover
-                :color = "#{color :Text}"
+                :color #{color :Text}
 
         #posts
           :margin 0
@@ -191,12 +191,12 @@
 
           a
             :font-weight bold
-            :color = "#{color :Link}"
+            :color #{color :Link}
             :border-bottom 1px solid transparent
 
             &:hover
-              :color = "#{color :Text}"
-              :border-bottom-color = "#{color :Minor}"
+              :color #{color :Text}
+              :border-bottom-color #{color :Minor}
 
           .image a
             :border-width 0
@@ -220,12 +220,12 @@
           :text-align right
 
           a
-            :color = "#{color :Minor}"
+            :color #{color :Minor}
             :white-space nowrap
             :padding 0 0 4.5pt 9pt
 
             &:hover
-              :color = "#{color :Text}"
+              :color #{color :Text}
 
         .caption, .cite
           :font-size 11pt
@@ -250,16 +250,16 @@
             :padding-right 9pt
 
           a
-            :color = "#{color :Text}"
+            :color #{color :Text}
 
             &:hover
-              :color = "#{color :Secondary}"
+              :color #{color :Secondary}
 
             &.link
-              :color = "#{color :Link}"
+              :color #{color :Link}
 
               &:hover
-                :color = "#{color :Text}"
+                :color #{color :Text}
 
       = custom_css
   %body

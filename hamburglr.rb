@@ -634,7 +634,7 @@ VARIABLES['Likes'] = ''
 
 def color(name)
   if SAMPLE_DATA
-    META_VARS[:color][name]
+    META_VARS[:color][name.to_s]
   else
     "{color:#{name.to_s}}"
   end
@@ -659,7 +659,7 @@ end
 
 def font(name)
   if SAMPLE_DATA
-    META_VARS[:font][name]
+    META_VARS[:font][name.to_s]
   else
     "{font:#{name.to_s}}"
   end
@@ -705,7 +705,7 @@ end
 
 def text(name)
   if SAMPLE_DATA
-    META_VARS[:text][name]
+    META_VARS[:text][name.to_s]
   else
     "{text:#{name.to_s}}"
   end
@@ -720,7 +720,7 @@ end
 
 def image(name)
   if SAMPLE_DATA
-    META_VARS[:image][name]
+    META_VARS[:image][name.to_s]
   else
     "{image:#{name.to_s}}"
   end
