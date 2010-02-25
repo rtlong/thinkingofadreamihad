@@ -149,10 +149,10 @@ VARIABLES['Body'] = Proc.new{ SampleText::LOREM_IPSUM.randomly_pick(4).join(". "
 # Photo Posts
 
 # The HTML-safe version of the caption (if one exists) of this post.
-VARIABLES['PhotoAlt'] = ''
+VARIABLES['PhotoAlt'] = Proc.new{ @photo_caption = SampleText::LOREM_IPSUM.randomly_pick(1).join(". ") }
 
 # The caption for this post.
-VARIABLES['Caption'] = Proc.new{ SampleText::LOREM_IPSUM.randomly_pick(1).join(". ") }
+VARIABLES['Caption'] = @photo_caption || Proc.new{ @photo_caption = SampleText::LOREM_IPSUM.randomly_pick(1).join(". ") }
 
 # A click-through URL for this photo if set.
 VARIABLES['LinkURL'] = 'http://flickr.com/photos/710536154320114210'
@@ -204,13 +204,13 @@ VARIABLES['Length'] = ''
 # Link Posts
 
 # The URL of this post.
-VARIABLES['URL'] = ''
+VARIABLES['URL'] = 'http://linky.com/0u5snu2'
 
 # The name of this post. Defaults to the URL if no name is entered.
-VARIABLES['Name'] = ''
+VARIABLES['Name'] = "Link to Somethin' Cool"
 
 # Should be included inside the A-tags of Link posts. Output target="_blank" if you've enabled "Open links in new window".
-VARIABLES['Target'] = ''
+VARIABLES['Target'] = '_blank'
 
 # Rendered if there is a description for this post.
 # {block:Description}
@@ -342,80 +342,80 @@ VARIABLES['AskerPortraitURL-128'] = ''
 # {block:SameDayDate}
 
 # "1" to "31"
-VARIABLES['DayOfMonth'] = ''
+VARIABLES['DayOfMonth'] = Proc.new { "%01.0f" % (1..31).to_a.randomly_pick }
 
 # "01" to "31"
-VARIABLES['DayOfMonthWithZero'] = ''
+VARIABLES['DayOfMonthWithZero'] = Proc.new { "%02.0f" % (1..31).to_a.randomly_pick }
 
 # "Monday" through "Sunday"
-VARIABLES['DayOfWeek'] = ''
+VARIABLES['DayOfWeek'] = Proc.new { Date::DAYNAMES.randomly_pick.to_s }
 
 # "Mon" through "Sun"
-VARIABLES['ShortDayOfWeek'] = ''
+VARIABLES['ShortDayOfWeek'] = Proc.new { Date::ABBR_DAYNAMES.randomly_pick.to_s }
 
 # "1" through "7"
-VARIABLES['DayOfWeekNumber'] = ''
+VARIABLES['DayOfWeekNumber'] = Proc.new { (1..7).to_a.randomly_pick.to_s }
 
 # "st", "nd", "rd", "th"
 VARIABLES['DayOfMonthSuffix'] = ''
 
 # "1" through "365"
-VARIABLES['DayOfYear'] = ''
+VARIABLES['DayOfYear'] = Proc.new { (1..365).to_a.randomly_pick.to_s }
 
 # "1" through "52"
-VARIABLES['WeekOfYear'] = ''
+VARIABLES['WeekOfYear'] = Proc.new { (1..52).to_a.randomly_pick.to_s }
 
 # "January" through "December"
-VARIABLES['Month'] = ''
+VARIABLES['Month'] = Proc.new { Date::MONTHNAMES.compact.randomly_pick.to_s }
 
 # "Jan" through "Dec"
-VARIABLES['ShortMonth'] = ''
+VARIABLES['ShortMonth'] = Proc.new { Date::ABBR_MONTHNAMES.compact.randomly_pick.to_s }
 
 # "1" through "12"
-VARIABLES['MonthNumber'] = ''
+VARIABLES['MonthNumber'] = Proc.new { (1..12).to_a.randomly_pick.to_s }
 
 # "01" through "12"
-VARIABLES['MonthNumberWithZero'] = ''
+VARIABLES['MonthNumberWithZero'] = Proc.new { "%02.0f" % (1..12).to_a.randomly_pick }
 
 # "2007"
-VARIABLES['Year'] = ''
+VARIABLES['Year'] = Proc.new { (2009..2010).to_a.randomly_pick.to_s }
 
 # "07"
-VARIABLES['ShortYear'] = ''
+VARIABLES['ShortYear'] = Proc.new { "%02.0f" % (9..10).to_a.randomly_pick.to_s }
 
 # "am" or "pm"
-VARIABLES['AmPm'] = ''
+VARIABLES['AmPm'] = Proc.new { %w( am pm ).randomly_pick.to_s }
 
 # "AM" or "PM"
-VARIABLES['CapitalAmPm'] = ''
+VARIABLES['CapitalAmPm'] = Proc.new { %w( AM PM ).randomly_pick.to_s }
 
 #These couple will not be accessible directly. Use the var method
 # "1" through "12"
-VARIABLES['12Hour'] = ''
+VARIABLES['12Hour'] = Proc.new { (1..12).to_a.randomly_pick.to_s }
 
 # "0" through "23"
-VARIABLES['24Hour'] = ''
+VARIABLES['24Hour'] = Proc.new { (0..23).to_a.randomly_pick.to_s }
 
 # "01" through "12"
-VARIABLES['12HourWithZero'] = ''
+VARIABLES['12HourWithZero'] = Proc.new { "%02.0f" % (1..12).to_a.randomly_pick }
 
 # "00" through "23"
-VARIABLES['24HourWithZero'] = ''
+VARIABLES['24HourWithZero'] = Proc.new { "%02.0f" % (0..23).to_a.randomly_pick }
 
 # "00" through "59"
-VARIABLES['Minutes'] = ''
+VARIABLES['Minutes'] = Proc.new { "%02.0f" % (0..59).to_a.randomly_pick }
 
 # "00" through "59"
-VARIABLES['Seconds'] = ''
+VARIABLES['Seconds'] = VARIABLES['Minutes']
 
 # "000" through "999"
-VARIABLES['Beats'] = ''
+VARIABLES['Beats'] = Proc.new { "%03.0f" % (0..999).to_a.randomly_pick }
 
 # "1172705619"
-VARIABLES['Timestamp'] = ''
+VARIABLES['Timestamp'] = Proc.new { Time.now.to_i.to_s }
 
 # A contextual time. ("1 minute ago", "2 hours ago", "3 weeks ago", etc.)
-VARIABLES['TimeAgo'] = ''
+VARIABLES['TimeAgo'] = "# minutes ago"
 
 #############################
 # Notes
@@ -425,15 +425,15 @@ VARIABLES['TimeAgo'] = ''
 # Rendered on permalink pages this post has notes.
 # {block:PostNotes}
 # Standard HTML output of this post's notes. Only rendered on permalink pages.
-VARIABLES['PostNotes'] = ''
+VARIABLES['PostNotes'] = 'These are the notes about this post'
 
 # Rendered if this post has notes.
 # {block:NoteCount}
 # The number of this post's notes.
-VARIABLES['NoteCount'] = ''
+VARIABLES['NoteCount'] = '5'
 
 # The number of this post's notes with pluralized label. (e.g. "24 notes")
-VARIABLES['NoteCountWithLabel'] = ''
+VARIABLES['NoteCountWithLabel'] = '5 notes'
 
 #############################
 # Tags
@@ -548,16 +548,16 @@ VARIABLES['NextDayPage'] = ''
 # Search
 
 # The current search query.
-VARIABLES['SearchQuery'] = ''
+VARIABLES['SearchQuery'] = 'jillian'
 
 # A URL-safe version of the current search query for use in links and Javascript.
-VARIABLES['URLSafeSearchQuery'] = ''
+VARIABLES['URLSafeSearchQuery'] = 'jillian'
 
 # Rendered on search pages.
 # {block:SearchPage}
 
 # The number of results returned for the current search query.
-VARIABLES['SearchResultCount'] = ''
+VARIABLES['SearchResultCount'] = '32'
 
 # Rendered if no search results were returned for the current search query.
 # {block:NoSearchResults}
@@ -784,7 +784,7 @@ def var(name, params={})
       return VARIABLES[name].to_s
     end
   else
-    return '{' + [name, params.to_a.collect{|param| [param.first.to_s, %Q|"#{param.last.to_s}"|].join('=')}].flatten.join(' ') + '}'
+    return '{' + [name, params.to_a.collect{|param| [param.first.to_s, %Q'"#{param.last.to_s}"'].join('=')}].flatten.join(' ') + '}'
   end
 end
 
@@ -804,13 +804,19 @@ def b(name, &block)
   #ret = ErrorReturn.new("b")
   
   name = name.id2name.camelize
-  #TODO
+  open_tag = "{block:#{name}}"
+  close_tag = "{/block:#{name}}"
+  if SAMPLE_DATA
+    open_tag = "<!-- #{open_tag} -->"
+    close_tag = "<!-- #{close_tag} -->"
+  end
+  
   if block_given?
-    haml_concat "{block:#{name}}"
+    haml_concat open_tag
     tab_up
     block.call
     tab_down
-    haml_concat "{/block:#{name}}"
+    haml_concat close_tag
   else
     raise Error.now("The block method isn't very useful without a block...")
   end
