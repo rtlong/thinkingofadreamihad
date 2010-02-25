@@ -6,22 +6,18 @@
 !color_secondary = #888888
 !color_link = #666666
 
-html
-  :background-color = !color_background
-  
-body
-  :font-size 12pt
+html, body
   :background-color = !color_background
   :color = !color_text
-
-#body
-  :background-color = !color_background
-  :padding 1.5em 0.25em
+  :font
+    :family Helvetica Neue, Arial, Helvetica, sans-serif
+    :size 12pt
 
 #content
   :position relative
   :width 500px
   :margin 0 auto
+  :padding 1.5em 0.25em
   
 #sidebar
   :position fixed
@@ -81,46 +77,36 @@ hr
     :color = !color_minor
     :width 2pt 0 0
 
-#description
-  :position absolute
-  :left 530px
-  :color = !color_minor
-  :font-size 11pt
-  :width 10em
-
-  p, form
-    :margin-top 0
-
+#sidebar
   a
     :color = !color_secondary
-
     &:hover
       :color = !color_text
 
-  form .input
-    :background = !color_background
-    :color = !color_secondary
-    :font-size 10pt
-    :text-transform lowercase
-    :width 90%
-    :border
-      :style solid
-      :color = !color_minor
-      :width 0 1px 1px 0
+  #search
+    #q
+      :background
+        :color = !color_background
+        :image url(../images/search_32.png)
+        :repeat no-repeat
+        :position 2px 50%
+      :color = !color_secondary
+      :font-size 10pt
+      :text-transform lowercase
+      :border
+        :style solid
+        :color = !color_minor
+        :width 1px
+      :padding 4px 3px 4px 24px
 
-  .submit
-    :height 0
-    :overflow hidden
-    :display block
-
-  .meta
+  #meta
+    :margin-top 10px
     :word-spacing 0.25em
     :font-size 10pt
     :text-transform uppercase
 
     a
       :color = !color_minor
-
       &:hover
         :color = !color_text
 

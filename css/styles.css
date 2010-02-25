@@ -29,22 +29,17 @@ table {
 *:focus {
   outline: 0; }
 
-html {
-  background-color: white; }
-
-body {
-  font-size: 12pt;
+html, body {
   background-color: white;
-  color: black; }
-
-#body {
-  background-color: white;
-  padding: 1.5em 0.25em; }
+  color: black;
+  font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
+  font-size: 12pt; }
 
 #content {
   position: relative;
   width: 500px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  padding: 1.5em 0.25em; }
 
 #sidebar {
   position: fixed;
@@ -102,39 +97,31 @@ hr {
   border-color: #bbbbbb;
   border-width: 2pt 0 0; }
 
-#description {
-  position: absolute;
-  left: 530px;
-  color: #bbbbbb;
-  font-size: 11pt;
-  width: 10em; }
-  #description p, #description form {
-    margin-top: 0; }
-  #description a {
-    color: #888888; }
-    #description a:hover {
+#sidebar a {
+  color: #888888; }
+  #sidebar a:hover {
+    color: black; }
+#sidebar #search #q {
+  background-color: white;
+  background-image: url(../images/search_32.png);
+  background-repeat: no-repeat;
+  background-position: 2px 50%;
+  color: #888888;
+  font-size: 10pt;
+  text-transform: lowercase;
+  border-style: solid;
+  border-color: #bbbbbb;
+  border-width: 1px;
+  padding: 4px 3px 4px 24px; }
+#sidebar #meta {
+  margin-top: 10px;
+  word-spacing: 0.25em;
+  font-size: 10pt;
+  text-transform: uppercase; }
+  #sidebar #meta a {
+    color: #bbbbbb; }
+    #sidebar #meta a:hover {
       color: black; }
-  #description form .input {
-    background: white;
-    color: #888888;
-    font-size: 10pt;
-    text-transform: lowercase;
-    width: 90%;
-    border-style: solid;
-    border-color: #bbbbbb;
-    border-width: 0 1px 1px 0; }
-  #description .submit {
-    height: 0;
-    overflow: hidden;
-    display: block; }
-  #description .meta {
-    word-spacing: 0.25em;
-    font-size: 10pt;
-    text-transform: uppercase; }
-    #description .meta a {
-      color: #bbbbbb; }
-      #description .meta a:hover {
-        color: black; }
 
 #posts {
   margin: 0; }

@@ -36,14 +36,14 @@ VARIABLES['PostTitle'] = 'Post Title'
 VARIABLES['PostSummary'] = Proc.new { SampleText::LOREM_IPSUM.randomly_pick(3).join(". ") }
 
 # Portrait photo URL for your blog.  Square size in pixels given
-VARIABLES['PortraitURL-16'] = 'bender-icon-16.png'
-VARIABLES['PortraitURL-24'] = 'bender-icon-24.png'
-VARIABLES['PortraitURL-30'] = 'bender-icon-30.png'
-VARIABLES['PortraitURL-40'] = 'bender-icon-40.png'
-VARIABLES['PortraitURL-48'] = 'bender-icon-48.png'
-VARIABLES['PortraitURL-64'] = 'bender-icon-64.png'
-VARIABLES['PortraitURL-96'] = 'bender-icon-96.png'
-VARIABLES['PortraitURL-128'] = 'bender-icon-128.png'
+VARIABLES['PortraitURL-16'] = 'images/bender-icon-16.png'
+VARIABLES['PortraitURL-24'] = 'images/bender-icon-24.png'
+VARIABLES['PortraitURL-30'] = 'images/bender-icon-30.png'
+VARIABLES['PortraitURL-40'] = 'images/bender-icon-40.png'
+VARIABLES['PortraitURL-48'] = 'images/bender-icon-48.png'
+VARIABLES['PortraitURL-64'] = 'images/bender-icon-64.png'
+VARIABLES['PortraitURL-96'] = 'images/bender-icon-96.png'
+VARIABLES['PortraitURL-128'] = 'images/bender-icon-128.png'
 
 #############################
 # Navigation
@@ -143,7 +143,7 @@ VARIABLES['TagsAsClasses'] = 'humor office new_york_city'
 # {Title}
 
 # The content of this post.
-VARIABLES['Body'] = Proc.new{ SampleText::LOREM_IPSUM.randomly_pick(4).join(". ") }
+VARIABLES['Body'] = Proc.new{ SampleText::LOREM_IPSUM.randomly_pick(16).join(". ") }
 
 #############################
 # Photo Posts
