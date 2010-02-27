@@ -1,0 +1,91 @@
+@import colorbox_core.sass
+
+
+/* 
+  ColorBox example user style
+  The following rules are ordered and tabbed in a way that represents the
+  order/nesting of the generated HTML, so that the structure easier to understand.
+
+!icon_grid_size = -1 * 14px
+!icon_size = abs(!icon_grid_size)
+!icon_spacing = 2px
+!icon_position_multiplier = !icon_spacing + !icon_size
+
+#cboxOverlay
+  :background white
+  :opacity 1.0
+
+#colorbox
+  &, #cboxWrapper
+    :overflow visible
+    
+  #cboxContent
+    :margin-bottom = !icon_position_multiplier
+
+    #cboxLoadedContent
+      
+    #cboxLoadingGraphic
+      :background
+        :image url(../images/loading.gif)
+        :repeat no-repeat
+        :position center center
+
+    #cboxLoadingOverlay
+      :background white
+
+    #cboxTitle
+      :margin-top 3px
+      // 3 icons are the Prev, Next, and Close
+      :padding-right = 3 * !icon_position_multiplier
+      :font-size smaller
+      
+    #cboxCurrent
+      :position absolute
+      :bottom = -1 * (!icon_position_multiplier + 3px + 11px)
+      :right 0
+      :font-size 11px
+
+    #cboxSlideshow, #cboxPrevious, #cboxNext, #cboxClose
+      :text-indent = !icon_size + 1 
+      :position absolute
+      :bottom = -1 * !icon_position_multiplier
+      :cursor pointer
+      :width = !icon_size
+      :height = !icon_size
+      :background 
+        :image url(../images/controls.png)
+        :repeat no-repeat
+      &:hover
+        :background
+          :position-y = 1 * !icon_grid_size
+      span
+        :display none
+
+    #cboxPrevious
+      :background-position-x = 0 * !icon_grid_size
+      :right = 2 * !icon_position_multiplier
+
+    #cboxNext
+      :background-position-x = 1 * !icon_grid_size
+      :right = 1 * !icon_position_multiplier
+
+    #cboxClose
+      :background-position-x = 2 * !icon_grid_size
+      :right = 0 * !icon_position_multiplier
+
+    .cboxSlideshow_on, .cboxSlideshow_off
+      #cboxPrevious
+        :right = 3 * !icon_position_multiplier
+      #cboxSlideshow
+        :right = 2 * !icon_position_multiplier
+      #cboxTitle
+        // 4 icons to include the slideshow
+        :padding = 4 * !icon_position_multiplier
+
+    .cboxSlideshow_on 
+      #cboxSlideshow
+        :background-position-x = 4 * !icon_grid_size
+
+    .cboxSlideshow_off 
+      #cboxSlideshow
+        :background-position-x = 3 * !icon_grid_size

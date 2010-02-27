@@ -1,83 +1,240 @@
-@import _reset.sass
+@import reset.sass
 
 !color_background = #ffffff
 !color_text = #000000
-!color_minor = #bbbbbb
-!color_secondary = #888888
-!color_link = #666666
+!color_link = #444444
+!color_secondary = #777777
+!color_minor = #999999
 
 html, body
   :background-color = !color_background
   :color = !color_text
   :font
     :family Helvetica Neue, Arial, Helvetica, sans-serif
-    :size 12pt
+    :size 16px
 
-#content
-  :position relative
-  :width 500px
-  :margin 0 auto
-  :padding 1.5em 0.25em
-  
-#sidebar
-  :position fixed
-  :top 20px
-  :right 20px
-  :width 200px
+@for !h_level from 1 through 6
+  h#{!h_level}
+    :font-size = 48px - 6 * (!h_level - 1)
 
-h1
-  :font-size 3em
-  :line-height 1
-  :padding 0.5em 0 1em
-  :text-align center
-
+h1,h2,h3,h4,h5,h6
+  :font-weight bolder
+  :margin 0.5em 0
   a
     :color = !color_text
-    :padding 0 0.25em
-    :font-weight bold
+    :font-weight inherit
+    :text-decoration inherit
 
-h2, h3
-  :line-height 18pt
+a    
+  :color = !color_link
+  :text-decoration none
+  &:hover
+    :color = !color_text
+    :text-decoration underline
+  
+  img
+    :border-width 0
 
 p, pre, ul, ol, blockquote, form
-  :margin 9pt 0 18pt
-  :line-height 18pt
-
-blockquote
-  :padding-left 1em
-  :margin-left 2pt
-  :border-left 0.25em solid = !color_minor
+  :margin 5px 0
 
 pre
   :overflow-x auto
-  :font-size 11pt
+  :font-size 11px
 
 sup, sub
   :height 0
   :line-height 1
   :vertical-align baseline
-  :_vertical-align bottom
+  //:_vertical-align bottom
   :position relative
 
-sup
-  :bottom 0.5ex
-
 sub
-  :top 0.5ex
+  :top 0.5em
 
-sup a
-  :font-weight normal !important
-  :padding 0 1px
+sup
+  :bottom 0.5em
+  a
+    :font-weight normal !important
+    :padding 0 1px
 
 hr
   :height 0
-  :margin 0 0 18pt
+  :margin 10px 0
   :border
-    :style solid
+    :style dotted
     :color = !color_minor
-    :width 2pt 0 0
+    :width 1px 0 0 0
+    
+img
+  :border none
 
+blockquote
+  :border-left = "2px solid #{!color_minor}"
+  :padding 3px 15px
+
+ul, ol, blockquote
+  :margin-left 18px
+
+ul
+  :list-style-type disc
+  ul
+    :list-style-type circle
+    ul
+      :list-style-type square
+ol
+  :list-style-type decimal
+  ol
+    :list-style-type lower-alpha
+    ol
+      :list-style-type lower-roman
+      
+.hidden
+  :display none
+    
+#title
+  :text-align center
+  :font-size 48px
+  :margin 25px 0 25px 0
+  :padding-bottom 25px
+  :border-bottom = "1px" "dotted" !color_secondary 
+  img
+    :margin 0
+    
+#content
+  :width 500px
+  :margin 0 auto
+  :padding 0
+
+  #search_result_count
+    :background-color #dddddd
+    :font-size 12px
+    :padding 3px
+    :margin-bottom 25px
+    .back
+      :float right
+
+  #posts
+    :margin 0
+
+    .post
+      :margin 15px 0
+
+      img
+        :max-width 100%
+
+      .text-post
+        :text-align justify
+        h3
+          :margin-bottom 9px
+
+      .link-post
+        a
+          :text-decoration none
+        .link
+          h1
+            :font-size 28px
+            :margin 0
+          a
+            :color = !color_text
+            :text-decoration underline
+            &:hover
+              :color = !color_link
+        .href
+          :color = !color_minor
+          :font-size 10px
+        .caption
+          :margin-top 10px
+
+      .photo-post
+        .photo
+          :text-align center
+          img
+            &:hover
+              
+        .caption
+          :font-size smaller
+          
+      .quote-post
+        blockquote
+          :text-align-last right
+          :text-align justify
+          &.short, &.medium, &.long
+
+        .source
+          :margin-top 10px
+          :text-align right
+          cite 
+            :font-size smaller
+            :font-style italic
+          
+      .photoset-post
+      
+      .answer-post
+        .icon
+          :font-size 300%
+          :position absolute
+          :margin-left -50px
+          
+        .question
+          .asker
+            :text-align right
+            cite
+              :font-style normal
+              a
+                :text-decoration none
+        .answer
+          :clear both
+          
+          
+      .info
+        :margin-top 15px
+        :font-size 12px
+        :text-align left
+        
+        .date, .permalink
+          a
+            :text-decoration none
+
+        a
+          :color = !color_secondary
+          :white-space nowrap
+
+          &:hover
+            :color = !color_text
+        
+        .tags
+          :margin 5px 0 0 0
+          :line-height inherit
+          ul, li           
+            :display inline
+            :list-style none
+            :margin-right 5px
+          
+      .notes
+      
+  #footer
+    :margin-top 30px
+    :text-align center
+    #pagination
+      :font-size 16px
+      a.arrow_nav, a.nav
+        :text-decoration none
+      a.arrow_nav
+        :font-size 160%
+
+      #previous_page
+      .status  
+      #next_page
+      
 #sidebar
+  :position fixed
+  :top 0
+  :right 0
+  :width 180px
+  :padding 20px 20px 10px 10px
+  :background-color = !color_background
+  
   a
     :color = !color_secondary
     &:hover
@@ -87,116 +244,34 @@ hr
     #q
       :background
         :color = !color_background
-        :image url(../images/search_32.png)
+        :image url('../images/search_32.png')
         :repeat no-repeat
         :position 2px 50%
       :color = !color_secondary
-      :font-size 10pt
+      :font-size 15px
+      :height 15px
+      :width 153px
       :text-transform lowercase
       :border
         :style solid
         :color = !color_minor
         :width 1px
       :padding 4px 3px 4px 24px
+      
+  #description
+    :font-size smaller
 
   #meta
-    :margin-top 10px
-    :word-spacing 0.25em
-    :font-size 10pt
-    :text-transform uppercase
+    :margin
+      :top 12px
+      :left 0
+    :font-size 11px
 
-    a
-      :color = !color_minor
-      &:hover
-        :color = !color_text
+    li
+      :list-style none
+      :margin-top 3px
+      a
+        :color = !color_link
+        &:hover
+          :color = !color_text
 
-#posts
-  :margin 0
-
-.post
-  :position relative
-  :list-style none
-  :margin-bottom 4.5em
-
-  ul li
-    :list-style square
-
-  img
-    :max-width 100%
-
-.post-body
-  h3
-    :font-size 1.25em
-    :position relative
-
-  a
-    :font-weight bold
-    :color = !color_link
-    :border-bottom 1px solid transparent
-
-    &:hover
-      :color = !color_text
-      :border-bottom-color = !color_minor
-
-  .image a
-    :border-width 0
-
-  ul
-    ul, ol
-      :margin-left 1.5em
-
-  ol
-    ol, ul
-      :margin-left 1.5em
-
-  blockquote
-    ul, ol
-      :margin-left 1.5em
-
-.permalink
-  :font-size 11pt
-  :position absolute
-  :right 530px
-  :text-align right
-
-  a
-    :color = !color_minor
-    :white-space nowrap
-    :padding 0 0 4.5pt 9pt
-
-    &:hover
-      :color = !color_text
-
-.caption, .cite
-  :font-size 11pt
-  :margin-top 9pt
-
-.caption p
-  :margin-top 18pt
-
-.text-post
-  :position relative
-  :top -2pt
-
-  h3
-    :margin-bottom 9pt
-
-.link-post
-  :position relative
-  :top -2pt
-
-  h3
-    :display inline
-    :padding-right 9pt
-
-  a
-    :color = !color_text
-
-    &:hover
-      :color = !color_secondary
-
-    &.link
-      :color = !color_link
-
-      &:hover
-        :color = !color_text

@@ -3,97 +3,129 @@
   <head>
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
     <title>
-      {Title}
+      {block:SearchPage}
+        Search for: '{SearchQuery}' :
+      {/block:SearchPage}
+      {block:PostTitle}
+        {PostTitle} :
+      {/block:PostTitle}
       {block:PostSummary}
-        : {PostSummary}
+        {PostSummary} :
       {/block:PostSummary}
+      {Title}
     </title>
-    <meta content='Helvetica Neue, Arial, Helvetica, sans-serif' name='font:Body' />
-    <meta content='0' name='if:Show Notes for Post' />
+    <meta content='Lucida Sans, Arial, Helvetica, sans-serif' name='font:Content' />
+    <meta content='Lucida Sans, Arial, Helvetica, sans-serif' name='font:Controls' />
+    <meta content='http://wombat:4000/images/title-800.png' name='image:Header' />
     <meta content='{MetaDescription}' name='description' />
     <link href='{RSS}' rel='alternate' title='RSS' type='application/rss+xml' />
     <link href='{Favicon}' rel='icon' />
     <link href='{PreviousPage}' rel='prev' title='Newer posts' />
     <link href='{NextPage}' rel='next' title='Older posts' />
-    <link href='css/colorbox.css' media='screen' rel='stylesheet' type='text/css' />
-    <link href='css/styles.css' media='all' rel='stylesheet' type='text/css' />
+    <link href='http://wombat:4000/css/colorbox.css' media='screen' rel='stylesheet' type='text/css' />
+    <link href='http://wombat:4000/css/styles.css' media='all' rel='stylesheet' type='text/css' />
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js' type='text/javascript'></script>
-    <script src='js/jquery.colorbox-min.js' type='text/javascript'></script>
+    <script src='http://wombat:4000/js/jquery.colorbox-min.js' type='text/javascript'></script>
+    <script src='http://wombat:4000/js/jquery.infinitescroll.min.js' type='text/javascript'></script>
     <script type='text/javascript'>
       //<![CDATA[
-        $(document).ready(function(){
-          $(".lightbox").colorbox({
-            maxWidth: '90%',
-            maxHeight: '90%'
+        function setUpColorbox(){
+          $(".photo-post .photo a").colorbox({
+            maxWidth: '98%',
+            maxHeight: '98%',
+            photo: true,
+            transition: 'fade', 
+            opacity: 1.0,
+            current: '{'+'current'+'} of {'+'total'+'}',
+            previous: '<span>previous</span>',
+            next: '<span>next</span>',
+            close: '<span>close</span>'
           });
-        });
+        }
+        
+        $(document).ready(setUpColorbox);
+        
+        $('#posts').infinitescroll({
+          navSelector: '#pagination',
+          nextSelector: '#next_page',
+          itemSelector: '#posts .post'
+        }, setUpColorbox);
       //]]>
     </script>
     <style type='text/css'>
       body {
-        font-family: {font:Body}; }
+        font-family: {font:Controls}; }
+      
+      #q {
+        background-image: url("http://wombat:4000/images/search_32.png"); }
+      
+      #colorbox #cboxLoadingGraphic {
+        background-image: url("http://wombat:4000/images/loading.gif"); }
+      #colorbox #cboxSlideshow, #colorbox #cboxPrevious, #colorbox #cboxNext, #colorbox #cboxClose {
+        background-image: url("http://wombat:4000/images/controls.png"); }
       {CustomCSS}
     </style>
   </head>
   <body>
-    <h1 id='title'>
-      <a href='/'>{Title}</a>
-    </h1>
-    <div id='sidebar'>
-      <div id='search'>
-        <form action='/search' method='get'>
-          <input id='q' name='q' type='text' value='{SearchQuery}' />
-        </form>
-      </div>
-      <div id='description'>{Description}</div>
-      <div id='meta'>
-        <a href='/archive'>Archive</a>
-        &bull;
-        <a href='{RSS}'>Subscribe</a>
-      </div>
+    <div id='title'>
+      <a href='/'>
+        {block:IfHeaderImage}
+          <img alt='{Title}' src='{image:Header}' />
+        {/block:IfHeaderImage}
+        {block:IfNotHeaderImage}
+          {Title}
+        {/block:IfNotHeaderImage}
+      </a>
     </div>
     <div id='content'>
+      {block:TagPage}
+        <h2 id='tag_page_label'>Posts tagged <em>{Tag}</em></h2>
+      {/block:TagPage}
+      {block:DayPage}
+        <h2 id='day_page_label'>Posts from {DayOfMonth} {Month} {Year}</h2>
+      {/block:DayPage}
+      {block:SearchPage}
+        <div id='search_result_count'>
+          <div class='back'>
+            <a href='/'>Cancel Search</a>
+          </div>
+          {block:SearchResults}
+            {SearchResultCount} results found for "{SearchQuery}"
+          {/block:SearchResults}
+          {block:NoSearchResults}
+            No results found for "{SearchQuery}"
+          {/block:NoSearchResults}
+        </div>
+      {/block:SearchPage}
       <div id='posts'>
         {block:Posts}
           <div class='post {TagsAsClasses}' id='{PostID}'>
-            <div class='info'>
-              <a class='permalink' href='{Permalink}' rel='bookmark' title='{NoteCountWithLabel}'>  {DayOfMonth} {Month} {Year}</a>
-              {block:HasTags}
-                in
-                <ul class='tags'>
-                  {block:Tags}
-                    <li>
-                      <a href='{TagURLChrono}'>      {Tag}</a>
-                    </li>
-                  {/block:Tags}
-                </ul>
-              {/block:HasTags}
-            </div>
-            {block:PostSummary}
-              <div class='summary'>{PostSummary}</div>
-            {/block:PostSummary}
             {block:Regular}
               <div class='text-post'>
                 {block:Title}
-                  <h3>{Title}</h3>
-                  {Body}
+                  <h1>{Title}</h1>
                 {/block:Title}
+                {Body}
               </div>
             {/block:Regular}
             {block:Link}
               <div class='link-post'>
-                <h3>
-                  <a class='link' href='{URL}'>    {Name}</a>
-                </h3>
+                <div class='link'>
+                  <h1>
+                    <a href='{URL}' target='{Target}'>    {Name}</a>
+                  </h1>
+                </div>
+                <a class='href' href='{URL}' target='{Target}'>    {URL}</a>
                 {block:Description}
-                  {Description}
+                  <div class='caption'>{Description}</div>
                 {/block:Description}
               </div>
             {/block:Link}
             {block:Photo}
-              <div class='image-post'>
-                <div class='image'>
-                  <a class='lightbox' href='{PhotoURL-HighRes}' title='{Caption}'>
+              <div class='photo-post'>
+                <h1 class='hidden'>Photo</h1>
+                <div class='photo'>
+                  <a href='{PhotoURL-HighRes}' rel='photo_post' title='{PhotoAlt}'>
                     <img alt='{PhotoAlt}' src='{PhotoURL-500}' />
                   </a>
                 </div>
@@ -102,27 +134,173 @@
                 {/block:Caption}
               </div>
             {/block:Photo}
-            {block:IfShowPostNotes}
+            {block:PhotoSet}
+              <div class='photoset-post'>
+                <h1 class='hidden'>Photoset</h1>
+                <div class='photo'>{Photoset-500}</div>
+                {block:Caption}
+                  <div class='caption'>{Caption}</div>
+                {/block:Caption}
+              </div>
+            {/block:PhotoSet}
+            {block:Quote}
+              <div class='quote-post'>
+                <blockquote class='quote {Length}'><span class='marks'>&ldquo;</span>{Quote}<span class='marks'>&rdquo;</span></blockquote>
+                {block:Source}
+                  <div class='source'>&mdash;&nbsp;
+                  <cite>{Source}</cite></div>
+                {/block:Source}
+              </div>
+            {/block:Quote}
+            {block:Answer}
+              <div class='answer-post'>
+                <div class='question'>
+                  <div class='icon'>Q:</div>
+                  <h4><span class='marks'>&ldquo;</span>{Question}<span class='marks'>&rdquo;</span>    </h4>
+                  <div class='asker'>
+                    <cite>
+                      <img class='avatar' src='{AskerPortraitURL-16}' />
+                      {Asker}
+                    </cite>
+                  </div>
+                </div>
+                <div class='answer'>
+                  <div class='icon'>A:</div>
+                  <h4>{Answer}</h4>
+                </div>
+              </div>
+            {/block:Answer}
+            <div class='info'>
+              <div>
+                <span class='date'>
+                  {block:Reblog}
+                    Reblogged
+                  {/block:Reblog}
+                  {block:NotReblog}
+                    Posted
+                  {/block:NotReblog}
+                  <span class='posted_at'>
+                    <a href='/day/{Year}/{MonthNumberWithZero}/{DayOfMonth}' title='All posts from this day'>  {DayOfMonth} {Month} {Year}</a>
+                    {block:DayPage}
+                      <script type='text/javascript'>
+                        //<![CDATA[
+                          $('#{PostID} .posted_at')[0].innerHTML = "at {24HourWithZero}:{Minutes}";
+                        //]]>
+                      </script>
+                    {/block:DayPage}
+                  </span>
+                  {block:Reblog}
+                    <span class='reblog_info'>
+                      from
+                      <a href='{ReblogParentURL}'>    {ReblogParentTitle}</a>
+                      {block:RebloggedFromReblog}
+                        (originally from<a href='{ReblogRootURL}'>{ReblogRootTitle}</a>)
+                      {/block:RebloggedFromReblog}
+                    </span>
+                  {/block:Reblog}
+                </span>
+                {block:IndexPage}
+                  &bull;
+                  <span class='permalink'>
+                    <a href='{Permalink}' rel='bookmark' title='{NoteCountWithLabel}'>    {NoteCountWithLabel}</a>
+                  </span>
+                {/block:IndexPage}
+              </div>
+              {block:HasTags}
+                <div class='tags'>
+                  Tagged:
+                  <ul>
+                    {block:Tags}
+                      <li>
+                        <a href='{TagURLChrono}'>      {Tag}</a>
+                      </li>
+                    {/block:Tags}
+                  </ul>
+                </div>
+              {/block:HasTags}
               {block:PostNotes}
-                <div class='notes'>{PostNotes}</div>
+                <div class='notes'>
+                  <h2>{NoteCountWithLabel}</h2>
+                  {PostNotes}
+                </div>
               {/block:PostNotes}
-            {/block:IfShowPostNotes}
+            </div>
           </div>
+          {block:IndexPage}
+            <hr />
+          {/block:IndexPage}
         {/block:Posts}
       </div>
       <div id='footer'>
         {block:Pagination}
           <div id='pagination'>
             {block:PreviousPage}
-              <a href='{PreviousPage}' title='Newer posts'>&larr;</a>
+              <a class='arrow_nav' href='{PreviousPage}' id='previous_page' title='Newer posts'>&larr;</a>
             {/block:PreviousPage}
-            Page {CurrentPage} of {TotalPages}.
+            <span class='status'>Page {CurrentPage} of {TotalPages}</span>
             {block:NextPage}
-              <a href='{NextPage}' title='Older posts'>&rarr;</a>
+              <a class='arrow_nav' href='{NextPage}' id='next_page' title='Older posts'>&rarr;</a>
             {/block:NextPage}
           </div>
         {/block:Pagination}
+        {block:PermalinkPagination}
+          <div id='pagination'>
+            {block:PreviousPost}
+              <a class='nav' href='{PreviousPost}' id='previous_page' title='Newer Post'>Newer Post</a>
+              {block:NextPost}
+                |
+              {/block:NextPost}
+            {/block:PreviousPost}
+            {block:NextPost}
+              <a class='nav' href='{NextPost}' id='next_page' title='Older Post'>Older Post</a>
+            {/block:NextPost}
+          </div>
+        {/block:PermalinkPagination}
+        {block:DayPagination}
+          <div id='pagination'>
+            {block:PreviousDayPage}
+              <a class='nav' href='{PreviousDayPage}' id='previous_page' title='#{year}-#{month_number_with_zero}-#{day_of_month}'>    {ShortMonth} {DayOfMonth}</a>
+              {block:NextDayPage}
+                |
+              {/block:NextDayPage}
+            {/block:PreviousDayPage}
+            {block:NextDayPage}
+              <a class='nav' href='{NextDayPage}' id='next_page' title='#{year}-#{month_number_with_zero}-#{day_of_month}'>    {ShortMonth} {DayOfMonth}</a>
+            {/block:NextDayPage}
+          </div>
+        {/block:DayPagination}
+        <div id='back_to_index'>
+          <a href='/'>Home</a>
+        </div>
       </div>
+    </div>
+    <div id='sidebar'>
+      <div id='search'>
+        <form action='/search' method='get'>
+          <input id='q' name='q' type='text' value='{SearchQuery}' />
+        </form>
+      </div>
+      <div id='description'>
+        {Description}
+      </div>
+      <ul id='meta'>
+        <li>
+          <a href='http://www.tumblr.com/follow/{Name}'>Follow</a>
+          Me
+        </li>
+        <li>
+          See something
+          <a href='/random'>Random</a>
+        </li>
+        <li>
+          Browse my
+          <a href='/archive'>Archive</a>
+        </li>
+        <li>
+          Get the
+          <a href='{RSS}'>RSS Feed</a>
+        </li>
+      </ul>
     </div>
   </body>
 </html>

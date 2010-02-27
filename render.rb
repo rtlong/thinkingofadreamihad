@@ -33,7 +33,7 @@ Dir.chdir "css/sass" do
     else
       print "Loading... "
       template = File.read(filename)
-      sass_engine = Sass::Engine.new(template)
+      sass_engine = Sass::Engine.new(template, {:style => :nested, :cache => false})
       print "Rendering... "
       output = sass_engine.render
       print "Saving... "
