@@ -4,7 +4,22 @@ require 'sass'
 require 'hamburglr'
 include Hamburglr::Tumblr
 
+module Sass::Script::Functions
+  def hostname(type)
+    case type.value
+    when "dev"
+      Sass::Script::String.new(DEV_HOST)
+    when "static"
+      Sass::Script::String.new(STATIC_HOST)
+    end
+  end
+end
+
 STDOUT.sync = true
+
+SAMPLE_DATA = false
+DEV_HOST = 'http://home.rtlong.com/assets/thinkingofadreamihad'
+STATIC_HOST = 'http://assets.rtlong.com/thinkingofadreamihad'
 
 puts "\nLoading templates..."
 haml_files = Dir['*html.haml']
@@ -33,7 +48,7 @@ Dir.chdir "css/sass" do
     else
       print "Loading... "
       template = File.read(filename)
-      sass_engine = Sass::Engine.new(template, {:style => :nested, :cache => false})
+      sass_engine = Sass::Engine.new(template, {:style => :compressed, :cache => false, :property_syntax => :old})
       print "Rendering... "
       output = sass_engine.render
       print "Saving... "

@@ -20,13 +20,13 @@
     :overflow visible
     
   #cboxContent
-    :margin-bottom = !icon_position_multiplier
+    :margin-bottom = !icon_position_multiplier + 3px
 
     #cboxLoadedContent
       
     #cboxLoadingGraphic
       :background
-        :image url(../images/loading.gif)
+        :image = "url(" + hostname("static") + "/images/loading.gif)"
         :repeat no-repeat
         :position center center
 
@@ -53,7 +53,7 @@
       :width = !icon_size
       :height = !icon_size
       :background 
-        :image url(../images/controls.png)
+        :image = "url(" + hostname("static") + "/images/controls.png)"
         :repeat no-repeat
       &:hover
         :background

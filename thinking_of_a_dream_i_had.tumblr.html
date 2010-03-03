@@ -1,85 +1,138 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
   <head>
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
-    <title>
-      {block:SearchPage}
-        Search for: '{SearchQuery}' :
-      {/block:SearchPage}
-      {block:PostTitle}
-        {PostTitle} :
-      {/block:PostTitle}
-      {block:PostSummary}
-        {PostSummary} :
-      {/block:PostSummary}
-      {Title}
-    </title>
+    <title>    {block:SearchPage}
+  Search for: '{SearchQuery}' :
+    {/block:SearchPage}
+    {block:PostTitle}
+      {PostTitle} :
+    {/block:PostTitle}
+    {block:PostSummary}
+      {PostSummary} :
+    {/block:PostSummary}
+    {Title}</title>
+    <meta content='' name='image:Blog Title' />
+    <meta content='Lucida Sans, Arial, Helvetica, sans-serif' name='font:Blog Title' />
     <meta content='Lucida Sans, Arial, Helvetica, sans-serif' name='font:Content' />
     <meta content='Lucida Sans, Arial, Helvetica, sans-serif' name='font:Controls' />
-    <meta content='http://wombat:4000/images/title-800.png' name='image:Header' />
+    <meta content='1' name='if:Show Tags' />
+    <meta content='1' name='if:Tags have hash marks' />
+    <meta content='1' name='if:Show link to Random post' />
+    <meta content='1' name='if:Show link to Follow me' />
+    <meta content='1' name='if:Show blogs I Follow' />
+    <meta content='1' name='if:Show posts I Like' />
+    <meta content='1' name='if:Automatically load next page' />
+    <meta content='1' name='if:Show Post Notes' />
+    <meta content='' name='text:Disqus Shortname' />
     <meta content='{MetaDescription}' name='description' />
     <link href='{RSS}' rel='alternate' title='RSS' type='application/rss+xml' />
     <link href='{Favicon}' rel='icon' />
     <link href='{PreviousPage}' rel='prev' title='Newer posts' />
     <link href='{NextPage}' rel='next' title='Older posts' />
-    <link href='http://wombat:4000/css/colorbox.css' media='screen' rel='stylesheet' type='text/css' />
-    <link href='http://wombat:4000/css/styles.css' media='all' rel='stylesheet' type='text/css' />
+    <link href='http://home.rtlong.com/assets/thinkingofadreamihad/css/colorbox.css' media='screen' rel='stylesheet' type='text/css' />
+    <link href='http://home.rtlong.com/assets/thinkingofadreamihad/css/styles.css' media='all' rel='stylesheet' type='text/css' />
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js' type='text/javascript'></script>
-    <script src='http://wombat:4000/js/jquery.colorbox-min.js' type='text/javascript'></script>
-    <script src='http://wombat:4000/js/jquery.infinitescroll.min.js' type='text/javascript'></script>
-    <script type='text/javascript'>
-      //<![CDATA[
-        function setUpColorbox(){
-          $(".photo-post .photo a").colorbox({
-            maxWidth: '98%',
-            maxHeight: '98%',
-            photo: true,
-            transition: 'fade', 
-            opacity: 1.0,
-            current: '{'+'current'+'} of {'+'total'+'}',
-            previous: '<span>previous</span>',
-            next: '<span>next</span>',
-            close: '<span>close</span>'
-          });
-        }
-        
-        $(document).ready(setUpColorbox);
-        
-        $('#posts').infinitescroll({
-          navSelector: '#pagination',
-          nextSelector: '#next_page',
-          itemSelector: '#posts .post'
-        }, setUpColorbox);
-      //]]>
-    </script>
+    <script src='http://assets.rtlong.com/thinkingofadreamihad/js/jquery.colorbox-min.js' type='text/javascript'></script>
+    {block:IfAutomaticallyLoadNextPage}
+      <script src='http://assets.rtlong.com/thinkingofadreamihad/js/jquery.infinitescroll.min.js' type='text/javascript'></script>
+    {/block:IfAutomaticallyLoadNextPage}
+    <script src='http://home.rtlong.com/assets/thinkingofadreamihad/js/main.js' type='text/javascript'></script>
     <style type='text/css'>
+      #title {
+        font-family: {font:Title}; }
+      
       body {
         font-family: {font:Controls}; }
       
-      #q {
-        background-image: url("http://wombat:4000/images/search_32.png"); }
+      .text-post, .link-post, .quote-post, .answer-post, .caption {
+        font-family: {font:Content}; }
+        .text-post .href, .link-post .href, .quote-post .href, .answer-post .href, .caption .href {
+          font-family: {font:Controls}; }
       
-      #colorbox #cboxLoadingGraphic {
-        background-image: url("http://wombat:4000/images/loading.gif"); }
-      #colorbox #cboxSlideshow, #colorbox #cboxPrevious, #colorbox #cboxNext, #colorbox #cboxClose {
-        background-image: url("http://wombat:4000/images/controls.png"); }
+      .like_post {
+        font-family: {font:Content}; }
+        .like_post .post_info_top, .like_post .post_info_bottom {
+          font-family: {font:Controls}; }
       {CustomCSS}
     </style>
+    <!--
+      Theme design by Ryan T. Long <ryan@rtlong.com>
+      This theme may be found at http://#FIXME
+    -->
   </head>
   <body>
     <div id='title'>
       <a href='/'>
-        {block:IfHeaderImage}
+        {block:IfBlogTitleImage}
           <img alt='{Title}' src='{image:Header}' />
-        {/block:IfHeaderImage}
-        {block:IfNotHeaderImage}
+        {/block:IfBlogTitleImage}
+        {block:IfNotBlogTitleImage}
           {Title}
-        {/block:IfNotHeaderImage}
+        {/block:IfNotBlogTitleImage}
       </a>
+    </div>
+    <div id='sidebar'>
+      <div id='search'>
+        <form action='/search' method='get'>
+          <input id='q' name='q' type='text' value='{SearchQuery}' />
+        </form>
+      </div>
+      <div id='description'>
+        {Description}
+      </div>
+      <ul id='meta'>
+        {block:IfShowLinkToFollowMe}
+          <li>
+            <a href='http://www.tumblr.com/follow/{Name}'>Follow</a>
+            Me
+          </li>
+        {/block:IfShowLinkToFollowMe}
+        {block:IfShowLinkToRandomPost}
+          <li>
+            See something
+            <a href='/random'>Random</a>
+          </li>
+        {/block:IfShowLinkToRandomPost}
+        <li>
+          Browse my
+          <a href='/archive'>Archive</a>
+        </li>
+        <li>
+          Get the
+          <a href='{RSS}'>RSS Feed</a>
+        </li>
+      </ul>
+      {block:IfShowBlogsIFollow}
+        {block:Following}
+          <div id='following'>
+            <h2>Blogs I Follow</h2>
+            <ul id='followed'>
+              {block:Followed}
+                <li>
+                  <a href='{FollowedURL}' title='{FollowedTitle}'>      {FollowedTitle}</a>
+                </li>
+              {/block:Followed}
+            </ul>
+          </div>
+        {/block:Following}
+      {/block:IfShowBlogsIFollow}
+      {block:IfShowPostsILike}
+        {block:Likes}
+          <div id='likes_container'>
+            <h2>Stuff I Like</h2>
+            {Likes limit="5" width="180" summarize="100"}
+            <a href='http://www.tumblr.com/liked/by/{Name}'>More stuff I like</a>
+          </div>
+        {/block:Likes}
+      {/block:IfShowPostsILike}
     </div>
     <div id='content'>
       {block:TagPage}
-        <h2 id='tag_page_label'>Posts tagged <em>{Tag}</em></h2>
+        <h2 id='tag_page_label'>
+          Posts tagged
+          <em>{Tag}</em>
+        </h2>
       {/block:TagPage}
       {block:DayPage}
         <h2 id='day_page_label'>Posts from {DayOfMonth} {Month} {Year}</h2>
@@ -100,19 +153,56 @@
       <div id='posts'>
         {block:Posts}
           <div class='post {TagsAsClasses}' id='{PostID}'>
-            {block:Regular}
-              <div class='text-post'>
+            {block:Reblog}
+              <div class='reblog_info'>Reblogged from&nbsp;<a href='{ReblogParentURL}'>{ReblogParentTitle}</a>              {block:RebloggedFromReblog}<span>&nbsp;(originally from<a href='{ReblogRootURL}'>{ReblogRootTitle}</a>)</span>              {/block:RebloggedFromReblog}<span>:</span></div>
+            {/block:Reblog}
+            <div class='info'>
+              <div class='posted_at'><a href='/day/{Year}/{MonthNumberWithZero}/{DayOfMonth}' title='See all posts from {ShortMonth} {DayOfMonth}'>{ShortMonth} {DayOfMonth}</a>                {block:DayPage}
+    <script type='text/javascript'>
+                    //<![CDATA[
+                      $(this).parent('.posted_at').replaceWith("{24HourWithZero}:{Minutes}");
+                    //]]>
+                  </script>
+                {/block:DayPage}
+              </div>
+              {block:IndexPage}
+                <div class='permalink'>
+                  {block:IfShowPostNotes}<a href='{Permalink}' rel='bookmark' title='{NoteCountWithLabel}'>{NoteCountWithLabel}</a>                  {/block:IfShowPostNotes}
+                  {block:IfNotShowPostNotes}<a href='{Permalink}' rel='bookmark' title='permalink to this post'>permalink</a>                  {/block:IfNotShowPostNotes}
+</div>
+              {/block:IndexPage}
+              {block:IfShowTags}
+                {block:HasTags}
+                  <div class='tags'>
+                    <ul>
+                      {block:Tags}
+                        <li><a href='{TagURLChrono}'>                        {block:IfTagsHaveHashMarks}
+#{Tag}
+                        {/block:IfTagsHaveHashMarks}
+                        {block:IfNotTagsHaveHashMarks}
+                          {Tag}
+                        {/block:IfNotTagsHaveHashMarks}</a></li>
+                      {/block:Tags}
+                    </ul>
+                  </div>
+                {/block:HasTags}
+              {/block:IfShowTags}
+            </div>
+            {block:Text}
+              <div class='text-post content'>
                 {block:Title}
                   <h1>{Title}</h1>
                 {/block:Title}
-                {Body}
+                <div class='body'>
+                  {Body}
+                </div>
               </div>
-            {/block:Regular}
+            {/block:Text}
             {block:Link}
-              <div class='link-post'>
+              <div class='link-post content'>
                 <div class='link'>
                   <h1>
-                    <a href='{URL}' target='{Target}'>    {Name}</a>
+                    <a class='external' href='{URL}' target='{Target}'>    {Name}</a>
                   </h1>
                 </div>
                 <a class='href' href='{URL}' target='{Target}'>    {URL}</a>
@@ -124,25 +214,28 @@
             {block:Photo}
               <div class='photo-post'>
                 <h1 class='hidden'>Photo</h1>
-                <div class='photo'>
-                  <a href='{PhotoURL-HighRes}' rel='photo_post' title='{PhotoAlt}'>
-                    <img alt='{PhotoAlt}' src='{PhotoURL-500}' />
-                  </a>
+                <div class='photo {block:HighRes}has-high-res{/block:HighRes}'>
+                  {LinkOpenTag}
+                  <img alt='{PhotoAlt}' src='{PhotoURL-500}' />
+                  {LinkCloseTag}
+                  {block:HighRes}
+                    <a class='photo_zoom' href='{PhotoURL-HighRes}' title='{PhotoAlt}'>View Full Resolution</a>
+                  {/block:HighRes}
                 </div>
                 {block:Caption}
-                  <div class='caption'>{Caption}</div>
+                  <div class='caption content'>{Caption}</div>
                 {/block:Caption}
               </div>
             {/block:Photo}
-            {block:PhotoSet}
+            {block:Photoset}
               <div class='photoset-post'>
                 <h1 class='hidden'>Photoset</h1>
                 <div class='photo'>{Photoset-500}</div>
                 {block:Caption}
-                  <div class='caption'>{Caption}</div>
+                  <div class='caption content'>{Caption}</div>
                 {/block:Caption}
               </div>
-            {/block:PhotoSet}
+            {/block:Photoset}
             {block:Quote}
               <div class='quote-post'>
                 <blockquote class='quote {Length}'><span class='marks'>&ldquo;</span>{Quote}<span class='marks'>&rdquo;</span></blockquote>
@@ -169,62 +262,16 @@
                   <h4>{Answer}</h4>
                 </div>
               </div>
+              {block:IfShowPostNotes}
+                {block:PostNotes}
+                  <hr />
+                  <div class='notes'>
+                    <h2>{NoteCountWithLabel}</h2>
+                    {PostNotes}
+                  </div>
+                {/block:PostNotes}
+              {/block:IfShowPostNotes}
             {/block:Answer}
-            <div class='info'>
-              <div>
-                <span class='date'>
-                  {block:Reblog}
-                    Reblogged
-                  {/block:Reblog}
-                  {block:NotReblog}
-                    Posted
-                  {/block:NotReblog}
-                  <span class='posted_at'>
-                    <a href='/day/{Year}/{MonthNumberWithZero}/{DayOfMonth}' title='All posts from this day'>  {DayOfMonth} {Month} {Year}</a>
-                    {block:DayPage}
-                      <script type='text/javascript'>
-                        //<![CDATA[
-                          $('#{PostID} .posted_at')[0].innerHTML = "at {24HourWithZero}:{Minutes}";
-                        //]]>
-                      </script>
-                    {/block:DayPage}
-                  </span>
-                  {block:Reblog}
-                    <span class='reblog_info'>
-                      from
-                      <a href='{ReblogParentURL}'>    {ReblogParentTitle}</a>
-                      {block:RebloggedFromReblog}
-                        (originally from<a href='{ReblogRootURL}'>{ReblogRootTitle}</a>)
-                      {/block:RebloggedFromReblog}
-                    </span>
-                  {/block:Reblog}
-                </span>
-                {block:IndexPage}
-                  &bull;
-                  <span class='permalink'>
-                    <a href='{Permalink}' rel='bookmark' title='{NoteCountWithLabel}'>    {NoteCountWithLabel}</a>
-                  </span>
-                {/block:IndexPage}
-              </div>
-              {block:HasTags}
-                <div class='tags'>
-                  Tagged:
-                  <ul>
-                    {block:Tags}
-                      <li>
-                        <a href='{TagURLChrono}'>      {Tag}</a>
-                      </li>
-                    {/block:Tags}
-                  </ul>
-                </div>
-              {/block:HasTags}
-              {block:PostNotes}
-                <div class='notes'>
-                  <h2>{NoteCountWithLabel}</h2>
-                  {PostNotes}
-                </div>
-              {/block:PostNotes}
-            </div>
           </div>
           {block:IndexPage}
             <hr />
@@ -246,26 +293,26 @@
         {block:PermalinkPagination}
           <div id='pagination'>
             {block:PreviousPost}
-              <a class='nav' href='{PreviousPost}' id='previous_page' title='Newer Post'>Newer Post</a>
+              <a class='nav' href='{PreviousPost}' id='previous_post' title='Newer Post'>Newer Post</a>
               {block:NextPost}
                 |
               {/block:NextPost}
             {/block:PreviousPost}
             {block:NextPost}
-              <a class='nav' href='{NextPost}' id='next_page' title='Older Post'>Older Post</a>
+              <a class='nav' href='{NextPost}' id='next_post' title='Older Post'>Older Post</a>
             {/block:NextPost}
           </div>
         {/block:PermalinkPagination}
         {block:DayPagination}
           <div id='pagination'>
             {block:PreviousDayPage}
-              <a class='nav' href='{PreviousDayPage}' id='previous_page' title='#{year}-#{month_number_with_zero}-#{day_of_month}'>    {ShortMonth} {DayOfMonth}</a>
+              <a class='nav' href='{PreviousDayPage}' id='previous_day' title='{Year}-{MonthNumberWithZero}-{DayOfMonth}'>    {ShortMonth} {DayOfMonth}</a>
               {block:NextDayPage}
                 |
               {/block:NextDayPage}
             {/block:PreviousDayPage}
             {block:NextDayPage}
-              <a class='nav' href='{NextDayPage}' id='next_page' title='#{year}-#{month_number_with_zero}-#{day_of_month}'>    {ShortMonth} {DayOfMonth}</a>
+              <a class='nav' href='{NextDayPage}' id='next_day' title='{Year}-{MonthNumberWithZero}-{DayOfMonth}'>    {ShortMonth} {DayOfMonth}</a>
             {/block:NextDayPage}
           </div>
         {/block:DayPagination}
@@ -274,33 +321,9 @@
         </div>
       </div>
     </div>
-    <div id='sidebar'>
-      <div id='search'>
-        <form action='/search' method='get'>
-          <input id='q' name='q' type='text' value='{SearchQuery}' />
-        </form>
-      </div>
-      <div id='description'>
-        {Description}
-      </div>
-      <ul id='meta'>
-        <li>
-          <a href='http://www.tumblr.com/follow/{Name}'>Follow</a>
-          Me
-        </li>
-        <li>
-          See something
-          <a href='/random'>Random</a>
-        </li>
-        <li>
-          Browse my
-          <a href='/archive'>Archive</a>
-        </li>
-        <li>
-          Get the
-          <a href='{RSS}'>RSS Feed</a>
-        </li>
-      </ul>
+    <div id='credit'>
+      Theme design by
+      <a href='http://www.rtlong.com/' target='_blank'>RTLong</a>
     </div>
   </body>
 </html>

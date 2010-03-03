@@ -1,10 +1,8 @@
-- Hamburglr::Tumblr::SAMPLE_DATA = false
-- ASSET_HOST = 'http://wombat:4000'
-!!!
+!!! 1.1
 %html{ 'xml:lang' => 'en', :lang => 'en', :xmlns => 'http://www.w3.org/1999/xhtml' }
   %head
     %meta{ :content => 'text/html; charset=utf-8', 'http-equiv' => 'Content-Type' }
-    %title 
+    %title<
       - b :SearchPage do
         Search for: '#{search_query}' :
       - b :PostTitle do
@@ -12,79 +10,106 @@
       - b :PostSummary do
         #{post_summary} : 
       = title
-      
-    - meta_var :font, 'Content', 'Lucida Sans, Arial, Helvetica, sans-serif'
-    - meta_var :font, 'Controls', 'Lucida Sans, Arial, Helvetica, sans-serif'
-    - meta_var :image, 'Header', "#{ASSET_HOST}/images/title-800.png"
+    
+    - meta_var :image, 'Blog Title', ''
+    - meta_var :font,  'Blog Title', 'Lucida Sans, Arial, Helvetica, sans-serif'
+    - meta_var :font,  'Content', 'Lucida Sans, Arial, Helvetica, sans-serif'
+    - meta_var :font,  'Controls', 'Lucida Sans, Arial, Helvetica, sans-serif'
+    - meta_var :if,    "Show Tags", 1
+    - meta_var :if,    "Tags have hash marks", 1
+    - meta_var :if,    "Show link to Random post", 1
+    - meta_var :if,    "Show link to Follow me", 1
+    - meta_var :if,    "Show blogs I Follow", 1
+    - meta_var :if,    "Show posts I Like", 1
+    - meta_var :if,    "Automatically load next page", 1
+    - meta_var :if,    "Show Post Notes", 1
+    -# meta_var :if,    "", 1
+    - meta_var :text,  'Disqus Shortname', ''
     %meta{ :name => 'description', :content => meta_description }
         
     %link{ :rel => :alternate, :type => 'application/rss+xml', :href => rss, :title => 'RSS' }
     %link{ :rel => :icon, :href => favicon }
     %link{ :rel => :prev, :href => previous_page, :title => 'Newer posts' }
     %link{ :rel => :next, :href => next_page,     :title => 'Older posts' }
-    %link{ :rel => :stylesheet, :media => :screen, :href => "#{ASSET_HOST}/css/colorbox.css", :type => 'text/css' }
-    %link{ :rel => :stylesheet, :media => :all,    :href => "#{ASSET_HOST}/css/styles.css", :type => 'text/css' }
+    %link{ :rel => :stylesheet, :media => :screen, :href => "#{DEV_HOST}/css/colorbox.css", :type => 'text/css' }
+    %link{ :rel => :stylesheet, :media => :all,    :href => "#{DEV_HOST}/css/styles.css", :type => 'text/css' }
     %script{ :src => 'http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js', :type => 'text/javascript' }
-    %script{ :src => "#{ASSET_HOST}/js/jquery.colorbox-min.js", :type => 'text/javascript' }
-    %script{ :src => "#{ASSET_HOST}/js/jquery.infinitescroll.min.js", :type => 'text/javascript' }
+    %script{ :src => "#{STATIC_HOST}/js/jquery.colorbox-min.js", :type => 'text/javascript' }
+    - b :IfAutomaticallyLoadNextPage do
+      %script{ :src => "#{STATIC_HOST}/js/jquery.infinitescroll.min.js", :type => 'text/javascript' }
+    %script{ :src => "#{DEV_HOST}/js/main.js", :type => 'text/javascript' }
     
-    :javascript
-      // Creating custom :external selector
-      $.expr[':'].external = function(obj){
-          return !obj.href.match(/^mailto\:/)
-                  && (obj.hostname != location.hostname);
-      };
-
-      // Add 'external' CSS class to all external links
-      $('a:external').addClass('external');
-      
-      function setUpColorbox(){
-        $(".photo-post .photo a").colorbox({
-          maxWidth: '98%',
-          maxHeight: '98%',
-          photo: true,
-          transition: 'fade', 
-          opacity: 1.0,
-          current: '{'+'current'+'} of {'+'total'+'}',
-          previous: '<span>previous</span>',
-          next: '<span>next</span>',
-          close: '<span>close</span>'
-        });
-      }
-    
-      $(document).ready(setUpColorbox);
-      
-      $('#posts').infinitescroll({
-        navSelector: '#pagination',
-        nextSelector: '#next_page',
-        itemSelector: '#posts .post'
-      }, setUpColorbox);
-
     %style{ :type => 'text/css' } 
       :sass
+        #title
+          :font-family #{font :Title}
         body
           :font-family #{font :Controls}
+        .text-post, .link-post, .quote-post, .answer-post, .caption
+          :font-family #{font :Content}
+          .href
+            :font-family #{font :Controls}
           
-        #q
-          :background-image url("#{ASSET_HOST}/images/search_32.png")
-        
-        #colorbox
-          #cboxLoadingGraphic
-            :background-image url("#{ASSET_HOST}/images/loading.gif")
-          #cboxSlideshow, #cboxPrevious, #cboxNext, #cboxClose
-            :background-image url("#{ASSET_HOST}/images/controls.png")
+        .like_post
+          :font-family #{font :Content}
+          .post_info_top, .post_info_bottom
+            :font-family #{font :Controls}
             
       = custom_css
+    
+    / 
+      Theme design by Ryan T. Long <ryan@rtlong.com>
+      This theme may be found at http://#FIXME
   %body
     #title
       %a{ :href => '/' }
-        - b :IfHeaderImage do
+        - b :IfBlogTitleImage do
           %img{ :src => image(:Header), :alt => title }
-        - b :IfNotHeaderImage do
+        - b :IfNotBlogTitleImage do
           = title
+    #sidebar
+      #search
+        %form{ :method => 'get', :action => '/search' }
+          %input#q{ :name => 'q', :type => 'text', :value => search_query }
+      #description
+        = description
+      %ul#meta
+        - b :IfShowLinkToFollowMe do
+          %li
+            %a{ :href => "http://www.tumblr.com/follow/{Name}" } Follow
+            Me
+        - b :IfShowLinkToRandomPost do
+          %li
+            See something
+            %a{ :href => "/random" } Random
+        %li
+          Browse my
+          %a{ :href => '/archive' } Archive
+        %li
+          Get the 
+          %a{ :href => rss } RSS Feed
+          
+      - b :IfShowBlogsIFollow do
+        - b :Following do
+          #following
+            %h2 Blogs I Follow
+            %ul#followed
+              - b :Followed do
+                %li
+                  %a{ :href => followed_url, :title => followed_title }= followed_title
+                  
+      - b :IfShowPostsILike do
+        - b :Likes do
+          #likes_container
+            %h2 Stuff I Like
+            = likes :limit => 5, :width => 180, :summarize => 100
+            %a{ :href => "http://www.tumblr.com/liked/by/#{name}" } More stuff I like
+              
     #content
       - b :TagPage do
-        %h2#tag_page_label Posts tagged <em>#{tag}</em>
+        %h2#tag_page_label
+          Posts tagged
+          %em= tag
       - b :DayPage do
         %h2#day_page_label Posts from #{day_of_month} #{month} #{year}
       - b :SearchPage do
@@ -99,16 +124,53 @@
       #posts
         - b :Posts do
           .post{ :id => post_id, :class => tags_as_classes }
+            
+            - b :Reblog do
+              .reblog_info<
+                Reblogged from&nbsp;
+                %a{ :href => reblog_parent_url }><= reblog_parent_title
+                - b :RebloggedFromReblog do
+                  %span><
+                    &nbsp;(originally from
+                    %a{:href => reblog_root_url }><= reblog_root_title
+                    )                         
+                %span><= ":"
+                
+            .info
+              .posted_at
+                %a{ :href => "/day/#{year}/#{month_number_with_zero}/#{day_of_month}", :title => "See all posts from #{short_month} #{day_of_month}" }<>= "#{short_month} #{day_of_month}"
+                - b :DayPage do
+                  :javascript
+                    $(this).parent('.posted_at').replaceWith("#{var '24_hour_with_zero'}:#{minutes}");
+
+              - b :IndexPage do
+                .permalink
+                  - b :IfShowPostNotes do
+                    %a{ :href => permalink, :title => note_count_with_label, :rel => :bookmark }<>= note_count_with_label
+                  - b :IfNotShowPostNotes do
+                    %a{ :href => permalink, :title => 'permalink to this post', :rel => :bookmark }<> permalink                    
+                      
+              - b :IfShowTags do
+                - b :HasTags do
+                  .tags
+                    %ul
+                      - b :Tags do
+                        %li<
+                          %a{:href => tag_url_chrono}><
+                            - b :IfTagsHaveHashMarks do
+                              = "##{tag}"
+                            - b :IfNotTagsHaveHashMarks do
+                              = tag
+            
             - b :Text do
-              .text-post
+              .text-post.content
                 - b :Title do
                   %h1= title
-                - b :NoTitle do
-                  %h1.hidden Post
-                = body
+                .body 
+                  = body
             
             - b :Link do
-              .link-post
+              .link-post.content
                 .link
                   %h1
                     %a.external{ :href => url, :target => target }= name
@@ -119,18 +181,22 @@
             - b :Photo do
               .photo-post
                 %h1.hidden Photo 
-                .photo
-                  %a{ :href => photo_url_high_res, :title => photo_alt, :rel => "photo_post" }
-                    %img{ :src => photo_url_500, :alt => photo_alt }
+                .photo{ :class => "{block:HighRes}has-high-res{/block:HighRes}" }
+                  =link_open_tag
+                  %img{ :src => photo_url_500, :alt => photo_alt }
+                  =link_close_tag
+                  - b :HighRes do
+                    %a.photo_zoom{ :href => photo_url_high_res, :title => photo_alt } View Full Resolution
+
                 - b :Caption do
-                  .caption= caption
+                  .caption.content= caption
             
-            - b :PhotoSet do
+            - b :Photoset do
               .photoset-post
                 %h1.hidden Photoset
                 .photo= photoset_500
                 - b :Caption do
-                  .caption= caption
+                  .caption.content= caption
             
             - b :Quote do
               .quote-post
@@ -158,44 +224,13 @@
                 .answer
                   .icon A:
                   %h4= answer
-                
-            .info
-              %div
-                %span.date
-                  - b :Reblog do
-                    Reblogged
-                  - b :NotReblog do
-                    Posted
-                  %span.posted_at
-                    %a{ :href => "/day/#{year}/#{month_number_with_zero}/#{day_of_month}", :title => "All posts from this day" } #{day_of_month} #{month} #{year}
-                    - b :DayPage do
-                      :javascript
-                        $('##{post_id} .posted_at')[0].innerHTML = "at #{var '24_hour_with_zero'}:#{minutes}";
-                  - b :Reblog do
-                    %span.reblog_info
-                      from 
-                      %a{ :href => reblog_parent_url } #{reblog_parent_title}
-                      - b :RebloggedFromReblog do
-                        (originally from 
-                        %a{:href => reblog_root_url }>= reblog_root_title
-                        )
-                - b :IndexPage do
-                  &bull;
-                  %span.permalink
-                    %a{ :href => permalink, :title => note_count_with_label, :rel => :bookmark }= note_count_with_label
-                    
-              - b :HasTags do
-                .tags
-                  Tagged: 
-                  %ul
-                    - b :Tags do
-                      %li
-                        %a{:href => tag_url_chrono}= tag
-                        
-              - b :PostNotes do
-                .notes
-                  %h2= note_count_with_label
-                  = post_notes
+                  
+              - b :IfShowPostNotes do 
+                - b :PostNotes do
+                  %hr/ 
+                  .notes
+                    %h2= note_count_with_label
+                    = post_notes
                   
   
           - b :IndexPage do
@@ -213,41 +248,25 @@
         - b :PermalinkPagination do
           #pagination
             - b :PreviousPost do
-              %a.nav#previous_page{ :href => previous_post, :title => 'Newer Post' } Newer Post
+              %a.nav#previous_post{ :href => previous_post, :title => 'Newer Post' } Newer Post
               - b :NextPost do  
                 |
             - b :NextPost do
-              %a.nav#next_page{ :href => next_post, :title => 'Older Post' } Older Post
+              %a.nav#next_post{ :href => next_post, :title => 'Older Post' } Older Post
         
         - b :DayPagination do
           #pagination
             - b :PreviousDayPage do
-              %a.nav#previous_page{ :href => previous_day_page, :title => '#{year}-#{month_number_with_zero}-#{day_of_month}' } #{short_month} #{day_of_month}
+              %a.nav#previous_day{ :href => previous_day_page, :title => "#{year}-#{month_number_with_zero}-#{day_of_month}" } #{short_month} #{day_of_month}
               - b :NextDayPage do
                 |
             - b :NextDayPage do
-              %a.nav#next_page{ :href => next_day_page, :title => '#{year}-#{month_number_with_zero}-#{day_of_month}' } #{short_month} #{day_of_month}
+              %a.nav#next_day{ :href => next_day_page, :title => "#{year}-#{month_number_with_zero}-#{day_of_month}" } #{short_month} #{day_of_month}
 
         #back_to_index
           %a{ :href => "/" } Home
     
-    #sidebar
-      #search
-        %form{ :method => 'get', :action => '/search' }
-          %input#q{ :name => 'q', :type => 'text', :value => search_query }
-      #description
-        = description
-      %ul#meta
-        %li
-          %a{ :href => "http://www.tumblr.com/follow/{Name}" } Follow
-          Me
-        %li
-          See something
-          %a{ :href => "/random" } Random
-        %li
-          Browse my
-          %a{ :href => '/archive' } Archive
-        %li
-          Get the 
-          %a{ :href => rss } RSS Feed
-          
+    
+    #credit
+      Theme design by
+      %a{ :href => 'http://www.rtlong.com/', :target => '_blank' } RTLong
