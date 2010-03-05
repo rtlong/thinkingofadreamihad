@@ -29,6 +29,7 @@
         
     %link{ :rel => :alternate, :type => 'application/rss+xml', :href => rss, :title => 'RSS' }
     %link{ :rel => :icon, :href => favicon }
+    %link{ :rel => :home, :href => '' }
     %link{ :rel => :prev, :href => previous_page, :title => 'Newer posts' }
     %link{ :rel => :next, :href => next_page,     :title => 'Older posts' }
     %link{ :rel => :stylesheet, :media => :screen, :href => "#{DEV_HOST}/css/colorbox.css", :type => 'text/css' }
@@ -68,11 +69,18 @@
         - b :IfNotBlogTitleImage do
           = title
     #sidebar
-      #search
-        %form{ :method => 'get', :action => '/search' }
+      %form{ :method => 'get', :action => '/search' }
+        #search
+          %label.hidden{:for => 'q'} Search Query
           %input#q{ :name => 'q', :type => 'text', :value => search_query }
+          %input.hidden{ :type => 'submit', :value => 'Search' }
       #description
         = description
+      - b :HasPages do
+        %ul#pages
+          - b :Pages do
+            %li
+              %a{:href => url}= label
       %ul#meta
         - b :IfShowLinkToFollowMe do
           %li
@@ -123,7 +131,7 @@
           
       #posts
         - b :Posts do
-          .post{ :id => post_id, :class => tags_as_classes }
+          .post{ :id => "post-#{post_id}", :class => tags_as_classes }
             
             - b :Reblog do
               .reblog_info<
@@ -137,13 +145,14 @@
                 %span><= ":"
                 
             .info
-              .posted_at
-                %a{ :href => "/day/#{year}/#{month_number_with_zero}/#{day_of_month}", :title => "See all posts from #{short_month} #{day_of_month}" }<>= "#{short_month} #{day_of_month}"
-                - b :DayPage do
-                  :javascript
-                    $(this).parent('.posted_at').replaceWith("#{var '24_hour_with_zero'}:#{minutes}");
+              - b :Date do
+                .posted_at
+                  %a{ :href => "/day/#{year}/#{month_number_with_zero}/#{day_of_month}", :title => "See all posts from #{short_month} #{day_of_month}" }<>= "#{short_month} #{day_of_month}"
+                  - b :DayPage do
+                    :javascript
+                      $(this).parent('.posted_at').replaceWith("#{var '24_hour_with_zero'}:#{minutes}");
 
-              - b :IndexPage do
+              - b :NoteCount do
                 .permalink
                   - b :IfShowPostNotes do
                     %a{ :href => permalink, :title => note_count_with_label, :rel => :bookmark }<>= note_count_with_label
@@ -173,31 +182,65 @@
               .link-post.content
                 .link
                   %h1
-                    %a.external{ :href => url, :target => target }= name
-                %a.href{ :href => url, :target => target }= url
+                    %a.external{ :href => url }= name
+                %a.href{ :href => url }= url
                 - b :Description do
                   .caption= description
             
             - b :Photo do
               .photo-post
-                %h1.hidden Photo 
+                %h1.hidden Photo Post
                 .photo{ :class => "{block:HighRes}has-high-res{/block:HighRes}" }
                   =link_open_tag
                   %img{ :src => photo_url_500, :alt => photo_alt }
                   =link_close_tag
-                  - b :HighRes do
-                    %a.photo_zoom{ :href => photo_url_high_res, :title => photo_alt } View Full Resolution
+                  .hover-info
+                    - b :HighRes do
+                      %a{ :href => photo_url_high_res } View Full Resolution
 
                 - b :Caption do
                   .caption.content= caption
             
             - b :Photoset do
               .photoset-post
-                %h1.hidden Photoset
-                .photo= photoset_500
+                %h1.hidden Photoset Post
+                .player= photoset_500
                 - b :Caption do
                   .caption.content= caption
             
+            - b :Video do
+              .video-post
+                %h1.hidden Video Post
+                .player= video_500
+                - b :Caption do
+                  .caption.content= caption
+            
+            - b :Audio do
+              .audio-post
+                %h1.hidden Audio Post
+                - b :AlbumArt do 
+                  .album-art
+                    %img{ :src => album_art_url }
+                .player
+                  = audio_player_white
+                  - b :ExternalAudio do
+                    .download-link
+                      %a{ :href => external_audio_url } Download This Track
+                .info
+                  .playcount This track has been played #{formatted_play_count} times
+                  %dl
+                    - b :TrackName do
+                      %dt Track Name:
+                      %dd= track_name
+                    - b :Artist do
+                      %dt Artist:
+                      %dd= artist
+                    - b :Album do
+                      %dt Album:
+                      %dd= album
+                - b :Caption do
+                  .caption.content= caption
+                        
             - b :Quote do
               .quote-post
                 %blockquote.quote{:class => length}<
@@ -240,33 +283,35 @@
         - b :Pagination do
           #pagination
             - b :PreviousPage do
-              %a.arrow_nav#previous_page{ :href => previous_page, :title => 'Newer posts' } &larr;
+              %a.arrow_nav#previous_page{ :href => previous_page, :title => 'Newer posts', :rel => :prev } &larr;
             %span.status Page #{current_page} of #{total_pages}
             - b :NextPage do
-              %a.arrow_nav#next_page{ :href => next_page, :title => 'Older posts' } &rarr;
+              %a.arrow_nav#next_page{ :href => next_page, :title => 'Older posts', :rel => :next } &rarr;
               
         - b :PermalinkPagination do
           #pagination
             - b :PreviousPost do
-              %a.nav#previous_post{ :href => previous_post, :title => 'Newer Post' } Newer Post
+              %a.nav#previous_post{ :href => previous_post, :title => 'Newer Post', :rel => :prev } Newer Post
               - b :NextPost do  
                 |
             - b :NextPost do
-              %a.nav#next_post{ :href => next_post, :title => 'Older Post' } Older Post
+              %a.nav#next_post{ :href => next_post, :title => 'Older Post', :rel => :next } Older Post
         
         - b :DayPagination do
           #pagination
             - b :PreviousDayPage do
-              %a.nav#previous_day{ :href => previous_day_page, :title => "#{year}-#{month_number_with_zero}-#{day_of_month}" } #{short_month} #{day_of_month}
+              %a.nav#previous_day{ :href => previous_day_page, :title => "#{year}-#{month_number_with_zero}-#{day_of_month}", :rel => :prev } #{short_month} #{day_of_month}
               - b :NextDayPage do
                 |
             - b :NextDayPage do
-              %a.nav#next_day{ :href => next_day_page, :title => "#{year}-#{month_number_with_zero}-#{day_of_month}" } #{short_month} #{day_of_month}
+              %a.nav#next_day{ :href => next_day_page, :title => "#{year}-#{month_number_with_zero}-#{day_of_month}", :rel => :next } #{short_month} #{day_of_month}
 
         #back_to_index
-          %a{ :href => "/" } Home
+          %a{ :href => "/", :rel => :home } Home
     
     
+    %a#return_to_top.hidden{ :href => "#title" }
+      %img{ :src => 'http://assets.tumblr.com/images/jump_to_top_arrow.png', :alt => '^ Return to Top ^' }
     #credit
       Theme design by
-      %a{ :href => 'http://www.rtlong.com/', :target => '_blank' } RTLong
+      %a{ :href => 'http://www.rtlong.com/' } RTLong

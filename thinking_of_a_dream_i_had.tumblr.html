@@ -28,6 +28,7 @@
     <meta content='{MetaDescription}' name='description' />
     <link href='{RSS}' rel='alternate' title='RSS' type='application/rss+xml' />
     <link href='{Favicon}' rel='icon' />
+    <link href='' rel='home' />
     <link href='{PreviousPage}' rel='prev' title='Newer posts' />
     <link href='{NextPage}' rel='next' title='Older posts' />
     <link href='http://home.rtlong.com/assets/thinkingofadreamihad/css/colorbox.css' media='screen' rel='stylesheet' type='text/css' />
@@ -73,14 +74,25 @@
       </a>
     </div>
     <div id='sidebar'>
-      <div id='search'>
-        <form action='/search' method='get'>
+      <form action='/search' method='get'>
+        <div id='search'>
+          <label class='hidden' for='q'>Search Query</label>
           <input id='q' name='q' type='text' value='{SearchQuery}' />
-        </form>
-      </div>
+          <input class='hidden' type='submit' value='Search' />
+        </div>
+      </form>
       <div id='description'>
         {Description}
       </div>
+      {block:HasPages}
+        <ul id='pages'>
+          {block:Pages}
+            <li>
+              <a href='{URL}'>    {Label}</a>
+            </li>
+          {/block:Pages}
+        </ul>
+      {/block:HasPages}
       <ul id='meta'>
         {block:IfShowLinkToFollowMe}
           <li>
@@ -121,7 +133,7 @@
         {block:Likes}
           <div id='likes_container'>
             <h2>Stuff I Like</h2>
-            {Likes limit="5" width="180" summarize="100"}
+            {Likes limit="5" summarize="100" width="180"}
             <a href='http://www.tumblr.com/liked/by/{Name}'>More stuff I like</a>
           </div>
         {/block:Likes}
@@ -152,25 +164,27 @@
       {/block:SearchPage}
       <div id='posts'>
         {block:Posts}
-          <div class='post {TagsAsClasses}' id='{PostID}'>
+          <div class='post {TagsAsClasses}' id='post-{PostID}'>
             {block:Reblog}
               <div class='reblog_info'>Reblogged from&nbsp;<a href='{ReblogParentURL}'>{ReblogParentTitle}</a>              {block:RebloggedFromReblog}<span>&nbsp;(originally from<a href='{ReblogRootURL}'>{ReblogRootTitle}</a>)</span>              {/block:RebloggedFromReblog}<span>:</span></div>
             {/block:Reblog}
             <div class='info'>
-              <div class='posted_at'><a href='/day/{Year}/{MonthNumberWithZero}/{DayOfMonth}' title='See all posts from {ShortMonth} {DayOfMonth}'>{ShortMonth} {DayOfMonth}</a>                {block:DayPage}
-    <script type='text/javascript'>
-                    //<![CDATA[
-                      $(this).parent('.posted_at').replaceWith("{24HourWithZero}:{Minutes}");
-                    //]]>
-                  </script>
-                {/block:DayPage}
-              </div>
-              {block:IndexPage}
+              {block:Date}
+                <div class='posted_at'><a href='/day/{Year}/{MonthNumberWithZero}/{DayOfMonth}' title='See all posts from {ShortMonth} {DayOfMonth}'>{ShortMonth} {DayOfMonth}</a>                  {block:DayPage}
+      <script type='text/javascript'>
+                      //<![CDATA[
+                        $(this).parent('.posted_at').replaceWith("{24HourWithZero}:{Minutes}");
+                      //]]>
+                    </script>
+                  {/block:DayPage}
+                </div>
+              {/block:Date}
+              {block:NoteCount}
                 <div class='permalink'>
                   {block:IfShowPostNotes}<a href='{Permalink}' rel='bookmark' title='{NoteCountWithLabel}'>{NoteCountWithLabel}</a>                  {/block:IfShowPostNotes}
                   {block:IfNotShowPostNotes}<a href='{Permalink}' rel='bookmark' title='permalink to this post'>permalink</a>                  {/block:IfNotShowPostNotes}
 </div>
-              {/block:IndexPage}
+              {/block:NoteCount}
               {block:IfShowTags}
                 {block:HasTags}
                   <div class='tags'>
@@ -202,10 +216,10 @@
               <div class='link-post content'>
                 <div class='link'>
                   <h1>
-                    <a class='external' href='{URL}' target='{Target}'>    {Name}</a>
+                    <a class='external' href='{URL}'>    {Name}</a>
                   </h1>
                 </div>
-                <a class='href' href='{URL}' target='{Target}'>    {URL}</a>
+                <a class='href' href='{URL}'>    {URL}</a>
                 {block:Description}
                   <div class='caption'>{Description}</div>
                 {/block:Description}
@@ -213,14 +227,16 @@
             {/block:Link}
             {block:Photo}
               <div class='photo-post'>
-                <h1 class='hidden'>Photo</h1>
+                <h1 class='hidden'>Photo Post</h1>
                 <div class='photo {block:HighRes}has-high-res{/block:HighRes}'>
                   {LinkOpenTag}
                   <img alt='{PhotoAlt}' src='{PhotoURL-500}' />
                   {LinkCloseTag}
-                  {block:HighRes}
-                    <a class='photo_zoom' href='{PhotoURL-HighRes}' title='{PhotoAlt}'>View Full Resolution</a>
-                  {/block:HighRes}
+                  <div class='hover-info'>
+                    {block:HighRes}
+                      <a href='{PhotoURL-HighRes}'>View Full Resolution</a>
+                    {/block:HighRes}
+                  </div>
                 </div>
                 {block:Caption}
                   <div class='caption content'>{Caption}</div>
@@ -229,13 +245,60 @@
             {/block:Photo}
             {block:Photoset}
               <div class='photoset-post'>
-                <h1 class='hidden'>Photoset</h1>
-                <div class='photo'>{Photoset-500}</div>
+                <h1 class='hidden'>Photoset Post</h1>
+                <div class='player'>{Photoset-500}</div>
                 {block:Caption}
                   <div class='caption content'>{Caption}</div>
                 {/block:Caption}
               </div>
             {/block:Photoset}
+            {block:Video}
+              <div class='video-post'>
+                <h1 class='hidden'>Video Post</h1>
+                <div class='player'>{VIDeo-500}</div>
+                {block:Caption}
+                  <div class='caption content'>{Caption}</div>
+                {/block:Caption}
+              </div>
+            {/block:Video}
+            {block:Audio}
+              <div class='audio-post'>
+                <h1 class='hidden'>Audio Post</h1>
+                {block:AlbumArt}
+                  <div class='album-art'>
+                    <img src='{AlbumArtURL}' />
+                  </div>
+                {/block:AlbumArt}
+                <div class='player'>
+                  {AudioPlayerWhite}
+                  {block:ExternalAudio}
+                    <div class='download-link'>
+                      <a href='{ExternalAudioURL}'>Download This Track</a>
+                    </div>
+                  {/block:ExternalAudio}
+                </div>
+                <div class='info'>
+                  <div class='playcount'>This track has been played {FormattedPlayCount} times</div>
+                  <dl>
+                    {block:TrackName}
+                      <dt>Track Name:</dt>
+                      <dd>{TrackName}</dd>
+                    {/block:TrackName}
+                    {block:Artist}
+                      <dt>Artist:</dt>
+                      <dd>{Artist}</dd>
+                    {/block:Artist}
+                    {block:Album}
+                      <dt>Album:</dt>
+                      <dd>{Album}</dd>
+                    {/block:Album}
+                  </dl>
+                </div>
+                {block:Caption}
+                  <div class='caption content'>{Caption}</div>
+                {/block:Caption}
+              </div>
+            {/block:Audio}
             {block:Quote}
               <div class='quote-post'>
                 <blockquote class='quote {Length}'><span class='marks'>&ldquo;</span>{Quote}<span class='marks'>&rdquo;</span></blockquote>
@@ -282,48 +345,51 @@
         {block:Pagination}
           <div id='pagination'>
             {block:PreviousPage}
-              <a class='arrow_nav' href='{PreviousPage}' id='previous_page' title='Newer posts'>&larr;</a>
+              <a class='arrow_nav' href='{PreviousPage}' id='previous_page' rel='prev' title='Newer posts'>&larr;</a>
             {/block:PreviousPage}
             <span class='status'>Page {CurrentPage} of {TotalPages}</span>
             {block:NextPage}
-              <a class='arrow_nav' href='{NextPage}' id='next_page' title='Older posts'>&rarr;</a>
+              <a class='arrow_nav' href='{NextPage}' id='next_page' rel='next' title='Older posts'>&rarr;</a>
             {/block:NextPage}
           </div>
         {/block:Pagination}
         {block:PermalinkPagination}
           <div id='pagination'>
             {block:PreviousPost}
-              <a class='nav' href='{PreviousPost}' id='previous_post' title='Newer Post'>Newer Post</a>
+              <a class='nav' href='{PreviousPost}' id='previous_post' rel='prev' title='Newer Post'>Newer Post</a>
               {block:NextPost}
                 |
               {/block:NextPost}
             {/block:PreviousPost}
             {block:NextPost}
-              <a class='nav' href='{NextPost}' id='next_post' title='Older Post'>Older Post</a>
+              <a class='nav' href='{NextPost}' id='next_post' rel='next' title='Older Post'>Older Post</a>
             {/block:NextPost}
           </div>
         {/block:PermalinkPagination}
         {block:DayPagination}
           <div id='pagination'>
             {block:PreviousDayPage}
-              <a class='nav' href='{PreviousDayPage}' id='previous_day' title='{Year}-{MonthNumberWithZero}-{DayOfMonth}'>    {ShortMonth} {DayOfMonth}</a>
+              <a class='nav' href='{PreviousDayPage}' id='previous_day' rel='prev' title='{Year}-{MonthNumberWithZero}-{DayOfMonth}'>    {ShortMonth} {DayOfMonth}</a>
               {block:NextDayPage}
                 |
               {/block:NextDayPage}
             {/block:PreviousDayPage}
             {block:NextDayPage}
-              <a class='nav' href='{NextDayPage}' id='next_day' title='{Year}-{MonthNumberWithZero}-{DayOfMonth}'>    {ShortMonth} {DayOfMonth}</a>
+              <a class='nav' href='{NextDayPage}' id='next_day' rel='next' title='{Year}-{MonthNumberWithZero}-{DayOfMonth}'>    {ShortMonth} {DayOfMonth}</a>
             {/block:NextDayPage}
           </div>
         {/block:DayPagination}
         <div id='back_to_index'>
-          <a href='/'>Home</a>
+          <a href='/' rel='home'>Home</a>
         </div>
       </div>
     </div>
+    <a class='hidden' href='#title' id='return_to_top'>
+      <img alt='^ Return to Top ^' src='http://assets.tumblr.com/images/jump_to_top_arrow.png' />
+    </a>
     <div id='credit'>
       Theme design by
-      <a href='http://www.rtlong.com/' target='_blank'>RTLong</a>
+      <a href='http://www.rtlong.com/'>RTLong</a>
     </div>
   </body>
 </html>

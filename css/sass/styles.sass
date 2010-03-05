@@ -6,6 +6,7 @@
 !color_secondary = #777777
 !color_minor = #999999
 !sidebar_width = 200px
+!post_info_width = 140px
 
 html, body
   :background-color = !color_background
@@ -15,7 +16,9 @@ html, body
     :size 16px
 
 html
-  :margin-right = !sidebar_width + 20
+  :margin
+    :right = !sidebar_width + 14
+    :bottom 20px
 
 @for !h_level from 1 through 6
   h#{!h_level}
@@ -111,7 +114,10 @@ ol
   :text-align center
   :font-size 48px
   :margin 25px 0 25px 0
-  :padding-bottom 25px
+  :padding
+    :bottom 25px
+    // to center the title over the photos instead of over #content
+    :left = !post_info_width + 10
   :border-bottom = 1px "dotted" !color_secondary 
   img
     :margin 0
@@ -121,7 +127,7 @@ ol
   :top 0
   :right 0
   :width = !sidebar_width
-  :padding 10px
+  :padding 0 7px 
   :background-color = !color_background
   :font-size 13px
   :z-index 0
@@ -150,11 +156,12 @@ ol
       :padding 4px 4px 4px 24px
       
   #description
+    a
+      :text-decoration underline
 
-  #meta
+  #pages, #meta
     :margin 15px 0
-    :font-size smaller
-    
+        
     li
       :list-style none
       :margin-top 3px
@@ -162,6 +169,8 @@ ol
         :color = !color_link
         &:hover
           :color = !color_text
+  #meta
+    :font-size smaller
           
   #following, #likes_container
     :margin 15px 0
@@ -216,7 +225,7 @@ ol
 #content
   :width 500px
   :margin 0 auto
-  :padding 0 0 0 140px
+  :padding = 0 0 0 (!post_info_width + 10)
   
   #search_result_count
     :background-color #dddddd
@@ -237,10 +246,10 @@ ol
       img
         :max-width 100%
         
-      .info
+      > .info
         :position absolute
-        :margin-left -140px
-        :width 130px
+        :margin-left = -10 - !post_info_width
+        :width = !post_info_width
         :font-size 12px
         :text-align right
         :color = !color_secondary
@@ -278,7 +287,6 @@ ol
           :text-decoration none
         .link
           h1
-            :font-size 28px
             :margin 0
           a
             :color = !color_text
@@ -299,10 +307,36 @@ ol
       .photo-post
         .photo
           :text-align center
+          // set relative position so the button's position zeroes with the .photo
+          :position relative
+          a
+            img
           img
-          .photo_zoom
-            // most display settings are set via js so it fails nicely without javascript
-              
+          .hover-info
+            :text-align right
+            :font-size smaller
+            a
+              :white-space nowrap
+              :text-decoration underline
+            // this class is set via js upon initialization of colorbox, so it fails nicely without javascript
+            &.button
+              :background-color black
+              :border 1px white solid
+              :padding 1px 5px 5px 5px
+              :position absolute
+              :bottom 0
+              :right 0
+              :margin
+                :bottom 10px
+                :right 10px
+              :color white
+              a
+                :padding 10px 0 
+                &, &:visited, &:hover
+                  :color white
+                &:hover
+                  :font-weight bolder
+                            
         .caption
           :font-size smaller
           
