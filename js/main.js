@@ -29,7 +29,7 @@ function alterContentBlock(){
   // Add 'external' CSS class to all external links
   $('a:external').each(function(){
     $(this).addClass('external');
-    $(this).attr('target', '_blank');
+    //$(this).attr('target', '_blank');
   });
 
   // Enable DHTML features on photo posts that have not yet been processed
@@ -76,6 +76,19 @@ function alterContentBlock(){
     // Set this photo as processed so we don't do it on next-page AJAX load
     $(this).addClass('processed');
   });  
+  
+  // Look at all audio posts, link the artist, track name, and album name to a last.fm search for that name
+  $('.audio-post .info dl dd').css({'text-decoration': 'underline', 'cursor': 'pointer'}).click(function(){
+    $.fn.colorbox({
+      href: 'http://www.last.fm/search?q='+escape($(this).text()),
+      width: '75%',
+      height: '75%',
+      iframe: true,
+      opacity: 0.5,
+      close: 'close the popup'
+      
+    });
+  });
   
   // Fix all flash on the page to have the wmode param set to transparent
   fixFlash();

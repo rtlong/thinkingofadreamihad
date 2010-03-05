@@ -270,7 +270,7 @@
                   </div>
                 {/block:AlbumArt}
                 <div class='player'>
-                  {AudioPlayerWhite}
+                  {AudioPlayerGrey}
                   {block:ExternalAudio}
                     <div class='download-link'>
                       <a href='{ExternalAudioURL}'>Download This Track</a>
@@ -278,7 +278,6 @@
                   {/block:ExternalAudio}
                 </div>
                 <div class='info'>
-                  <div class='playcount'>This track has been played {FormattedPlayCount} times</div>
                   <dl>
                     {block:TrackName}
                       <dt>Track Name:</dt>
@@ -293,6 +292,7 @@
                       <dd>{Album}</dd>
                     {/block:Album}
                   </dl>
+                  <div class='playcount'>This track has been played {FormattedPlayCount} times</div>
                 </div>
                 {block:Caption}
                   <div class='caption content'>{Caption}</div>
@@ -325,16 +325,17 @@
                   <h4>{Answer}</h4>
                 </div>
               </div>
-              {block:IfShowPostNotes}
-                {block:PostNotes}
-                  <hr />
-                  <div class='notes'>
-                    <h2>{NoteCountWithLabel}</h2>
-                    {PostNotes}
-                  </div>
-                {/block:PostNotes}
-              {/block:IfShowPostNotes}
             {/block:Answer}
+            <div class='clear'></div>
+            {block:IfShowPostNotes}
+              {block:PostNotes}
+                <hr />
+                <div class='notes'>
+                  <h2>{NoteCountWithLabel}</h2>
+                  {PostNotes}
+                </div>
+              {/block:PostNotes}
+            {/block:IfShowPostNotes}
           </div>
           {block:IndexPage}
             <hr />

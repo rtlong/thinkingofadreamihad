@@ -222,12 +222,11 @@
                   .album-art
                     %img{ :src => album_art_url }
                 .player
-                  = audio_player_white
+                  = audio_player_grey
                   - b :ExternalAudio do
                     .download-link
                       %a{ :href => external_audio_url } Download This Track
                 .info
-                  .playcount This track has been played #{formatted_play_count} times
                   %dl
                     - b :TrackName do
                       %dt Track Name:
@@ -238,6 +237,7 @@
                     - b :Album do
                       %dt Album:
                       %dd= album
+                  .playcount This track has been played #{formatted_play_count} times
                 - b :Caption do
                   .caption.content= caption
                         
@@ -268,12 +268,14 @@
                   .icon A:
                   %h4= answer
                   
-              - b :IfShowPostNotes do 
-                - b :PostNotes do
-                  %hr/ 
-                  .notes
-                    %h2= note_count_with_label
-                    = post_notes
+            .clear
+            
+            - b :IfShowPostNotes do 
+              - b :PostNotes do
+                %hr/ 
+                .notes
+                  %h2= note_count_with_label
+                  = post_notes
                   
   
           - b :IndexPage do
