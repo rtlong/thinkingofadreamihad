@@ -1,8 +1,4 @@
 css/sass/.sass-cache/**/*
-css/*.css
-images/**/**/**
-images/**/*
-images/*
+*.css
+js/*.min.js
 open_gedit
-test/*
-js/*min.js
