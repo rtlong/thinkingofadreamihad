@@ -158,6 +158,10 @@
                     %a{ :href => permalink, :title => note_count_with_label, :rel => :bookmark }<>= note_count_with_label
                   - b :IfNotShowPostNotes do
                     %a{ :href => permalink, :title => 'permalink to this post', :rel => :bookmark }<> permalink                    
+              
+              - b :IfDisqusShortname do
+                .comment-count
+                  %a.dsq-comment-count{ :href => "#{peralink}#disqus_thread" } comments
                       
               - b :IfShowTags do
                 - b :HasTags do
@@ -272,6 +276,7 @@
             
             - b :IfShowPostNotes do 
               - b :PostNotes do
+                
                 %hr/ 
                 .notes
                   %h2= note_count_with_label
