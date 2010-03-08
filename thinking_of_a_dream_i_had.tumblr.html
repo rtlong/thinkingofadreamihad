@@ -25,23 +25,15 @@
     <meta content='1' name='if:Automatically load next page' />
     <meta content='1' name='if:Show Post Notes' />
     <meta content='' name='text:Disqus Shortname' />
+    <meta content='Also check-out:' name='text:Pages List Header Text' />
     <meta content='{MetaDescription}' name='description' />
     <link href='{RSS}' rel='alternate' title='RSS' type='application/rss+xml' />
     <link href='{Favicon}' rel='icon' />
-    <link href='' rel='home' />
-    <link href='{PreviousPage}' rel='prev' title='Newer posts' />
-    <link href='{NextPage}' rel='next' title='Older posts' />
     <link href='http://home.rtlong.com/assets/thinkingofadreamihad/css/colorbox.css' media='screen' rel='stylesheet' type='text/css' />
     <link href='http://home.rtlong.com/assets/thinkingofadreamihad/css/styles.css' media='all' rel='stylesheet' type='text/css' />
-    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js' type='text/javascript'></script>
-    <script src='http://assets.rtlong.com/thinkingofadreamihad/js/jquery.colorbox-min.js' type='text/javascript'></script>
-    {block:IfAutomaticallyLoadNextPage}
-      <script src='http://assets.rtlong.com/thinkingofadreamihad/js/jquery.infinitescroll.min.js' type='text/javascript'></script>
-    {/block:IfAutomaticallyLoadNextPage}
-    <script src='http://home.rtlong.com/assets/thinkingofadreamihad/js/main.js' type='text/javascript'></script>
     <style type='text/css'>
       #title {
-        font-family: {font:Title}; }
+        font-family: {font:Blog Title}; }
       
       body {
         font-family: {font:Controls}; }
@@ -59,14 +51,14 @@
     </style>
     <!--
       Theme design by Ryan T. Long <ryan@rtlong.com>
-      This theme may be found at http://#FIXME
+      This theme may be found at http://portfolio.rtlong.com/themes/thinkingofadreamihad
     -->
   </head>
   <body>
     <div id='title'>
       <a href='/'>
         {block:IfBlogTitleImage}
-          <img alt='{Title}' src='{image:Header}' />
+          <img alt='{Title}' src='{image:Blog Title}' />
         {/block:IfBlogTitleImage}
         {block:IfNotBlogTitleImage}
           {Title}
@@ -84,15 +76,20 @@
       <div id='description'>
         {Description}
       </div>
-      {block:HasPages}
-        <ul id='pages'>
-          {block:Pages}
-            <li>
-              <a href='{URL}'>    {Label}</a>
-            </li>
-          {/block:Pages}
-        </ul>
-      {/block:HasPages}
+      <div id='pages'>
+        {block:IfPagesListHeaderText}
+          <div id='header'>{text:Pages List Header Text}</div>
+        {/block:IfPagesListHeaderText}
+        {block:HasPages}
+          <ul>
+            {block:Pages}
+              <li>
+                <a href='{URL}'>    {Label}</a>
+              </li>
+            {/block:Pages}
+          </ul>
+        {/block:HasPages}
+      </div>
       <ul id='meta'>
         {block:IfShowLinkToFollowMe}
           <li>
@@ -133,7 +130,7 @@
         {block:Likes}
           <div id='likes_container'>
             <h2>Stuff I Like</h2>
-            {Likes limit="5" summarize="100" width="180"}
+            {Likes limit="5" width="180" summarize="100"}
             <a href='http://www.tumblr.com/liked/by/{Name}'>More stuff I like</a>
           </div>
         {/block:Likes}
@@ -179,12 +176,20 @@
                   {/block:DayPage}
                 </div>
               {/block:Date}
-              {block:NoteCount}
-                <div class='permalink'>
-                  {block:IfShowPostNotes}<a href='{Permalink}' rel='bookmark' title='{NoteCountWithLabel}'>{NoteCountWithLabel}</a>                  {/block:IfShowPostNotes}
-                  {block:IfNotShowPostNotes}<a href='{Permalink}' rel='bookmark' title='permalink to this post'>permalink</a>                  {/block:IfNotShowPostNotes}
+              {block:PermalinkPage}<a href='{Permalink}' rel='bookmark' title='permalink to this post'>permalink</a>              {/block:PermalinkPage}
+              {block:IndexPage}
+                {block:NoteCount}
+<div class='permalink'>
+                    {block:IfShowPostNotes}<a href='{Permalink}' rel='bookmark' title='{NoteCountWithLabel}'>{NoteCountWithLabel}</a>                    {/block:IfShowPostNotes}
+                    {block:IfNotShowPostNotes}<a href='{Permalink}' rel='bookmark' title='permalink to this post'>permalink</a>                    {/block:IfNotShowPostNotes}
 </div>
-              {/block:NoteCount}
+                {/block:NoteCount}
+                {block:IfDisqusShortname}
+                  <div class='comment-count'>
+                    <a class='dsq-comment-count' href='{Permalink}#disqus_thread'>comments</a>
+                  </div>
+                {/block:IfDisqusShortname}
+              {/block:IndexPage}
               {block:IfShowTags}
                 {block:HasTags}
                   <div class='tags'>
@@ -327,15 +332,37 @@
               </div>
             {/block:Answer}
             <div class='clear'></div>
-            {block:IfShowPostNotes}
-              {block:PostNotes}
+            {block:PermalinkPage}
+              {block:IfDisqusShortname}
+                <script type='text/javascript'>
+                  //<![CDATA[
+                    var disqus_url = "{Permalink}"; 
+                    var disqus_title ="{PostTitle}";
+                    var disqus_identifier = "{PostID}";
+                  //]]>
+                </script>
                 <hr />
-                <div class='notes'>
-                  <h2>{NoteCountWithLabel}</h2>
-                  {PostNotes}
+                <div class='comments'>
+                  <h2>Comments</h2>
+                  <div id='disqus_thread'></div>
+                  <script src='http://disqus.com/forums/{text:Disqus Shortname}/embed.js' type='text/javascript'></script>
+                  <noscript>Please enable JavaScript to view the comments.</noscript>
                 </div>
-              {/block:PostNotes}
-            {/block:IfShowPostNotes}
+              {/block:IfDisqusShortname}
+              {block:IfShowPostNotes}
+                {block:PostNotes}
+                  <hr />
+                  <div class='notes'>
+                    <h2>Notes</h2>
+                    <div class='summary'>
+                      There are {NoteCountWithLabel} about this post.
+                      <span class='show-notes'>Show Them.</span>
+                    </div>
+                    {PostNotes}
+                  </div>
+                {/block:PostNotes}
+              {/block:IfShowPostNotes}
+            {/block:PermalinkPage}
           </div>
           {block:IndexPage}
             <hr />
@@ -357,13 +384,13 @@
         {block:PermalinkPagination}
           <div id='pagination'>
             {block:PreviousPost}
-              <a class='nav' href='{PreviousPost}' id='previous_post' rel='prev' title='Newer Post'>Newer Post</a>
+              <a class='nav' href='{PreviousPost}' id='previous_post' rel='prev' title='Newer Post'>Older Post</a>
               {block:NextPost}
                 |
               {/block:NextPost}
             {/block:PreviousPost}
             {block:NextPost}
-              <a class='nav' href='{NextPost}' id='next_post' rel='next' title='Older Post'>Older Post</a>
+              <a class='nav' href='{NextPost}' id='next_post' rel='next' title='Older Post'>Newer Post</a>
             {/block:NextPost}
           </div>
         {/block:PermalinkPagination}
@@ -385,9 +412,23 @@
         </div>
       </div>
     </div>
-    <a class='hidden' href='#title' id='return_to_top'>
+    <a class='hidden' href='#' id='return_to_top'>
       <img alt='^ Return to Top ^' src='http://assets.tumblr.com/images/jump_to_top_arrow.png' />
     </a>
     <script src='http://assets.rtlong.com/thinkingofadreamihad/theme_credit.js' type='text/javascript'></script>
+    <script src='http://assets.rtlong.com/thinkingofadreamihad/js/jquery.min.js' type='text/javascript'></script>
+    <script src='http://assets.rtlong.com/thinkingofadreamihad/js/jquery.colorbox.min.js' type='text/javascript'></script>
+    <script src='http://assets.rtlong.com/thinkingofadreamihad/js/jquery.scrollTo.min.js' type='text/javascript'></script>
+    {block:IfAutomaticallyLoadNextPage}
+      <script src='http://assets.rtlong.com/thinkingofadreamihad/js/jquery.infinitescroll.min.js' type='text/javascript'></script>
+    {/block:IfAutomaticallyLoadNextPage}
+    {block:IfDisqusShortname}
+      <script type='text/javascript'>
+        //<![CDATA[
+          window.disqus_shortname = "{text:Disqus Shortname}";
+        //]]>
+      </script>
+    {/block:IfDisqusShortname}
+    <script src='http://home.rtlong.com/assets/thinkingofadreamihad/js/main.js' type='text/javascript'></script>
   </body>
 </html>
