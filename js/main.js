@@ -11,6 +11,47 @@ $.expr[':'].highres = function (obj) {
   return obj.href.match(/^http\:\/\/[\w.]+\/photo\/\d+\/\d+/) && (obj.hostname === window.location.hostname);
 };
 
+// Fix inserted flash objects, adding wmode=transparent to each of them
+window.fixFlash = function (node) {
+  var $node = $(node);
+  $node.find("embed").each(function (i) {
+    var elClone = this.cloneNode(true);
+    elClone.setAttribute("wmode", "transparent");
+    $(this).before(elClone);
+    $(this).remove();
+  });
+  // For object and/or embed into objects
+  $node.find("object").each(function (i, v) {
+    var elEmbed = $(this).children("embed");
+    if (typeof(elEmbed.get(0)) != "undefined") {
+      if (typeof(elEmbed.get(0).outerHTML) != "undefined") {
+        elEmbed.attr("wmode", "transparent");
+        $(this.outerHTML).insertAfter(this);
+        $(this).remove();
+      }
+      return true;
+    }
+    var algo = this.attributes;
+    var str_tag = '<object ';
+    for (var i = 0; i < algo.length; i+=1) { str_tag += algo[i].name + '="' + algo[i].value + '" '; }
+    str_tag += '>';
+    var flag = false;
+    $(this).children().each(function (elem) {
+      if (this.nodeName == "param") {
+        if (this.name == "wmode") {
+          flag = true;
+          str_tag += '<param name="' + this.name + '" value="transparent">';
+        }
+        else str_tag += '<param name="' + this.name + '" value="' + this.value + '">';
+      }
+    });
+    if (!flag) str_tag += '<param name="wmode" value="transparent">';
+    str_tag += '</object>';
+    $(str_tag).insertAfter(this);
+    $(this).remove();
+  });
+};
+
 window.alterContentBlock = function () {
   // Add 'external' CSS class to all external links
   $('a:external').each(function () {
@@ -86,42 +127,8 @@ window.alterContentBlock = function () {
     });
     
     // Fix all flash on the page to have the wmode param set to transparent
-    //$("embed", this).each(function (i) {
-    //  var elClone = this.cloneNode(true);
-    //  elClone.setAttribute("wmode", "transparent");
-    //  $(this).before(elClone);
-    //  $(this).remove();
-    //});
-    //// For object and/or embed into objects
-    //$("object", this).each(function (i, v) {
-    //  var elEmbed = $(this).children("embed");
-    //  if (typeof(elEmbed.get(0)) != "undefined") {
-    //    if (typeof(elEmbed.get(0).outerHTML) != "undefined") {
-    //      elEmbed.attr("wmode", "transparent");
-    //      $(this.outerHTML).insertAfter(this);
-    //      $(this).remove();
-    //    }
-    //    return true;
-    //  }
-    //  var algo = this.attributes;
-    //  var str_tag = '<object ';
-    //  for (var i = 0; i < algo.length; i+=1) { str_tag += algo[i].name + '="' + algo[i].value + '" '; }
-    //  str_tag += '>';
-    //  var flag = false;
-    //  $(this).children().each(function (elem) {
-    //    if (this.nodeName == "param") {
-    //      if (this.name == "wmode") {
-    //        flag = true;
-    //        str_tag += '<param name="' + this.name + '" value="transparent">';
-    //      }
-    //      else str_tag += '<param name="' + this.name + '" value="' + this.value + '">';
-    //    }
-    //  });
-    //  if (!flag) str_tag += '<param name="wmode" value="transparent">';
-    //  str_tag += '</object>';
-    //  $(str_tag).insertAfter(this);
-    //  $(this).remove();
-    //});
+    //window.fixFlash(this);
+    window.testFunction();
     // END OF FLASH FIXER
     
     // Set click events for the show-player and hide-player controls
