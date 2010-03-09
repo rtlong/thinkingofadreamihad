@@ -130,7 +130,7 @@ ol
   :top 0
   :right 0
   :width = !sidebar_width
-  :padding 0 7px 
+  :padding 32px 7px 0 7px
   :background-color = !color_background
   :z-index 0
   /*  
@@ -140,6 +140,10 @@ ol
         :color = !color_text
 
   #search
+    :position fixed
+    :top 5px
+    :right 5px
+    :z-index 1
     #q
       :background
         :color = !color_background
@@ -238,13 +242,17 @@ ol
   :margin 0 auto
   :padding = 0 0 0 (!post_info_width + 10)
   
-  #search_result_count
+  #posts_filter
     :background-color #dddddd
     :font-size 12px
-    :padding 3px
+    :padding 5px
     :margin-bottom 25px
+    h2
+      :font-size 11pt
+      :margin 0
     .back
       :float right
+    #search_result_count
 
   #posts
     :margin 0
@@ -258,7 +266,7 @@ ol
         :max-width 100%
         
       > .info
-        :position absolute
+        :float left
         :margin-left = -10 - !post_info_width
         :width = !post_info_width
         :font-size 8pt
@@ -333,8 +341,9 @@ ol
             &.button
               :background-color black
               :border 1px white solid
-              :padding 1px 5px 5px 5px
+              :padding 3px 5px 5px 5px
               :position absolute
+              :font-size 10px
               :bottom 0
               :right 0
               :margin
@@ -388,6 +397,8 @@ ol
               :font-weight bold
             dd
               :padding-left 75px
+              a
+                :color = !color_minor
         .caption
           :border-top 1px solid #ccc
           :margin-top 5px
@@ -396,7 +407,32 @@ ol
           
       .photo-post, .photoset-post, .video-post, .audio-post
         .caption
-        
+
+      .photoset-post, .video-post, .audio-post
+        .show-player
+          :font-size 150%
+        .hide-player
+          :font-size 85%
+          :margin-bottom 6px
+          a
+            :color = !color_minor
+        .player
+          :display none
+      .photoset-post, .video-post
+        .show-player
+          img
+            :width 64px
+            :height 64px
+            :vertical-align -26px
+            :margin-right 6px
+      .audio-post
+        .show-player
+          img
+            :width 64px
+            :height 64px
+            :vertical-align -26px
+            :margin-right 6px    
+                          
       .answer-post
         .icon
           :font-size 300%
@@ -474,3 +510,13 @@ ol
   
   a
     :color = !color_secondary
+
+body.permalink-page
+  #content
+    #posts
+      .post
+        .photoset-post, .video-post, .audio-post
+          .show-player, .hide-player
+            :display none
+          .player
+            :display block

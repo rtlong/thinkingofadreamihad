@@ -56,7 +56,7 @@
     / 
       Theme design by Ryan T. Long <ryan@rtlong.com>
       This theme may be found at http://portfolio.rtlong.com/themes/thinkingofadreamihad
-  %body
+  %body{:class => "{block:PermalinkPage}permalink-page{/block:PermalinkPage}"}
     #title
       %a{ :href => '/' }
         - b :IfBlogTitleImage do
@@ -71,10 +71,10 @@
           %input.hidden{ :type => 'submit', :value => 'Search' }
       #description
         = description
-      #pages
-        - b :IfPagesListHeaderText do
-          #header= text 'Pages List Header Text'
-        - b :HasPages do
+      - b :HasPages do
+        #pages
+          - b :IfPagesListHeaderText do
+            #header= text 'Pages List Header Text'
           %ul
             - b :Pages do
               %li
@@ -113,19 +113,20 @@
               
     #content
       - b :TagPage do
-        %h2#tag_page_label
-          Posts tagged
-          %em= tag
+        #posts_filter
+          .back
+            %a{:href => '/'} All Posts
+          %h2#tag_page_label Posts tagged <em>#{tag}</em>
       - b :DayPage do
-        %h2#day_page_label Posts from #{day_of_month} #{month} #{year}
+        #posts_filter
+          .back
+            %a{:href => '/'} All Posts
+          %h2#day_page_label Posts from #{day_of_month} #{month} #{year}
       - b :SearchPage do
-        #search_result_count
+        #posts_filter
           .back
             %a{:href => '/'} Cancel Search
-          - b :SearchResults do
-            #{search_result_count} results found for "#{search_query}"
-          - b :NoSearchResults do
-            No results found for "#{search_query}"
+          %h2#search_result_count #{search_result_count} results found for "#{search_query}"
           
       #posts
         - b :Posts do
@@ -210,14 +211,28 @@
             - b :Photoset do
               .photoset-post
                 %h1.hidden Photoset Post
-                .player= photoset_500
+                .show-player
+                  %a{ :href => permalink }
+                    %img{:src => "#{DEV_HOST}/images/photoset.png", :alt => "photoset"}/
+                    View Photoset
+                .player
+                  .hide-player
+                    %a{ :href => '' } Hide
+                  = photoset_500
                 - b :Caption do
                   .caption.content= caption
             
             - b :Video do
               .video-post
                 %h1.hidden Video Post
-                .player= video_500
+                .show-player
+                  %a{ :href => permalink }
+                    %img{:src => "#{DEV_HOST}/images/video.png", :alt => "video"}/
+                    Watch Video
+                .player
+                  .hide-player
+                    %a{ :href => '' } Hide Video
+                  = video_500
                 - b :Caption do
                   .caption.content= caption
             
@@ -227,11 +242,14 @@
                 - b :AlbumArt do 
                   .album-art
                     %img{ :src => album_art_url }
+                .show-player
+                  %a{ :href => permalink }
+                    %img{:src => "#{DEV_HOST}/images/audio.png", :alt => "audio"}/
+                    Listen to this Audio
                 .player
+                  .hide-player
+                    %a{ :href => '' } Hide Player
                   = audio_player_grey
-                  - b :ExternalAudio do
-                    .download-link
-                      %a{ :href => external_audio_url } Download This Track
                 .info
                   %dl
                     - b :TrackName do
@@ -243,6 +261,10 @@
                     - b :Album do
                       %dt Album:
                       %dd= album
+                    - b :ExternalAudio do
+                      %dt File URL
+                      %dd
+                        %a{ :href => external_audio_url }= external_audio_url
                   .playcount This track has been played #{formatted_play_count} times
                 - b :Caption do
                   .caption.content= caption

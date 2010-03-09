@@ -54,7 +54,7 @@
       This theme may be found at http://portfolio.rtlong.com/themes/thinkingofadreamihad
     -->
   </head>
-  <body>
+  <body class='{block:PermalinkPage}permalink-page{/block:PermalinkPage}'>
     <div id='title'>
       <a href='/'>
         {block:IfBlogTitleImage}
@@ -76,11 +76,11 @@
       <div id='description'>
         {Description}
       </div>
-      <div id='pages'>
-        {block:IfPagesListHeaderText}
-          <div id='header'>{text:Pages List Header Text}</div>
-        {/block:IfPagesListHeaderText}
-        {block:HasPages}
+      {block:HasPages}
+        <div id='pages'>
+          {block:IfPagesListHeaderText}
+            <div id='header'>{text:Pages List Header Text}</div>
+          {/block:IfPagesListHeaderText}
           <ul>
             {block:Pages}
               <li>
@@ -88,8 +88,8 @@
               </li>
             {/block:Pages}
           </ul>
-        {/block:HasPages}
-      </div>
+        </div>
+      {/block:HasPages}
       <ul id='meta'>
         {block:IfShowLinkToFollowMe}
           <li>
@@ -138,25 +138,27 @@
     </div>
     <div id='content'>
       {block:TagPage}
-        <h2 id='tag_page_label'>
-          Posts tagged
-          <em>{Tag}</em>
-        </h2>
+        <div id='posts_filter'>
+          <div class='back'>
+            <a href='/'>All Posts</a>
+          </div>
+          <h2 id='tag_page_label'>Posts tagged <em>{Tag}</em></h2>
+        </div>
       {/block:TagPage}
       {block:DayPage}
-        <h2 id='day_page_label'>Posts from {DayOfMonth} {Month} {Year}</h2>
+        <div id='posts_filter'>
+          <div class='back'>
+            <a href='/'>All Posts</a>
+          </div>
+          <h2 id='day_page_label'>Posts from {DayOfMonth} {Month} {Year}</h2>
+        </div>
       {/block:DayPage}
       {block:SearchPage}
-        <div id='search_result_count'>
+        <div id='posts_filter'>
           <div class='back'>
             <a href='/'>Cancel Search</a>
           </div>
-          {block:SearchResults}
-            {SearchResultCount} results found for "{SearchQuery}"
-          {/block:SearchResults}
-          {block:NoSearchResults}
-            No results found for "{SearchQuery}"
-          {/block:NoSearchResults}
+          <h2 id='search_result_count'>{SearchResultCount} results found for "{SearchQuery}"</h2>
         </div>
       {/block:SearchPage}
       <div id='posts'>
@@ -251,7 +253,18 @@
             {block:Photoset}
               <div class='photoset-post'>
                 <h1 class='hidden'>Photoset Post</h1>
-                <div class='player'>{Photoset-500}</div>
+                <div class='show-player'>
+                  <a href='{Permalink}'>
+                    <img alt='photoset' src='http://home.rtlong.com/assets/thinkingofadreamihad/images/photoset.png' />
+                    View Photoset
+                  </a>
+                </div>
+                <div class='player'>
+                  <div class='hide-player'>
+                    <a href=''>Hide</a>
+                  </div>
+                  {Photoset-500}
+                </div>
                 {block:Caption}
                   <div class='caption content'>{Caption}</div>
                 {/block:Caption}
@@ -260,7 +273,18 @@
             {block:Video}
               <div class='video-post'>
                 <h1 class='hidden'>Video Post</h1>
-                <div class='player'>{VIDeo-500}</div>
+                <div class='show-player'>
+                  <a href='{Permalink}'>
+                    <img alt='video' src='http://home.rtlong.com/assets/thinkingofadreamihad/images/video.png' />
+                    Watch Video
+                  </a>
+                </div>
+                <div class='player'>
+                  <div class='hide-player'>
+                    <a href=''>Hide Video</a>
+                  </div>
+                  {VIDeo-500}
+                </div>
                 {block:Caption}
                   <div class='caption content'>{Caption}</div>
                 {/block:Caption}
@@ -274,13 +298,17 @@
                     <img src='{AlbumArtURL}' />
                   </div>
                 {/block:AlbumArt}
+                <div class='show-player'>
+                  <a href='{Permalink}'>
+                    <img alt='audio' src='http://home.rtlong.com/assets/thinkingofadreamihad/images/audio.png' />
+                    Listen to this Audio
+                  </a>
+                </div>
                 <div class='player'>
+                  <div class='hide-player'>
+                    <a href=''>Hide Player</a>
+                  </div>
                   {AudioPlayerGrey}
-                  {block:ExternalAudio}
-                    <div class='download-link'>
-                      <a href='{ExternalAudioURL}'>Download This Track</a>
-                    </div>
-                  {/block:ExternalAudio}
                 </div>
                 <div class='info'>
                   <dl>
@@ -296,6 +324,12 @@
                       <dt>Album:</dt>
                       <dd>{Album}</dd>
                     {/block:Album}
+                    {block:ExternalAudio}
+                      <dt>File URL</dt>
+                      <dd>
+                        <a href='{ExternalAudioURL}'>      {ExternalAudioURL}</a>
+                      </dd>
+                    {/block:ExternalAudio}
                   </dl>
                   <div class='playcount'>This track has been played {FormattedPlayCount} times</div>
                 </div>

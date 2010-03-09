@@ -1,4 +1,3 @@
-cd ..
 /*!
 // Infinite Scroll jQuery plugin
 // copyright Paul Irish, licensed GPL & MIT
@@ -7,7 +6,7 @@ cd ..
 // home and docs: http://www.infinite-scroll.com
 */
  
-;(function($){
+(function($){
     
   $.fn.infinitescroll = function(options,callback){
     
