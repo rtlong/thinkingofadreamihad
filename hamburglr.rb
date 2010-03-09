@@ -1,9 +1,13 @@
 require 'rubygems'
-require 'active_support/inflector'
+require 'active_support'
 require 'lorem_ipsum'
 
 module Hamburglr
 module Tumblr
+  
+# Write a newline for any methods that may outputs any debug info
+$stdout.write "\n"
+
 # variables -- represent Tumblr's 'variables'
 # Constants for each 'variable' accessor can be accessed directly or through a call to the _var_ method, or called as the lower case form directly, in which case it will be accessed by _method_missing_
 
@@ -335,6 +339,10 @@ VARIABLES['AskerPortraitURL-128'] = ''
 #############################
 # Dates
 
+# Rendered for all posts.
+## Always wrap dates in this block so they will be properly hidden on non-post pages.
+# {block:Date}
+
 # Rendered for posts that are the first to be listed for a given day.
 # {block:NewDayDate}
 
@@ -548,10 +556,10 @@ VARIABLES['NextDayPage'] = ''
 # Search
 
 # The current search query.
-VARIABLES['SearchQuery'] = 'jillian'
+VARIABLES['SearchQuery'] = 'query'
 
 # A URL-safe version of the current search query for use in links and Javascript.
-VARIABLES['URLSafeSearchQuery'] = 'jillian'
+VARIABLES['URLSafeSearchQuery'] = 'query'
 
 # Rendered on search pages.
 # {block:SearchPage}
@@ -633,11 +641,7 @@ VARIABLES['Likes'] = ''
 #     #content ...
 
 def color(name)
-  if SAMPLE_DATA
-    META_VARS[:color][name.to_s]
-  else
-    "{color:#{name.to_s}}"
-  end
+  meta_var :color, name
 end
 
 #############################
@@ -658,11 +662,7 @@ end
 #       :font = "12px #{font :Body}"
 
 def font(name)
-  if SAMPLE_DATA
-    META_VARS[:font][name.to_s]
-  else
-    "{font:#{name.to_s}}"
-  end
+  meta_var :font, name
 end
 
 #############################
@@ -701,11 +701,7 @@ end
 # %script{ :type=> "text/javascript" :src => "http://flickr.com/widget?user=#{text 'Flickr Username'}"
 
 def text(name)
-  if SAMPLE_DATA
-    META_VARS[:text][name.to_s]
-  else
-    "{text:#{name.to_s}}"
-  end
+  meta_var :text, name
 end
 
 #############################
@@ -716,11 +712,7 @@ end
 # no image is set.
 
 def image(name)
-  if SAMPLE_DATA
-    META_VARS[:image][name.to_s]
-  else
-    "{image:#{name.to_s}}"
-  end
+  meta_var(:image, name)
 end
 
 #############################
@@ -763,13 +755,30 @@ def get_tumblr_variable(name)
   return [ match[1].camelize.gsub(/(url|id|css)/i){|s| s.upcase}, match[2] ].compact.join('-')
 end
 
-# Adds a meta tag with the named variable
-def meta_var(type, name, value)
-  type = type.to_s.downcase
-  name = name.to_s.camelize
-  META_VARS[type.to_sym][name] = value
-  haml_tag :meta, :/, :name => [type,name].join(':'), :content => value
+# Adds a meta tag with the given type, name, and value, or gets the variable with the given type and name
+def meta_var(type, name, value = nil)
+  type = type.to_s.downcase.to_sym
+  name = name.to_s
+  if value
+    $stdout.write "Setting meta variable {#{type}:#{name}} = '#{value}'\n"
+    META_VARS[type][name] = value
+    haml_tag :meta, :/, :name => [type,name].join(':'), :content => value
+    
+  else
+    if META_VARS[type][name] then
+      if SAMPLE_DATA
+        META_VARS[type][name]
+      else
+        "{#{type}:#{name}}"
+      end
+    else
+      variables_of_this_type_set = META_VARS[type].keys.collect{|k| "'#{k}'"}.to_sentence
+      raise ArgumentError, "No #{type} var by the name '#{name}'. META_VARS[:#{type}].keys contains #{variables_of_this_type_set}"
+    end
+
+  end
 end
+
 
 # Constructs a new {BlahBlah foo="bar"} string with the name and any parameters passed to it. Does
 # no checking for the existance of such a variable. It just returns the string formatted properly.
