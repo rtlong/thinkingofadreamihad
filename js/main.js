@@ -79,8 +79,10 @@ window.alterContentBlock = function () {
     var $this_post = $(this);
     
     // display post time on date hover
-    $('.info .posted_at', this).mouseenter(function() {
-      $('.time', this).show();
+    $('.info', this).mouseenter(function() {
+      $('.posted_at .time', this).show();
+    }).mouseleave(function() {
+      $('.posted_at .time', this).hide();
     });
     
     // Enable DHTML features on photos

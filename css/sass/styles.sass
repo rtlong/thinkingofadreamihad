@@ -34,7 +34,7 @@ h1,h2,h3,h4,h5,h6
 
 a    
   :color = !color_link
-  :text-decoration none
+  :text-decoration underline
   &:hover
     :color = !color_text
     :text-decoration underline
@@ -42,13 +42,7 @@ a
     :color inherit
     &:hover
       :color = !color_link
-  
   &.external
-    //:background
-    //  :image = "url(" + hostname("static") + "/images/ext_link.png)"
-    //  :repeat no-repeat
-    //  :position right top
-    //:padding-right 11px  
 
   img
     :border-width 0
@@ -64,7 +58,6 @@ sup, sub
   :height 0
   :line-height 1
   :vertical-align baseline
-  //:_vertical-align bottom
   :position relative
 
 sub
@@ -124,6 +117,8 @@ ol
   :border-bottom = 1px "dotted" !color_secondary 
   img
     :margin 0
+  a
+    :text-decoration none
     
 #sidebar
   :position absolute
@@ -133,11 +128,6 @@ ol
   :padding 32px 7px 0 7px
   :background-color = !color_background
   :z-index 0
-  /*  
-    a
-      :color = !color_secondary
-      &:hover
-        :color = !color_text
 
   #search
     :position fixed
@@ -182,10 +172,6 @@ ol
     li
       :list-style none
       :margin-top 3px
-      a
-        :color = !color_link
-        &:hover
-          :color = !color_text
           
   #following, #likes_container
     :margin 15px 0
@@ -271,15 +257,14 @@ ol
         :width = !post_info_width
         :font-size 11px
         :text-align right
-        :color = !color_secondary
+        :color #999999
         
         div
           :margin-bottom 6px
       
         a
           :text-decoration none
-          // :white-space nowrap
-
+          :color #777777
           &:hover
             :color = !color_text
         
@@ -289,8 +274,7 @@ ol
             :margin-left 0
             &, li
               :list-style none
-              a
-                :color = !color_minor
+                
 
       .reblog_info
         :font-size smaller
@@ -304,24 +288,20 @@ ol
           :margin-bottom 9px
 
       .link-post
-        a
-          :text-decoration none
         .link
           h1
             :margin 0
           a
-            :color = !color_text
+            :text-decoration underline
             &:hover
               :color = !color_link
-              :text-decoration underline
             &:visited
-              :color = !color_link
+              :color = !color_text
               
         .href
           :color = !color_secondary
           :font-size 8pt
-          :background none
-            
+          :text-decoration none
         .caption
           :margin-top 10px
 
@@ -379,7 +359,7 @@ ol
         
       .audio-post
         .info
-          :color #888888
+          //:color #888888
           :font-size smaller
           :margin-bottom 5px
         
@@ -398,13 +378,11 @@ ol
               :font-weight bold
             dd
               :padding-left 75px
-              a
-                :color = !color_minor
+              
         .caption
           :border-top 1px solid #ccc
           :margin-top 5px
           :padding-top 10px
-          
           
       .photo-post, .photoset-post, .video-post, .audio-post
         .caption
@@ -414,20 +392,15 @@ ol
           :font-size 150%
           :display none
         .player
-          //:display none
           .hide-player
-          :font-size 85%
-          :margin-bottom 6px
-          a
-            :color = !color_minor
-      .photoset-post, .video-post
-        .show-player
-          img
-            :width 64px
-            :height 64px
-            :vertical-align -26px
-            :margin-right 6px
-      .audio-post
+            :font-size 85%
+            :margin-bottom 6px
+            a
+              :color = !color_minor
+              &:hover
+                :color = !color_text
+                
+      .photoset-post, .video-post, .audio-post
         .show-player
           img
             :width 64px
@@ -483,7 +456,8 @@ ol
     :margin 30px 0
     :text-align center
     #pagination
-      :font-size 16px
+      :margin-bottom 15px
+      :font-size 16pt
       a.arrow_nav, a.nav
         :text-decoration none
       a.arrow_nav
@@ -492,6 +466,9 @@ ol
       #previous_page
       .status  
       #next_page
+      
+    #back_to_index
+      :font-size 18pt
       
 #return_to_top
   :position fixed
