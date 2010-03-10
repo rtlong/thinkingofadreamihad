@@ -27,6 +27,7 @@ h2. Features
 * Many config options for setting fonts, images, and visibility of various details/features
 * Fixed width (500px) center content column, with a 200px-wide sidebar to contain blog's info, search, and links
 * Fixed position search box that is visible always
+* **Haml** is used for markup, **Sass** for stylesheets. The rendered HTML and CSS are excluded from the repo.
 * "**Colorbox**":colorbox integration for viewing photos
 * Photo overlay upon hover, revealing whether there is a _click-through link_ on the photo, and/or if there is a high-res version. In the case of there being both, clicking the photo will take the user to the linked resource, while a "Show High Resolution" link will reveal the high-res photo.
 * Manipulation of flash objects, in order to fix _Tumblr_'s shitty Flash insertion, via _jQuery_ on document load, in order to add the @wmode=transparent@ param
@@ -36,3 +37,12 @@ h2. Features
 
 
 fn1. That's not to suggest that I did _any_ accessibility testing. Merely that the document was structured semantically. There is *much* room for improvement in the s508 department.
+
+h2. Hamburglr
+
+Hamburglr makes it easy for you to combine the features of Haml and Tumblr. I won't go into examples here, check out the theme template for a perfect example. 
+
+@render.rb@ renders the HAML and the SASS using Hamburglr. It also requires @active_support@ for now. 
+
+There is also a sample data feature. It uses all the values set in @Hamburglr.rb@ as sample data, for _variables only_, at the moment. I intend to get the blocks working in the future. to use this feature, add @SAMPLE_DATA = true@ to @render.rb@
+

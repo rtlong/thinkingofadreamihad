@@ -1,4 +1,0 @@
-#/usr/bin/bash
-
-cd ~/Projects/thinking_of_a_dream_i_had.tumblr.html/
-gedit thinking_of_a_dream_i_had.tumblr.html.haml js/main.js css/sass/{styles,colorbox}.sass
