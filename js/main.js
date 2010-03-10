@@ -2,6 +2,11 @@
 /*global $:true, window: true */
 'use strict';
 
+//begin DEVELOPMENT
+// Enable safe logging features
+$.getScript('http://github.com/cowboy/javascript-debug/raw/master/ba-debug.min.js');
+//end
+
 // Creating custom :external selector
 $.expr[':'].external = function (obj) {
   return !obj.href.match(/^mailto\:/) && (obj.hostname !== window.location.hostname);
@@ -15,7 +20,6 @@ window.alterContentBlock = function () {
   // Add 'external' CSS class to all external links
   $('a:external').each(function () {
     $(this).addClass('external');
-    //$(this).attr('target', '_blank');
   });
   
   // Look at all the new (unprocessed) posts and process them
@@ -149,17 +153,19 @@ window.alterContentBlock = function () {
     // Set this post as processed so we don't do it on next-page AJAX load
     $(this).addClass('processed');
   });
-  // Get comment count for all posts
-  var disqus_query = [];
-  $('a[href$=#disqus_thread]').each(function () {
-    disqus_query.push('url' + (disqus_query.length + 1) + '=' + encodeURIComponent($(this).attr('href').split('#')[0]));
-  });
-
-  $.getScript("http://disqus.com/forums/" + window.disqus_shortname + "/get_num_replies.js?" + disqus_query.join('&'));
+  
+  if (window.disqus_shortname) {
+    // Get comment count for all posts
+    var disqus_query = [];
+    $('a[href$=#disqus_thread]').each(function () {
+      disqus_query.push('url' + (disqus_query.length + 1) + '=' + encodeURIComponent($(this).attr('href').split('#')[0]));
+    });
+    $.getScript("http://disqus.com/forums/" + window.disqus_shortname + "/get_num_replies.js?" + disqus_query.join('&'));
+  }
 };
 
 $(document).ready(function () {
-  //console.log('Document ready!');
+  debug('Document ready!');
   // set callbacks, etc.
   window.alterContentBlock();
   
@@ -169,17 +175,6 @@ $(document).ready(function () {
     top:   '2px'
   });
   
-  // TODO Rewrite this plugin... it sucks..
-  // Set up infinite scrolling
-  if ($.fn.infinitescroll) {
-    $('#posts').infinitescroll({
-      navSelector: '#pagination',
-      nextSelector: '#next_page',
-      itemSelector: '#posts .post, #posts hr',
-      donetext: '[End of Posts]'
-    }, window.alterContentBlock);
-  }
-  
   // Set the entire colorbox modal to close on click, save for any buttons that may do something else
   $('#cboxWrapper, #cboxPhoto').css("cursor", "pointer").click($.fn.colorbox.close);
   
@@ -188,7 +183,6 @@ $(document).ready(function () {
     $.scrollTo(0, 1000);
     return false;
   });
-  
   $(window).scroll(function () {
     if ($(window).scrollTop() > $(window).height()) {
       $('#return_to_top').show();

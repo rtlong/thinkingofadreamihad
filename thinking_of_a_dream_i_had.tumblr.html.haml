@@ -21,7 +21,6 @@
     - meta_var :if,    "Show link to Follow me", 1
     - meta_var :if,    "Show blogs I Follow", 1
     - meta_var :if,    "Show posts I Like", 1
-    - meta_var :if,    "Automatically load next page", 1
     - meta_var :if,    "Show Post Notes", 1
     - meta_var :text,  'Disqus Shortname', ''
     - meta_var :text,  'Pages List Header Text', 'Also check-out:'
@@ -154,13 +153,10 @@
               - b :PermalinkPage do
                 %a{ :href => permalink, :title => 'permalink to this post', :rel => :bookmark }<> permalink          
 
-              - b :IndexPage do
+              - b :IfShowPostNotes do
                 - b :NoteCount do
                   .permalink
-                    - b :IfShowPostNotes do
-                      %a{ :href => permalink, :title => note_count_with_label, :rel => :bookmark }<>= note_count_with_label
-                    - b :IfNotShowPostNotes do
-                      %a{ :href => permalink, :title => 'permalink to this post', :rel => :bookmark }<> permalink          
+                    %a{ :href => "#{permalink}#notes", :title => note_count_with_label, :rel => :bookmark }<>= note_count_with_label
                 
                 - b :IfDisqusShortname do
                   .comment-count
@@ -189,8 +185,8 @@
               .link-post.content
                 .link
                   %h1
-                    %a.external{ :href => url }= name
-                %a.href{ :href => url }= url
+                    %a.external{ :href => url, :target => target }= name
+                %a.href{ :href => url, :target => target }= url
                 - b :Description do
                   .caption= description
             
@@ -314,7 +310,7 @@
               - b :IfShowPostNotes do 
                 - b :PostNotes do
                   %hr/ 
-                  .notes
+                  .notes#notes
                     %h2 Notes
                     .summary 
                       There are #{note_count_with_label} about this post.
@@ -363,8 +359,6 @@
     %script{ :src => "#{STATIC_HOST}/js/jquery.min.js", :type => 'text/javascript' }
     %script{ :src => "#{STATIC_HOST}/js/jquery.colorbox.min.js", :type => 'text/javascript' }
     %script{ :src => "#{STATIC_HOST}/js/jquery.scrollTo.min.js", :type => 'text/javascript' }
-    - b :IfAutomaticallyLoadNextPage do
-      %script{ :src => "#{STATIC_HOST}/js/jquery.infinitescroll.min.js", :type => 'text/javascript' }
     - b :IfDisqusShortname do
       :javascript
         window.disqus_shortname = "#{text 'Disqus Shortname'}";

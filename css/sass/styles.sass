@@ -269,7 +269,7 @@ ol
         :float left
         :margin-left = -10 - !post_info_width
         :width = !post_info_width
-        :font-size 8pt
+        :font-size 11px
         :text-align right
         :color = !color_secondary
         
@@ -289,6 +289,8 @@ ol
             :margin-left 0
             &, li
               :list-style none
+              a
+                :color = !color_minor
 
       .reblog_info
         :font-size smaller
@@ -356,7 +358,6 @@ ol
                   :color white
                 &:hover
                   :font-weight bolder
-                            
         .caption
           
       .quote-post
@@ -411,13 +412,14 @@ ol
       .photoset-post, .video-post, .audio-post
         .show-player
           :font-size 150%
-        .hide-player
+          :display none
+        .player
+          //:display none
+          .hide-player
           :font-size 85%
           :margin-bottom 6px
           a
             :color = !color_minor
-        .player
-          :display none
       .photoset-post, .video-post
         .show-player
           img

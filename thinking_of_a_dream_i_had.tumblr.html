@@ -22,7 +22,6 @@
     <meta content='1' name='if:Show link to Follow me' />
     <meta content='1' name='if:Show blogs I Follow' />
     <meta content='1' name='if:Show posts I Like' />
-    <meta content='1' name='if:Automatically load next page' />
     <meta content='1' name='if:Show Post Notes' />
     <meta content='' name='text:Disqus Shortname' />
     <meta content='Also check-out:' name='text:Pages List Header Text' />
@@ -179,19 +178,16 @@
                 </div>
               {/block:Date}
               {block:PermalinkPage}<a href='{Permalink}' rel='bookmark' title='permalink to this post'>permalink</a>              {/block:PermalinkPage}
-              {block:IndexPage}
+              {block:IfShowPostNotes}
                 {block:NoteCount}
-<div class='permalink'>
-                    {block:IfShowPostNotes}<a href='{Permalink}' rel='bookmark' title='{NoteCountWithLabel}'>{NoteCountWithLabel}</a>                    {/block:IfShowPostNotes}
-                    {block:IfNotShowPostNotes}<a href='{Permalink}' rel='bookmark' title='permalink to this post'>permalink</a>                    {/block:IfNotShowPostNotes}
-</div>
+<div class='permalink'><a href='{Permalink}#notes' rel='bookmark' title='{NoteCountWithLabel}'>{NoteCountWithLabel}</a>      </div>
                 {/block:NoteCount}
                 {block:IfDisqusShortname}
                   <div class='comment-count'>
                     <a class='dsq-comment-count' href='{Permalink}#disqus_thread'>comments</a>
                   </div>
                 {/block:IfDisqusShortname}
-              {/block:IndexPage}
+              {/block:IfShowPostNotes}
               {block:IfShowTags}
                 {block:HasTags}
                   <div class='tags'>
@@ -223,10 +219,10 @@
               <div class='link-post content'>
                 <div class='link'>
                   <h1>
-                    <a class='external' href='{URL}'>    {Name}</a>
+                    <a class='external' href='{URL}' target='{Target}'>    {Name}</a>
                   </h1>
                 </div>
-                <a class='href' href='{URL}'>    {URL}</a>
+                <a class='href' href='{URL}' target='{Target}'>    {URL}</a>
                 {block:Description}
                   <div class='caption'>{Description}</div>
                 {/block:Description}
@@ -386,7 +382,7 @@
               {block:IfShowPostNotes}
                 {block:PostNotes}
                   <hr />
-                  <div class='notes'>
+                  <div class='notes' id='notes'>
                     <h2>Notes</h2>
                     <div class='summary'>
                       There are {NoteCountWithLabel} about this post.
@@ -453,9 +449,6 @@
     <script src='http://assets.rtlong.com/thinkingofadreamihad/js/jquery.min.js' type='text/javascript'></script>
     <script src='http://assets.rtlong.com/thinkingofadreamihad/js/jquery.colorbox.min.js' type='text/javascript'></script>
     <script src='http://assets.rtlong.com/thinkingofadreamihad/js/jquery.scrollTo.min.js' type='text/javascript'></script>
-    {block:IfAutomaticallyLoadNextPage}
-      <script src='http://assets.rtlong.com/thinkingofadreamihad/js/jquery.infinitescroll.min.js' type='text/javascript'></script>
-    {/block:IfAutomaticallyLoadNextPage}
     {block:IfDisqusShortname}
       <script type='text/javascript'>
         //<![CDATA[
