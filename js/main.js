@@ -138,8 +138,7 @@ window.alterContentBlock = function () {
     });
     
     // Fix all flash on the page to have the wmode param set to transparent
-    //window.fixFlash(this);
-    window.testFunction();
+    window.fixFlash(this);
     // END OF FLASH FIXER
     
     // Set click events for the show-player and hide-player controls
