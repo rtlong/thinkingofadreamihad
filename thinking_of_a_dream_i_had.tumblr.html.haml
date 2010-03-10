@@ -146,7 +146,7 @@
               - b :Date do
                 .posted_at
                   %a{ :href => "/day/#{year}/#{month_number_with_zero}/#{day_of_month}", :title => "See all posts from #{short_month} #{day_of_month}" }<>= "#{short_month} #{day_of_month}"
-                  %span.hidden.time at {24HourWithZero}:{Minutes}
+                  %span.hidden.time &nbsp;at&nbsp;{24HourWithZero}:{Minutes}
 
               .permalink
                 %a{ :href => permalink, :title => 'permalink to this post', :rel => :bookmark }<> permalink          

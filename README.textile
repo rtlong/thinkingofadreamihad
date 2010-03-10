@@ -1,0 +1,37 @@
+h1. thinkingofadreamihad
+
+h2. Intro 
+
+This repository is actually two things, currently:
+
+* a theme for the micro-blogging engine, "Tumblr":tumblr, custom-made for "Marshall Franklin Long's":marshall photoblog, "thinkingofadreamihad":thinkingofadreamihad
+* a soon-to-be-separated plugin ^?^ to allow for easy, nested use of Tumblr's _blocks_ and _variables_, called **Hamburglr**
+
+h2. Status
+
+The theme is still under active development. I change _Hamburglr_ rarely, but it's basically complete. I wrote it for this project and I haven't taken the time to separate it yet.
+
+The assets used in the markup are hosted in a few different locations, one of them being my home web server, which, needless to say, is not ideal from a content-serving point-of-view. However, it will remain that way until development slows down, at which time, I will move them all to a fast server.
+
+h2. Features
+
+* Clean, bright, modern look
+* Simple interface with a lot of function
+* Monochromatic, desaturated color scheme
+* Many config options for setting fonts, images, and visibility of various details/features
+* Fixed width (500px) center content column, with a 200px-wide sidebar to contain blog's info, search, and links
+* Fixed position search box that is visible always
+* "**Colorbox**":colorbox integration for viewing photos
+* Photo overlay upon hover, revealing whether there is a _click-through link_ on the photo, and/or if there is a high-res version. In the case of there being both, clicking the photo will take the user to the linked resource, while a "Show High Resolution" link will reveal the high-res photo.
+* Manipulation of flash objects, in order to fix _Tumblr_'s shitty Flash insertion, via _jQuery_ on document load, in order to add the @wmode=transparent@ param
+* "**DISQUS**":disqus comments integration
+* Heavy use of _jQuery_, with appropriate, semantic fall-back markup for those without javascript
+* Semantic (as much as I could manage) markup for accessibility[1]
+
+
+fn1. That's not to suggest that I did _any_ accessibility testing. Merely that the document was structured semantically. There is *much* room for improvement in the s508 department.
+[colorbox]http://colorpowered.com/colorbox/
+[disqus]http://disqus.com
+[tumblr]http://www.tumblr.com/
+[marshall]http://www.marshallfranklinlong.com/
+[thinkingofadreamihad]http://thinkingofadreamihad.com/
