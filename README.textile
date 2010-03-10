@@ -30,7 +30,7 @@ h2. Features
 * **Haml** is used for markup, **Sass** for stylesheets. The rendered HTML and CSS are excluded from the repo.
 * "**Colorbox**":colorbox integration for viewing photos
 * Photo overlay upon hover, revealing whether there is a "click-through link" on the photo, and/or if there is a high-res version. In the case of there being both, clicking the photo will take the user to the linked resource, while a "Show High Resolution" link will reveal the high-res photo.
-* Manipulation of flash objects, in order to fix **Tumblr**'s shitty Flash insertion, via **jQuery** on document load, in order to add the @wmode=transparent@ param
+* Manipulation of flash objects, in order to fix **Tumblr's** shitty Flash insertion, via **jQuery** on document load, in order to add the @wmode=transparent@ param
 * "**DISQUS**":disqus comments integration
 * Heavy use of **jQuery**, with appropriate, semantic fall-back markup for those without javascript
 * Semantic (as much as I could manage) markup for accessibility[1]
@@ -46,6 +46,8 @@ h3. render.rb
 
 @render.rb@ renders the **HAML** and the **SASS** using **Hamburglr**. It also requires @active_support@ for now. 
 
-There is also a sample data feature. It uses all the values set in @Hamburglr.rb@ as sample data, for _variables only_, at the moment. I intend to get the blocks working in the future. to use this feature, add set @SAMPLE_DATA@ to @true@ in @render.rb@
+There is also a sample data feature. It uses all the values set in @Hamburglr.rb@ as sample data, for _variables only_, at the moment. I intend to get the blocks working in the future. to use this feature, add set in @render.rb@:
+
+bc. SAMPLE_DATA = true
 
 bc. ruby render.rb; cp --parents -vRt {DEV_HOST}/assets/thinkingofadreamihad/ js/main.js css/*.css thinking_of_a_dream_i_had.tumblr.html

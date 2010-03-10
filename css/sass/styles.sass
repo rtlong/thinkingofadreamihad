@@ -423,17 +423,22 @@ ol
                 :text-decoration none
         .answer
           :clear both
-          
-      div.notes
+      
+      #comments, #notes
         h2
           :font-size 120%
+        h3
+          :font-size 110%
         .summary
-          .show-notes
-            :text-decoration underline
-            :color = !color_link
-            &:hover
-              :color = !color_text
-              :cursor pointer
+        .reveal
+          :text-decoration underline
+          :color = !color_link
+          &:hover
+            :color = !color_text
+            :cursor pointer
+      #comments
+        #disqus_thread
+      #notes
         ol
           :list-style none
           :margin-left 0

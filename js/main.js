@@ -97,7 +97,7 @@ window.alterContentBlock = function () {
         opacity: 0.8,
         close: 'click anywhere to return', 
         title: function () {
-          return $(this).parent('.photo').find('img').attr('alt');
+          return $(this).closest('.photo').find('img').attr('alt');
         },
         rel: 'nofollow'
       });
@@ -125,7 +125,7 @@ window.alterContentBlock = function () {
       var setPhotoPosition = function (img_elem) {
         if ($(img_elem).width() < 500){
           var newRight = (500 - $(img_elem).width()) / 2;
-          $(img_elem).parents('.photo').find('.hover-info').css({right: newRight + 'px'});
+          $(img_elem).closest('.photo').find('.hover-info').css({right: newRight + 'px'});
         }
       };
       var img = $('img', this)[0];
@@ -162,17 +162,17 @@ window.alterContentBlock = function () {
       return false;
     });
     $(".hide-player", this).click(function () {
-      var $player = $(this).parents('.player');
+      var $player = $(this).closest('.player');
       $player.hide();
       $player.siblings('.show-player').show();
       return false;
     });
     
     // Hide the notes 
-    $("div.notes ol.notes", this).hide();
-    // Set the show-notes to show the notes
-    $("div.notes .show-notes", this).click(function () { 
-      $("div.notes ol.notes").slideDown(); 
+    $("#notes_container, #disqus_thread", this).hide();
+    // Set the .reveal to show the notes
+    $("#notes .reveal, #comments .reveal", this).click(function () { 
+      $(this).closest('#notes, #comments').find('#notes_container, #disqus_thread').slideDown(); 
       $(this).remove();
     });
     
