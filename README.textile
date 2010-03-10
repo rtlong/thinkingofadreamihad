@@ -1,3 +1,9 @@
+[colorbox]http://colorpowered.com/colorbox/
+[disqus]http://disqus.com
+[tumblr]http://www.tumblr.com/
+[marshall]http://www.marshallfranklinlong.com/
+[thinkingofadreamihad]http://thinkingofadreamihad.com/
+
 h1. thinkingofadreamihad
 
 h2. Intro 
@@ -30,8 +36,3 @@ h2. Features
 
 
 fn1. That's not to suggest that I did _any_ accessibility testing. Merely that the document was structured semantically. There is *much* room for improvement in the s508 department.
-[colorbox]http://colorpowered.com/colorbox/
-[disqus]http://disqus.com
-[tumblr]http://www.tumblr.com/
-[marshall]http://www.marshallfranklinlong.com/
-[thinkingofadreamihad]http://thinkingofadreamihad.com/
