@@ -1,15 +1,9 @@
 @import colorbox_core.sass
 
-
 /* 
   ColorBox example user style
   The following rules are ordered and tabbed in a way that represents the
   order/nesting of the generated HTML, so that the structure easier to understand.
-
-//!icon_grid_size = -1 * 14px
-//!icon_size = abs(!icon_grid_size)
-//!icon_spacing = 2px
-//!action_position_multiplier = !icon_spacing + !icon_size
 
 #cboxOverlay
   :background white
@@ -36,16 +30,10 @@
 
     #cboxTitle
       :margin-top 3px
-      // 3 icons are the Prev, Next, and Close
-      //:padding-right = 3 * !action_position_multiplier
       :font-size 10pt
       
     #cboxCurrent
       :display none
-      //:position fixed
-      //:top = 3px
-      //:right 10px
-      //:font-size 10pt
     
     !action_width = 50px
     !action_position_start = 5px
@@ -60,46 +48,3 @@
     
     #cboxSlideshow, #cboxPrevious, #cboxNext
       :display none      
-      
-    //#cboxNext      
-    //  :left = !action_position_start + 1 * !action_position_multiplier
-    //  
-    //#cboxPrevious
-    //  :left = !action_position_start + 2 * !action_position_multiplier
-
-    //.cboxSlideshow_on, .cboxSlideshow_off
-    //  #cboxPrevious
-    //    :left = !action_position_start + 3 * !action_position_multiplier
-    //  #cboxSlideshow
-    //    :left = !action_position_start + 2 * !action_position_multiplier
-    
-    //#cboxSlideshow, #cboxPrevious, #cboxNext
-    //  :width = !icon_size
-    //  :height = !icon_size
-    //  :background 
-    //    :image = "url(" + hostname("static") + "/images/controls.png)"
-    //    :repeat no-repeat
-    //  &:hover
-    //    :background
-    //      :position-y = 1 * !icon_grid_size
-    //  span
-    //    :display none
-        
-    //#cboxClose
-    //  :background-position-x = 2 * !icon_grid_size
-    //  :width = !close_button_width
-
-    //#cboxNext
-    //  :background-position-x = 1 * !icon_grid_size
-    //
-    //#cboxPrevious
-    //  :background-position-x = 0 * !icon_grid_size
-    
-
-    //.cboxSlideshow_on 
-    //  #cboxSlideshow
-    //    :background-position-x = 4 * !icon_grid_size
-
-    //.cboxSlideshow_off 
-    //  #cboxSlideshow
-    //    :background-position-x = 3 * !icon_grid_size

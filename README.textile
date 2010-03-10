@@ -42,7 +42,10 @@ h2. Hamburglr
 
 Hamburglr makes it easy for you to combine the features of Haml and Tumblr. I won't go into examples here, check out the theme template for a perfect example. 
 
+h3. render.rb
+
 @render.rb@ renders the HAML and the SASS using Hamburglr. It also requires @active_support@ for now. 
 
 There is also a sample data feature. It uses all the values set in @Hamburglr.rb@ as sample data, for _variables only_, at the moment. I intend to get the blocks working in the future. to use this feature, add @SAMPLE_DATA = true@ to @render.rb@
 
+bc. ruby render.rb; cp --parents -vRt {DEV_HOST}/assets/thinkingofadreamihad/ js/main.js css/*.css thinking_of_a_dream_i_had.tumblr.html
