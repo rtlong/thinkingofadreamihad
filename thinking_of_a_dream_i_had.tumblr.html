@@ -168,26 +168,20 @@
             {/block:Reblog}
             <div class='info'>
               {block:Date}
-                <div class='posted_at'><a href='/day/{Year}/{MonthNumberWithZero}/{DayOfMonth}' title='See all posts from {ShortMonth} {DayOfMonth}'>{ShortMonth} {DayOfMonth}</a>                  {block:DayPage}
-      <script type='text/javascript'>
-                      //<![CDATA[
-                        $(this).parent('.posted_at').replaceWith("{24HourWithZero}:{Minutes}");
-                      //]]>
-                    </script>
-                  {/block:DayPage}
+                <div class='posted_at'><a href='/day/{Year}/{MonthNumberWithZero}/{DayOfMonth}' title='See all posts from {ShortMonth} {DayOfMonth}'>{ShortMonth} {DayOfMonth}</a><span class='hidden time'>at {24HourWithZero}:{Minutes}</span>
                 </div>
               {/block:Date}
-              {block:PermalinkPage}<a href='{Permalink}' rel='bookmark' title='permalink to this post'>permalink</a>              {/block:PermalinkPage}
+              <div class='permalink'><a href='{Permalink}' rel='bookmark' title='permalink to this post'>permalink</a></div>
               {block:IfShowPostNotes}
                 {block:NoteCount}
-<div class='permalink'><a href='{Permalink}#notes' rel='bookmark' title='{NoteCountWithLabel}'>{NoteCountWithLabel}</a>      </div>
+                  <div class='note-count'><a href='{Permalink}#notes' rel='bookmark' title='{NoteCountWithLabel}'>{NoteCountWithLabel}</a>      </div>
                 {/block:NoteCount}
-                {block:IfDisqusShortname}
-                  <div class='comment-count'>
-                    <a class='dsq-comment-count' href='{Permalink}#disqus_thread'>comments</a>
-                  </div>
-                {/block:IfDisqusShortname}
               {/block:IfShowPostNotes}
+              {block:IfDisqusShortname}
+                <div class='comment-count'>
+                  <a class='dsq-comment-count' href='{Permalink}#disqus_thread' title='view comments on this post'>comments</a>
+                </div>
+              {/block:IfDisqusShortname}
               {block:IfShowTags}
                 {block:HasTags}
                   <div class='tags'>

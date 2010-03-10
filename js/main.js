@@ -25,6 +25,12 @@ window.alterContentBlock = function () {
   // Look at all the new (unprocessed) posts and process them
   $('.post:not(.processed)').each(function () {
     var $this_post = $(this);
+    
+    // display post time on date hover
+    $('.info .posted_at', this).mouseenter(function() {
+      $('.time', this).show();
+    });
+    
     // Enable DHTML features on photos
     $('.photo', this).each(function () {
       var $this_photo = $(this);
@@ -65,7 +71,7 @@ window.alterContentBlock = function () {
       var setPhotoPosition = function (img_elem) {
         if ($(img_elem).width() < 500){
           var newRight = (500 - $(img_elem).width()) / 2;
-          $(img_elem).parents('.photo').find('.hover-info').css({'right': newRight});
+          $(img_elem).parents('.photo').find('.hover-info').css({right: newRight + 'px'});
         }
       };
       var img = $('img', this)[0];
@@ -76,9 +82,10 @@ window.alterContentBlock = function () {
         img.onload = setPhotoPosition;
       }
     });  
+    // END OF PHOTO CODE
     
     // Look at all audio posts, link the artist, track name, and album name to a last.fm search for that name
-    $('.audio-post .info dl dd:not(:has(a))', this).css({'text-decoration': 'underline', 'cursor': 'pointer'}).click(function () {
+    $('.audio-post .info dl dd:not(:has(a))', this).css({textDecoration: 'underline', cursor: 'pointer'}).click(function () {
       $.fn.colorbox({
         href: 'http://www.last.fm/search?q=' + encodeURIComponent($(this).text()),
         width: '75%',
@@ -165,7 +172,7 @@ window.alterContentBlock = function () {
 };
 
 $(document).ready(function () {
-  debug('Document ready!');
+  debug.log('Document ready!');
   // set callbacks, etc.
   window.alterContentBlock();
   

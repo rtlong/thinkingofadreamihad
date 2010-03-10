@@ -146,21 +146,19 @@
               - b :Date do
                 .posted_at
                   %a{ :href => "/day/#{year}/#{month_number_with_zero}/#{day_of_month}", :title => "See all posts from #{short_month} #{day_of_month}" }<>= "#{short_month} #{day_of_month}"
-                  - b :DayPage do
-                    :javascript
-                      $(this).parent('.posted_at').replaceWith("#{var '24_hour_with_zero'}:#{minutes}");
+                  %span.hidden.time at {24HourWithZero}:{Minutes}
 
-              - b :PermalinkPage do
+              .permalink
                 %a{ :href => permalink, :title => 'permalink to this post', :rel => :bookmark }<> permalink          
 
               - b :IfShowPostNotes do
                 - b :NoteCount do
-                  .permalink
+                  .note-count
                     %a{ :href => "#{permalink}#notes", :title => note_count_with_label, :rel => :bookmark }<>= note_count_with_label
                 
-                - b :IfDisqusShortname do
-                  .comment-count
-                    %a.dsq-comment-count{ :href => "#{permalink}#disqus_thread"} comments
+              - b :IfDisqusShortname do
+                .comment-count
+                  %a.dsq-comment-count{ :href => "#{permalink}#disqus_thread", :title => "view comments on this post" } comments
                       
               - b :IfShowTags do
                 - b :HasTags do
