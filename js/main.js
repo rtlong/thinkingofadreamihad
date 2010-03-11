@@ -168,12 +168,13 @@ window.alterContentBlock = function () {
       return false;
     });
     
-    // Hide the notes 
-    $("#notes_container, #disqus_thread", this).hide();
-    // Set the .reveal to show the notes
-    $("#notes .reveal, #comments .reveal", this).click(function () { 
-      $(this).closest('#notes, #comments').find('#notes_container, #disqus_thread').slideDown(); 
-      $(this).remove();
+    // Collapse certain containers to keep the page looking clean
+    $(".collapsed", this).hide().each(function () {
+      var reveal_button = $("<div class='reveal'>Show</div>").click(function () {
+        $(this).next('.collapsed').slideDown(); 
+        $(this).remove();
+      });
+      reveal_button.insertBefore(this);
     });
     
     // Set this post as processed so we don't do it on next-page AJAX load

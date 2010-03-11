@@ -301,7 +301,6 @@
                 %hr/
                 #comments
                   %h2 Comments
-                  .reveal View/Add Comments
                   #disqus_thread
                   %script{ :type => "text/javascript", :src => "http://disqus.com/forums/#{text 'Disqus Shortname'}/embed.js" }
                   %noscript Please enable JavaScript to view the comments.
@@ -311,10 +310,8 @@
                   %hr/ 
                   #notes
                     %h2 Notes
-                    .summary 
-                      There are #{note_count_with_label} about this post.
-                      %span.reveal Show Them.
-                    #notes_container= post_notes
+                    .summary #{note_count_with_label} about this post
+                    #notes_container.collapsed= post_notes
   
           - b :IndexPage do
             %hr/
@@ -331,11 +328,11 @@
         - b :PermalinkPagination do
           #pagination
             - b :PreviousPost do
-              %a.nav#previous_post{ :href => previous_post, :title => 'Newer Post', :rel => :prev } Older Post
+              %a.nav#previous_post{ :href => previous_post, :title => 'Older Post', :rel => :prev } Older Post
               - b :NextPost do  
                 |
             - b :NextPost do
-              %a.nav#next_post{ :href => next_post, :title => 'Older Post', :rel => :next } Newer Post
+              %a.nav#next_post{ :href => next_post, :title => 'Newer Post', :rel => :next } Newer Post
         
         - b :DayPagination do
           #pagination

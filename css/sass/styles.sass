@@ -359,7 +359,6 @@ ol
         
       .audio-post
         .info
-          //:color #888888
           :font-size smaller
           :margin-bottom 5px
         
@@ -380,7 +379,7 @@ ol
               :padding-left 75px
               
         .caption
-          :border-top 1px solid #ccc
+          :border-top 1px solid #cccccc
           :margin-top 5px
           :padding-top 10px
           
@@ -391,6 +390,8 @@ ol
         .show-player
           :font-size 150%
           :display none
+          a
+            :text-decoration none
         .player
           .hide-player
             :font-size 85%
@@ -430,12 +431,8 @@ ol
         h3
           :font-size 110%
         .summary
-        .reveal
-          :text-decoration underline
-          :color = !color_link
-          &:hover
-            :color = !color_text
-            :cursor pointer
+          :margin-bottom 8px
+          
       #comments
         #disqus_thread
       #notes

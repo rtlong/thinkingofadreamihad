@@ -46,7 +46,7 @@ h3. render.rb
 
 @render.rb@ renders the **HAML** and the **SASS** using **Hamburglr**. It also requires @active_support@ for now. 
 
-There is also a sample data feature. It uses all the values set in @Hamburglr.rb@ as sample data, for _variables only_, at the moment. I intend to get the blocks working in the future. to use this feature, add set in @render.rb@:
+There is also a sample data feature. It uses all the values set in @Hamburglr.rb@ as sample data, for _variables only_, at the moment. I intend to get the blocks working in the future. To use this feature, and set in @render.rb@:
 
 bc. SAMPLE_DATA = true
 
