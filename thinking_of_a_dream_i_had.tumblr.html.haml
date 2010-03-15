@@ -34,6 +34,8 @@
     %link{ :rel => :stylesheet, :media => :screen, :href => "#{DEV_HOST}/css/colorbox.css", :type => 'text/css' }
     %link{ :rel => :stylesheet, :media => :all,    :href => "#{DEV_HOST}/css/styles.css", :type => 'text/css' }
     
+    /[if lt IE 8]
+      %script{:src=>"http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE9.js"}
     
     %style{ :type => 'text/css' } 
       :sass
