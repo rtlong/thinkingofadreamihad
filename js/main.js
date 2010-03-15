@@ -29,17 +29,17 @@ $.expr[':'].highres = function (obj) {
 
 // Fix inserted flash objects, adding wmode=transparent to each of them
 window.fixFlash = function (node) {
-  var $node = $(node);
-  $node.find("embed").each(function (i) {
-    var elClone = this.cloneNode(true);
-    elClone.setAttribute("wmode", "transparent");
-    $(this).before(elClone);
-    $(this).remove();
+  var $node = $(node); // cache the jQuery object that represents the node upon which this function was called (likely a `div.post`)
+  $("embed", node).each(function (i) { // for each `embed` found
+    var elClone = this.cloneNode(true); //clone the `embed` and save that clone to `elClone`
+    elClone.setAttribute("wmode", "transparent"); // set `wmode=transparent` on the `elClone`
+    $(this).replaceWith(elClone); // insert `elClone` in place of the original `embed`
   });
-  // For object and/or embed into objects
-  $node.find("object").each(function (i, v) {
-    var elEmbed = $(this).children("embed");
-    if (typeof(elEmbed.get(0)) != "undefined") {
+  // For `object` and/or `embed` into objects
+  $("object", node).each(function (i, v) { // for each `object` found
+    /*    
+    var elEmbed = $(this).children("embed"); // get all `embeds` within the `object`
+    if (typeof(elEmbed.get(0)) != "undefined") { // ? why would it be undefined? 
       if (typeof(elEmbed.get(0).outerHTML) != "undefined") {
         elEmbed.attr("wmode", "transparent");
         $(this.outerHTML).insertAfter(this);
@@ -47,10 +47,11 @@ window.fixFlash = function (node) {
       }
       return true;
     }
-    var algo = this.attributes;
-    var str_tag = '<object ';
-    for (var i = 0; i < algo.length; i+=1) { str_tag += algo[i].name + '="' + algo[i].value + '" '; }
-    str_tag += '>';
+    */
+    var algo = this.attributes; // get the objects attributes
+    var str_tag = '<object '; // start a string used to construct a new object element
+    for (var i = 0; i < algo.length; i+=1) { str_tag += algo[i].name + '="' + algo[i].value + '" '; } // build the string with the attributes saved before.
+    str_tag += '>'; // close the tag
     var flag = false;
     $(this).children().each(function (elem) {
       if (this.nodeName == "param") {
