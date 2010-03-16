@@ -59,7 +59,7 @@
       Theme design by Ryan T. Long <ryan@rtlong.com>
       This theme may be found at http://portfolio.rtlong.com/themes/thinkingofadreamihad
   %body{:class => "{block:PermalinkPage}permalink-page{/block:PermalinkPage}"}
-    #title
+    %h1#title
       %a{ :href => '/' }
         - b :IfBlogTitleImage do
           %img{ :src => image('Blog Title'), :alt => title }
@@ -68,15 +68,19 @@
     #sidebar
       %form{ :method => 'get', :action => '/search' }
         #search
-          %label.hidden{:for => 'q'} Search Query
+          %h2.hidden Search this Blog
+          %label.hidden{:for => 'q'} Search for
           %input#q{ :name => 'q', :type => 'text', :value => search_query }
           %input.hidden{ :type => 'submit', :value => 'Search' }
       #description
+        %h2.hidden About this Blog
         = description
       - b :HasPages do
         #pages
           - b :IfPagesListHeaderText do
-            #header= text 'Pages List Header Text'
+            %h2#header= text 'Pages List Header Text'
+          - b :IfNotPagesHeaderText do
+            %h2.hidden Other Pages
           %ul
             - b :Pages do
               %li
@@ -114,6 +118,8 @@
             %a{ :href => "http://www.tumblr.com/liked/by/#{name}" } More stuff I like
               
     #content
+      -# Add this somewhere. Make sure it won't show up for "pages"
+      -# %h2.hidden Posts
       - b :TagPage do
         #posts_filter
           .back
