@@ -1,357 +1,357 @@
 @import reset.sass
 
-!color_background = #ffffff
-!color_text = #000000
-!color_link = #444444
-!color_secondary = #777777
-!color_minor = #999999
-!sidebar_width = 200px
-!post_info_width = 140px
+$color_background: #ffffff
+$color_text: #000000
+$color_link: #444444
+$color_secondary: #777777
+$color_minor: #999999
+$sidebar_width: 200px
+$post_info_width: 140px
 
 html, body
-  :background-color = !color_background
-  :color = !color_text
+  background-color: $color_background
+  color: $color_text
   :font
-    :family Helvetica Neue, Arial, Helvetica, sans-serif
-    :size 10pt
+    family: Helvetica Neue, Arial, Helvetica, sans-serif
+    size: 10pt
 
 html
   :margin
-    :right = !sidebar_width + 14
-    :bottom 20px
+    right: $sidebar_width + 14
+    bottom: 20px
 
-@for !h_level from 1 through 6
-  h#{!h_level}
-    :font-size = 20pt - 1.4 * (!h_level - 1)
+@for $h_level from 1 through 6
+  h#{$h_level}
+    font-size: 20pt - 1.4 * ($h_level - 1)
 
 h1,h2,h3,h4,h5,h6
-  :font-weight bolder
-  :margin 0.5em 0
+  font-weight: bolder
+  margin: 0.5em 0
   a
-    :color = !color_text
-    :font-weight inherit
-    :text-decoration inherit
+    color: $color_text
+    font-weight: inherit
+    text-decoration: inherit
 
 a    
-  :color = !color_link
-  :text-decoration underline
+  color: $color_link
+  text-decoration: underline
   &:hover
-    :color = !color_text
-    :text-decoration underline
+    color: $color_text
+    text-decoration: underline
   &:visited
-    :color inherit
+    color: inherit
     &:hover
-      :color = !color_link
+      color: $color_link
   &.external
 
   img
-    :border-width 0
+    border-width: 0
 
 p, pre, ul, ol, blockquote, form
-  :margin 5px 0
+  margin: 5px 0
 
 pre
-  :overflow-x auto
-  :font-size 11px
+  overflow-x: auto
+  font-size: 11px
 
 sup, sub
-  :height 0
-  :line-height 1
-  :vertical-align baseline
-  :position relative
+  height: 0
+  line-height: 1
+  vertical-align: baseline
+  position: relative
 
 sub
-  :top 0.5em
+  top: 0.5em
 
 sup
-  :bottom 0.5em
+  bottom: 0.5em
   a
-    :font-weight normal !important
-    :padding 0 1px
+    font-weight: normal $important
+    padding: 0 1px
 
 hr
-  :height 0
-  :margin 10px 0
+  height: 0
+  margin: 10px 0
   :border
-    :style dotted
-    :color #555555
-    :width 1px 0 0 0
+    style: dotted
+    color: #555555
+    width: 1px 0 0 0
     
 img
-  :border none
+  border: none
 
 blockquote
-  :border-left = 2px "solid" !color_minor
-  :padding 3px 15px
+  border-left: 2px "solid" $color_minor
+  padding: 3px 15px
 
 ul, ol, blockquote
-  :margin-left 18px
+  margin-left: 18px
 
 ul
-  :list-style-type disc
+  list-style-type: disc
   ul
-    :list-style-type circle
+    list-style-type: circle
     ul
-      :list-style-type square
+      list-style-type: square
 ol
-  :list-style-type decimal
+  list-style-type: decimal
   ol
-    :list-style-type lower-alpha
+    list-style-type: lower-alpha
     ol
-      :list-style-type lower-roman
+      list-style-type: lower-roman
       
 .hidden
-  :display none
+  display: none
   
 .clear
-  :clear both
+  clear: both
     
 #title
-  :text-align center
-  :font-size 44pt
-  :margin 25px 0 25px 0
+  text-align: center
+  font-size: 44pt
+  margin: 25px 0 25px 0
   :padding
-    :bottom 25px
+    bottom: 25px
     // to center the title over the photos instead of over #content
-    :left = !post_info_width + 10
-  :border-bottom = 1px "dotted" !color_secondary 
+    left: $post_info_width + 10
+  border-bottom: 1px "dotted" $color_secondary 
   img
-    :margin 0
+    margin: 0
   a
-    :text-decoration none
+    text-decoration: none
     
 #sidebar
-  :position absolute
-  :top 0
-  :right 0
-  :width = !sidebar_width
-  :padding 32px 7px 0 7px
-  :background-color = !color_background
-  :z-index 0
+  position: absolute
+  top: 0
+  right: 0
+  width: $sidebar_width
+  padding: 32px 7px 0 7px
+  background-color: $color_background
+  z-index: 0
 
   #search
-    :position fixed
-    :top 5px
-    :right 5px
-    :z-index 1
+    position: fixed
+    top: 5px
+    right: 5px
+    z-index: 1
     #q
       :background
-        :color = !color_background
-        :image = "url(" + hostname("static") + "/images/search_32.png)"
-        :repeat no-repeat
-        :position 2px 50%
-      :color = !color_secondary
-      :font-size 15px
-      :height 15px
-      :width = !sidebar_width - 24px - 4px
-      :text-transform lowercase
+        color: $color_background
+        image: "url(" + hostname("static") + "/images/search_32.png)"
+        repeat: no-repeat
+        position: 2px 50%
+      color: $color_secondary
+      font-size: 15px
+      height: 15px
+      width: $sidebar_width - 24px - 4px
+      text-transform: lowercase
       :border
-        :style solid
-        :color = !color_minor
-        :width 1px
-      :padding 4px 4px 4px 24px
+        style: solid
+        color: $color_minor
+        width: 1px
+      padding: 4px 4px 4px 24px
       
   #description
     a
-      :text-decoration underline
+      text-decoration: underline
 
   #pages
     #header
-      :font-weight bold
+      font-weight: bold
     ul
-      :margin 0
-      :font-size 85%
+      margin: 0
+      font-size: 85%
       
 
   #meta
-    :font-size smaller
+    font-size: smaller
 
   #pages, #meta
-    :margin 15px 0
+    margin: 15px 0
         
     li
-      :list-style none
-      :margin-top 3px
+      list-style: none
+      margin-top: 3px
           
   #following, #likes_container
-    :margin 15px 0
+    margin: 15px 0
     h2
-      :font-size inherit
+      font-size: inherit
     ul
-      :list-style-type none
-      :margin 5px 0
-      :padding 0
+      list-style-type: none
+      margin: 5px 0
+      padding: 0
       
   #following
     ul
       li
-        :margin 3px 0
+        margin: 3px 0
         a
-          :padding 3px 
-          :display block
-          :background-color #dddddd
-          :color = !color_text
+          padding: 3px 
+          display: block
+          background-color: #dddddd
+          color: $color_text
           &:hover
-            :text-decoration none
-            :background-color = !color_minor
-            :color = !color_text
+            text-decoration: none
+            background-color: $color_minor
+            color: $color_text
             
   #likes_container
     ul#likes
       li.like_post
-        :padding 5px 0
-        :border-bottom = 1px "solid" !color_secondary
+        padding: 5px 0
+        border-bottom: 1px "solid" $color_secondary
 
         img
-          :max-width 100%
+          max-width: 100%
 
         blockquote
-          :margin 0
-          :padding 0 0 0 10px
-          :border-left 1px solid #eee
+          margin: 0
+          padding: 0 0 0 10px
+          border-left: 1px solid #eee
 
         ol, ul
-          :margin-left 15px
-          :padding 0
+          margin-left: 15px
+          padding: 0
 
         .like_link a, .like_title
-          :font-weight bold
+          font-weight: bold
 
         .post_info_top
-          :margin 0 0 5px 0 
-          :font-size smaller
-          :font-style oblique
-          :display block !important
+          margin: 0 0 5px 0 
+          font-size: smaller
+          font-style: oblique
+          display: block $important
           
 #content
-  :width 500px
-  :margin 0 auto
-  :padding = 0 0 0 (!post_info_width + 10)
+  width: 500px
+  margin: 0 auto
+  padding: 0 0 0 ($post_info_width + 10)
   
   #posts_filter
-    :background-color #dddddd
-    :font-size 12px
-    :padding 5px
-    :margin-bottom 25px
+    background-color: #dddddd
+    font-size: 12px
+    padding: 5px
+    margin-bottom: 25px
     h2
-      :font-size 11pt
-      :margin 0
+      font-size: 11pt
+      margin: 0
     .back
-      :float right
+      float: right
     #search_result_count
 
   #posts
-    :margin 0
+    margin: 0
 
     .post
-      :margin 15px 0
+      margin: 15px 0
       &.reblog
         
 
       img
-        :max-width 100%
+        max-width: 100%
         
       > .info
-        :float left
-        :margin-left = -10 - !post_info_width
-        :width = !post_info_width
-        :font-size 11px
-        :text-align right
-        :color #999999
+        float: left
+        margin-left: -10 - $post_info_width
+        width: $post_info_width
+        font-size: 11px
+        text-align: right
+        color: #999999
         
         div
-          :margin-bottom 6px
+          margin-bottom: 6px
       
         a
-          :text-decoration none
-          :color #777777
+          text-decoration: none
+          color: #777777
           &:hover
-            :color = !color_text
+            color: $color_text
         
         .tags
-          :line-height inherit
+          line-height: inherit
           ul
-            :margin-left 0
+            margin-left: 0
             &, li
-              :list-style none
+              list-style: none
                 
 
       .reblog_info
-        :font-size smaller
-        :color = !color_secondary
-        :margin-bottom 10px
+        font-size: smaller
+        color: $color_secondary
+        margin-bottom: 10px
         
       .text-post
-        :text-align justify
-        //:font-size smaller
+        text-align: justify
+        //font-size: smaller
         h3
-          :margin-bottom 9px
+          margin-bottom: 9px
 
       .link-post
         .link
           h1
-            :margin 0
+            margin: 0
           a
-            :text-decoration underline
+            text-decoration: underline
             &:hover
-              :color = !color_link
+              color: $color_link
             &:visited
-              :color = !color_text
+              color: $color_text
               
         .href
-          :color = !color_secondary
-          :font-size 8pt
-          :text-decoration none
+          color: $color_secondary
+          font-size: 8pt
+          text-decoration: none
         .caption
-          :margin-top 10px
+          margin-top: 10px
 
       .photo-post
         .photo
-          :text-align center
+          text-align: center
           // set relative position so the button's position zeroes with the .photo
-          :position relative
+          position: relative
           a
             img
           img
           .hover-info
-            :text-align right
-            :font-size smaller
+            text-align: right
+            font-size: smaller
             a
-              :white-space nowrap
-              :text-decoration underline
+              white-space: nowrap
+              text-decoration: underline
             // this class is set via js upon initialization of colorbox, so it fails nicely without javascript
             &.button
-              :background-color black
-              :border 1px white solid
-              :padding 3px 5px 5px 5px
-              :position absolute
-              :font-size 10px
-              :bottom 0
-              :right 0
+              background-color: black
+              border: 1px white solid
+              padding: 3px 5px 5px 5px
+              position: absolute
+              font-size: 10px
+              bottom: 0
+              right: 0
               :margin
-                :bottom 10px
-                :right 10px
-              :color white
+                bottom: 10px
+                right: 10px
+              color: white
               a
-                :padding 10px 0 
+                padding: 10px 0 
                 &, &:visited, &:hover
-                  :color white
+                  color: white
                 &:hover
-                  :font-weight bolder
+                  font-weight: bolder
         .caption
           
       .quote-post
         blockquote
-          :text-align-last right
-          :text-align justify
+          text-align-last: right
+          text-align: justify
           &.short, &.medium, &.long
 
         .source
-          :margin-top 10px
-          :text-align right
+          margin-top: 10px
+          text-align: right
           cite 
-            :font-size smaller
-            :font-style italic
+            font-size: smaller
+            font-style: italic
           
       .photoset-post
       
@@ -359,138 +359,138 @@ ol
         
       .audio-post
         .info
-          :font-size smaller
-          :margin-bottom 5px
+          font-size: smaller
+          margin-bottom: 5px
         
           dl
-            :float left
-            :margin 3px 0
-            :padding 0
-            :width 500px
+            float: left
+            margin: 3px 0
+            padding: 0
+            width: 500px
             
             dd, dt
-              :margin-bottom 2px
+              margin-bottom: 2px
               
             dt
-              :float left
-              :clear left
-              :font-weight bold
+              float: left
+              clear: left
+              font-weight: bold
             dd
-              :padding-left 75px
+              padding-left: 75px
               
         .caption
-          :border-top 1px solid #cccccc
-          :margin-top 5px
-          :padding-top 10px
+          border-top: 1px solid #cccccc
+          margin-top: 5px
+          padding-top: 10px
           
       .photo-post, .photoset-post, .video-post, .audio-post
         .caption
 
       .photoset-post, .video-post, .audio-post
         .show-player
-          :font-size 150%
-          :display none
+          font-size: 150%
+          display: none
           a
-            :text-decoration none
+            text-decoration: none
         .player
           .hide-player
-            :font-size 85%
-            :margin-bottom 6px
+            font-size: 85%
+            margin-bottom: 6px
             a
-              :color = !color_minor
+              color: $color_minor
               &:hover
-                :color = !color_text
+                color: $color_text
                 
       .photoset-post, .video-post, .audio-post
         .show-player
           img
-            :width 64px
-            :height 64px
-            :vertical-align -26px
-            :margin-right 6px    
+            width: 64px
+            height: 64px
+            vertical-align: -26px
+            margin-right: 6px    
                           
       .answer-post
         .icon
-          :font-size 300%
-          :position absolute
-          :margin-left -50px
+          font-size: 300%
+          position: absolute
+          margin-left: -50px
           
         .question
           .asker
-            :text-align right
+            text-align: right
             cite
-              :font-style normal
+              font-style: normal
               a
-                :text-decoration none
+                text-decoration: none
         .answer
-          :clear both
+          clear: both
       
       #comments, #notes
         h2
-          :font-size 120%
+          font-size: 120%
         h3
-          :font-size 110%
+          font-size: 110%
         .summary
-          :margin-bottom 8px
+          margin-bottom: 8px
           
       #comments
         #disqus_thread
       #notes
         ol
-          :list-style none
-          :margin-left 0
+          list-style: none
+          margin-left: 0
           li
-            :padding 2px
-            :margin 4px 0
-            :background-color #eeeeee 
+            padding: 2px
+            margin: 4px 0
+            background-color: #eeeeee 
             &.reblog
               .tumblelog
               .source_tumblelog
             &.like
               a
             > a
-              :vertical-align middle
+              vertical-align: middle
               img.avatar
             > span
               a
       
   #footer
-    :margin 30px 0
-    :text-align center
+    margin: 30px 0
+    text-align: center
     #pagination
-      :margin-bottom 15px
-      :font-size 16pt
+      margin-bottom: 15px
+      font-size: 16pt
       a.arrow_nav, a.nav
-        :text-decoration none
+        text-decoration: none
       a.arrow_nav
-        :font-size 160%
+        font-size: 160%
 
       #previous_page
       .status  
       #next_page
       
     #back_to_index
-      :font-size 18pt
+      font-size: 18pt
       
 #return_to_top
-  :position fixed
-  :top 20px
-  :left 20px
-  :z-index 100
+  position: fixed
+  top: 20px
+  left: 20px
+  z-index: 100
   
 #theme_credit
-  :position fixed
-  :bottom 0
-  :right 0
-  :z-index -999
-  :padding 3px
-  :background-color = !color_background
-  :color = !color_minor
-  :font-size 10px
-  :text-align right
+  position: fixed
+  bottom: 0
+  right: 0
+  z-index: -999
+  padding: 3px
+  background-color: $color_background
+  color: $color_minor
+  font-size: 10px
+  text-align: right
   
   a
-    :color = !color_secondary
+    color: $color_secondary
 
 body.permalink-page
   #content
@@ -498,6 +498,6 @@ body.permalink-page
       .post
         .photoset-post, .video-post, .audio-post
           .show-player, .hide-player
-            :display none
+            display: none
           .player
-            :display block
+            display: block

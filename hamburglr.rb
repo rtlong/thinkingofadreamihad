@@ -1,6 +1,6 @@
 require 'rubygems'
-require 'active_support'
-require 'lorem_ipsum'
+require 'active_support/core_ext/string/inflections'
+require_relative 'lorem_ipsum'
 
 module Hamburglr
 module Tumblr

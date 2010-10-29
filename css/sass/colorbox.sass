@@ -3,48 +3,48 @@
 /* 
   ColorBox example user style
   The following rules are ordered and tabbed in a way that represents the
-  order/nesting of the generated HTML, so that the structure easier to understand.
+  order/nesting of the generated HTML, so that the structure easier to understand. */
 
 #cboxOverlay
-  :background white
-  :opacity 1.0
+  background: white
+  opacity: 1.0
 
 #colorbox
   &, #cboxWrapper
-    :overflow visible
+    overflow: visible
     
   #cboxContent
-    :background-color white
-    :border 2px solid #ccc
-    :margin 16px 0
+    background-color: white
+    border: 2px solid #ccc
+    margin: 16px 0
     #cboxLoadedContent
       
     #cboxLoadingGraphic
-      :background
-        :image = "url(" + hostname("static") + "/images/loading.gif)"
-        :repeat no-repeat
-        :position center center
+      background:
+        image: #{"url(" + hostname("static") + "/images/loading.gif)"}
+        repeat: no-repeat
+        position: center center
 
     #cboxLoadingOverlay
-      :background white
+      background: white
 
     #cboxTitle
-      :margin-top 3px
-      :font-size 10pt
+      margin-top: 3px
+      font-size: 10pt
       
     #cboxCurrent
-      :display none
+      display: none
     
-    !action_width = 50px
-    !action_position_start = 5px
-    !action_position_multiplier = !action_width + 10px
+    $action_width: 50px
+    $action_position_start: 5px
+    $action_position_multiplier: $action_width + 10px
     
     #cboxClose
-      :position fixed
-      :top = 3px
-      :cursor pointer
-      :font-size 10pt
-      :left = !action_position_start
+      position: fixed
+      top: 3px
+      cursor: pointer
+      font-size: 10pt
+      left: $action_position_start
     
     #cboxSlideshow, #cboxPrevious, #cboxNext
-      :display none      
+      display: none      

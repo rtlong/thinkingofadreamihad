@@ -40,18 +40,18 @@
     %style{ :type => 'text/css' } 
       :sass
         #title
-          :font-family #{font 'Blog Title'}
+          font-family: "#{font 'Blog Title'}"
         body
-          :font-family #{font 'Controls'}
+          font-family: "#{font 'Controls'}"
         .text-post, .link-post, .quote-post, .answer-post, .caption
-          :font-family #{font 'Content'}
+          font-family: "#{font 'Content'}"
           .href
-            :font-family #{font 'Controls'}
+            font-family: "#{font 'Controls'}"
           
         .like_post
-          :font-family #{font 'Content'}
+          font-family: "#{font 'Content'}"
           .post_info_top, .post_info_bottom
-            :font-family #{font 'Controls'}
+            font-family: "#{font 'Controls'}"
             
       = custom_css
     
@@ -359,7 +359,7 @@
     %a#return_to_top.hidden{ :href => "#" }
       %img{ :src => 'http://assets.tumblr.com/images/jump_to_top_arrow.png', :alt => '^ Return to Top ^' }
       
-    %script{ :type => 'text/javascript', :src => 'http://assets.rtlong.com/thinkingofadreamihad/theme_credit.js' }
+    %script{ :type => 'text/javascript', :src => 'http://assets.rtlong.com/thinkingofadreamihad/js/theme_credit.js' }
     %script{ :src => "#{STATIC_HOST}/js/jquery.min.js", :type => 'text/javascript' }
     %script{ :src => "#{STATIC_HOST}/js/jquery.colorbox.min.js", :type => 'text/javascript' }
     %script{ :src => "#{STATIC_HOST}/js/jquery.scrollTo.min.js", :type => 'text/javascript' }

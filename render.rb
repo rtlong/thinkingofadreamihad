@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'haml'
 require 'sass'
-require 'hamburglr'
+require_relative 'hamburglr'
 include Hamburglr::Tumblr
 
 module Sass::Script::Functions
@@ -18,7 +18,7 @@ end
 STDOUT.sync = true
 
 SAMPLE_DATA = false
-DEV_HOST = 'http://home.rtlong.com/assets/thinkingofadreamihad'
+DEV_HOST = 'http://assets.rtlong.com/thinkingofadreamihad'
 STATIC_HOST = 'http://assets.rtlong.com/thinkingofadreamihad'
 
 puts "\nLoading templates..."
@@ -28,7 +28,7 @@ haml_files.each do |filename|
   print "[#{filename}]  "
   template = File.read(filename)
   print 'Loading... '
-  haml_engine = Haml::Engine.new(template)
+  haml_engine = Haml::Engine.new(template, {:ugly => true, :filename => filename})
   print 'Rendering... '
   output = haml_engine.render
   print 'Saving... '
@@ -48,7 +48,7 @@ Dir.chdir "css/sass" do
     else
       print "Loading... "
       template = File.read(filename)
-      sass_engine = Sass::Engine.new(template, {:style => :nested, :cache => false, :property_syntax => :old})
+      sass_engine = Sass::Engine.new(template, {:style => :compact, :cache => false, :filename => filename, :syntax => :sass})
       print "Rendering... "
       output = sass_engine.render
       print "Saving... "
